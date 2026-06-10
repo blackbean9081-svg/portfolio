@@ -1,0 +1,2915 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sloway 포트폴리오 · 김우영</title>
+
+    <!-- Noto Sans KR (Google Fonts CDN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ============================================================
+         Sloway 포트폴리오 — 디자인 시스템
+         메인: 세이지 그린 #A8B89F / 배경: 크림 #F4EFE6
+         ============================================================ */
+
+      :root {
+        /* 색상 */
+        --sage: #a8b89f;
+        --sage-dark: #8a9c80;
+        --sage-soft: #c4cfbd;
+        --cream: #f4efe6;
+        --cream-card: #fbf8f2;
+        --ink: #3a3a34;
+        --ink-soft: #6b6b62;
+        --line: #e3ddd0;
+
+        /* 코드 패널 다크 테마 */
+        --code-bg: #1e1e24;
+        --code-bar: #2a2a32;
+        --code-text: #d6d6cf;
+        --code-accent: #a8b89f;
+
+        /* 간격·반경 */
+        --space-2: 8px;
+        --space-3: 12px;
+        --space-4: 16px;
+        --space-6: 24px;
+        --space-8: 32px;
+        --radius-md: 10px;
+        --radius-lg: 16px;
+
+        --sidebar-w: 260px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        background: var(--cream);
+        color: var(--ink);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ===================== 레이아웃 ===================== */
+      .layout {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* ===================== 사이드바 ===================== */
+      .sidebar {
+        width: var(--sidebar-w);
+        flex-shrink: 0;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        background: var(--cream-card);
+        border-right: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+        padding: var(--space-6) var(--space-4);
+        overflow-y: auto;
+      }
+
+      .sidebar__logo {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        padding: 0 var(--space-3) var(--space-6);
+        border-bottom: 1px solid var(--line);
+        margin-bottom: var(--space-4);
+      }
+
+      .sidebar__logo-title {
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: var(--sage-dark);
+      }
+
+      .sidebar__logo-name {
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+
+      /* ===================== 네비게이션 ===================== */
+      .nav {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .nav__item {
+        width: 100%;
+        text-align: left;
+        border: none;
+        background: transparent;
+        color: var(--ink);
+        font-family: inherit;
+        font-size: 0.95rem;
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: background 0.15s, color 0.15s;
+      }
+
+      .nav__item:hover {
+        background: var(--sage-soft);
+      }
+
+      .nav__item.is-active {
+        background: var(--sage);
+        color: #fff;
+        font-weight: 500;
+      }
+
+      .nav__divider {
+        border: none;
+        border-top: 1px solid var(--line);
+        margin: var(--space-3) var(--space-2);
+      }
+
+      /* ===================== 메인 콘텐츠 ===================== */
+      .main {
+        flex: 1;
+        padding: var(--space-8) clamp(var(--space-6), 5vw, 64px);
+        max-width: 1100px;
+      }
+
+      .page__head {
+        margin-bottom: var(--space-8);
+      }
+
+      .page__title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .page__desc {
+        margin-top: var(--space-2);
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+      }
+
+      /* ===================== 문서형 블록 ===================== */
+      .doc-block {
+        background: var(--cream-card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: var(--space-8);
+        min-height: 200px;
+      }
+
+      .placeholder-text {
+        color: var(--ink-soft);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9rem;
+      }
+
+      /* ===================== 화면 재현 영역 ===================== */
+      .screen-area {
+        background: var(--cream-card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin-bottom: var(--space-6);
+      }
+
+      .screen-placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 240px;
+        border: 2px dashed var(--sage-soft);
+        border-radius: var(--radius-md);
+        color: var(--ink-soft);
+        font-size: 0.95rem;
+        background: rgba(168, 184, 159, 0.06);
+      }
+
+      .demo-triggers {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-3);
+        margin-top: var(--space-4);
+      }
+
+      .demo-trigger {
+        font-family: inherit;
+        font-size: 0.9rem;
+        background: var(--sage);
+        color: #fff;
+        border: none;
+        padding: var(--space-3) var(--space-6);
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        transition: background 0.15s, transform 0.1s;
+      }
+
+      .demo-trigger:hover {
+        background: var(--sage-dark);
+      }
+
+      .demo-trigger:active {
+        transform: translateY(1px);
+      }
+
+      .demo-trigger.is-open {
+        background: var(--sage-dark);
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+      }
+
+      /* ===================== 코드 패널 (다크 · 토글) ===================== */
+      .code-panel {
+        background: var(--code-bg);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        margin-bottom: var(--space-4);
+        /* 슬라이드 토글 */
+        max-height: 600px;
+        transition: max-height 0.3s ease, opacity 0.25s ease, margin 0.3s ease;
+      }
+
+      /* hidden 속성 무력화하고 애니메이션으로 제어 */
+      .code-panel[hidden] {
+        display: block;
+        max-height: 0;
+        opacity: 0;
+        margin-bottom: 0;
+        pointer-events: none;
+      }
+
+      .code-panel__bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--code-bar);
+        padding: var(--space-3) var(--space-4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .code-panel__label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.85rem;
+        color: var(--code-accent);
+      }
+
+      .code-panel__close {
+        font-family: inherit;
+        font-size: 0.8rem;
+        background: transparent;
+        color: var(--code-text);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 6px;
+        padding: 4px 10px;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .code-panel__close:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .code-panel__body {
+        margin: 0;
+        padding: var(--space-6);
+        overflow: auto;
+        max-height: 460px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.84rem;
+        line-height: 1.7;
+        color: var(--code-text);
+        white-space: pre;
+        tab-size: 4;
+      }
+
+      /* ===================== 페이지 전환 ===================== */
+      .page[hidden] {
+        display: none;
+      }
+
+      /* ===================== 문서 콘텐츠 보조 클래스 ===================== */
+
+      /* 카드 안에서 자식이 자체 패딩/배경을 가질 때 doc-block 패딩 제거 */
+      .doc-block--flush {
+        background: transparent;
+        border: none;
+        padding: 0;
+      }
+
+      /* ---------- 정의형 리스트 (라벨 + 내용) ---------- */
+      .def-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-4);
+      }
+
+      .def-list__row {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: var(--space-4);
+        align-items: baseline;
+      }
+
+      .def-list__row dt {
+        font-weight: 700;
+        color: var(--sage-dark);
+        font-size: 0.95rem;
+      }
+
+      .def-list__row dd {
+        color: var(--ink);
+      }
+
+      /* ---------- 기술 스택 태그 ---------- */
+      .tag-section {
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: var(--space-4);
+        align-items: center;
+        padding: var(--space-3) 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tag-section:last-child {
+        border-bottom: none;
+      }
+
+      .tag-section__label {
+        font-weight: 700;
+        color: var(--sage-dark);
+        font-size: 0.95rem;
+      }
+
+      .tag-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-2);
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--sage-soft);
+        color: var(--ink);
+        font-size: 0.85rem;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--sage);
+      }
+
+      /* ---------- 트러블슈팅 카드 ---------- */
+      .ts-card {
+        background: var(--cream-card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-lg);
+        padding: var(--space-6);
+        margin-bottom: var(--space-6);
+      }
+
+      .ts-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .ts-card__title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--ink);
+        padding-bottom: var(--space-3);
+        margin-bottom: var(--space-4);
+        border-bottom: 2px solid var(--sage);
+      }
+
+      .ts-step {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: var(--space-4);
+        padding: var(--space-3) 0;
+        align-items: start;
+      }
+
+      .ts-step__label {
+        display: inline-block;
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #fff;
+        padding: 3px 0;
+        border-radius: 6px;
+        background: var(--sage);
+      }
+
+      /* 단계별 미묘한 톤 차이 (기존 팔레트 범위 내) */
+      .ts-step__label--symptom {
+        background: var(--ink-soft);
+      }
+      .ts-step__label--cause {
+        background: var(--sage-dark);
+      }
+      .ts-step__label--fix {
+        background: var(--sage);
+      }
+      .ts-step__label--learn {
+        background: var(--sage-soft);
+        color: var(--ink);
+      }
+
+      /* ---------- 성능 개선 ---------- */
+      .perf-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: var(--space-4);
+        color: var(--ink);
+      }
+
+      .perf-subtitle {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        margin: var(--space-8) 0 var(--space-3);
+      }
+
+      .perf-subtitle span {
+        font-weight: 400;
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+      }
+
+      .metric-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.92rem;
+        overflow: hidden;
+        border-radius: var(--radius-md);
+      }
+
+      .metric-table th,
+      .metric-table td {
+        padding: var(--space-3) var(--space-4);
+        text-align: right;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metric-table th:first-child,
+      .metric-table td:first-child {
+        text-align: left;
+      }
+
+      .metric-table thead th {
+        background: var(--sage);
+        color: #fff;
+        font-weight: 500;
+        border-bottom: none;
+      }
+
+      .metric-table td small {
+        color: var(--ink-soft);
+        font-weight: 400;
+      }
+
+      .metric-table__after td {
+        background: rgba(168, 184, 159, 0.18);
+        font-weight: 700;
+        color: var(--sage-dark);
+      }
+
+      .metric-highlight {
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-4);
+        margin-top: var(--space-6);
+        padding: var(--space-6);
+        background: var(--sage);
+        border-radius: var(--radius-lg);
+        color: #fff;
+      }
+
+      .metric-highlight__num {
+        font-size: 2.4rem;
+        font-weight: 700;
+        line-height: 1;
+      }
+
+      .metric-highlight__sub {
+        font-size: 1.05rem;
+        font-weight: 500;
+      }
+
+      /* ---------- 회고 ---------- */
+      .retro-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-4);
+      }
+
+      .retro-card {
+        background: var(--cream-card);
+        border: 1px solid var(--line);
+        border-left: 4px solid var(--sage);
+        border-radius: var(--radius-md);
+        padding: var(--space-6);
+      }
+
+      .retro-card__title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        margin-bottom: var(--space-3);
+      }
+
+      /* ===================== 화면 재현 mock ===================== */
+
+      /* 코드 보기 버튼 위 안내 문구 */
+      .code-hint {
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+        margin: var(--space-4) 0 var(--space-2);
+      }
+
+      .mock {
+        max-width: 440px;
+        margin: 0 auto;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(58, 58, 52, 0.05);
+      }
+      .mock--wide {
+        max-width: 660px;
+      }
+
+      .mock__head {
+        background: var(--sage);
+        color: #fff;
+        font-weight: 700;
+        padding: var(--space-3) var(--space-4);
+        font-size: 0.95rem;
+      }
+
+      .mock__body {
+        padding: var(--space-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .mock-card {
+        background: var(--cream);
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+      }
+      .mock-card__label {
+        font-size: 0.78rem;
+        color: var(--sage-dark);
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .mock-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        padding: 3px 0;
+      }
+      .mock-line--sub {
+        font-size: 0.8rem;
+        color: var(--ink-soft);
+      }
+      .mock-line--total {
+        border-top: 1px solid var(--line);
+        margin-top: var(--space-2);
+        padding-top: var(--space-3);
+        font-weight: 700;
+        font-size: 1rem;
+      }
+      .mock-line .minus {
+        color: var(--sage-dark);
+        font-weight: 500;
+      }
+
+      .mock-amt {
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+      }
+
+      .mock-pays {
+        display: flex;
+        gap: var(--space-2);
+        margin-top: var(--space-2);
+      }
+      .mock-pay {
+        flex: 1;
+        text-align: center;
+        padding: var(--space-3);
+        border: 1px solid var(--sage);
+        border-radius: var(--radius-md);
+        background: var(--cream-card);
+        font-size: 0.9rem;
+        color: var(--ink);
+        cursor: default;
+      }
+
+      .mock-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .mock-field__label {
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+      }
+      .mock-select {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: var(--space-2) var(--space-3);
+        background: #fff;
+        font-size: 0.9rem;
+        color: var(--ink);
+      }
+
+      .mock-cta {
+        margin-top: var(--space-2);
+        text-align: center;
+        background: var(--sage);
+        color: #fff;
+        font-weight: 700;
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+        cursor: default;
+      }
+
+      .mock-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 2px 10px;
+        border-radius: 999px;
+        background: var(--sage-soft);
+        color: var(--ink);
+      }
+      .mock-badge--done {
+        background: var(--sage);
+        color: #fff;
+      }
+
+      /* 정산 테이블 (mock) */
+      .mock-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+      }
+      .mock-table th,
+      .mock-table td {
+        padding: var(--space-2) var(--space-3);
+        border-bottom: 1px solid var(--line);
+        text-align: right;
+      }
+      .mock-table th:first-child,
+      .mock-table td:first-child {
+        text-align: left;
+      }
+      .mock-table thead th {
+        background: var(--cream);
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+
+      /* 통계 KPI + 막대 */
+      .mock-kpis {
+        display: flex;
+        gap: var(--space-3);
+      }
+      .mock-kpi {
+        flex: 1;
+        background: var(--cream);
+        border-radius: var(--radius-md);
+        padding: var(--space-3);
+        text-align: center;
+      }
+      .mock-kpi__num {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+      }
+      .mock-kpi__label {
+        font-size: 0.75rem;
+        color: var(--ink-soft);
+        margin-top: 2px;
+      }
+
+      .mock-bars {
+        display: flex;
+        align-items: flex-end;
+        gap: var(--space-3);
+        height: 150px;
+        padding: var(--space-4) var(--space-3) var(--space-2);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+      .mock-bar-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 4px;
+        height: 100%;
+      }
+      .mock-bar {
+        width: 60%;
+        background: var(--sage);
+        border-radius: 4px 4px 0 0;
+      }
+      .mock-bar-label {
+        font-size: 0.72rem;
+        color: var(--ink-soft);
+      }
+
+      /* 쿠폰 항목 */
+      .mock-coupon {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px dashed var(--sage);
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+        background: var(--cream-card);
+      }
+      .mock-coupon__name {
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+      .mock-coupon__sub {
+        font-size: 0.78rem;
+        color: var(--ink-soft);
+      }
+      .mock-get {
+        font-size: 0.82rem;
+        padding: 5px 14px;
+        border-radius: 999px;
+        background: var(--sage);
+        color: #fff;
+        cursor: default;
+        white-space: nowrap;
+      }
+
+      /* 결제 스텝 인디케이터 */
+      .mock-steps {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        margin-bottom: var(--space-2);
+      }
+      .mock-step {
+        font-size: 0.75rem;
+        color: var(--ink-soft);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+      }
+      .mock-step__dot {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: var(--line);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+      }
+      .mock-step--on {
+        color: var(--ink);
+        font-weight: 700;
+      }
+      .mock-step--on .mock-step__dot {
+        background: var(--sage);
+      }
+      .mock-step__line {
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      /* 썸네일 자리 + 가로 정렬 행 */
+      .mock-thumb {
+        width: 56px;
+        height: 56px;
+        border-radius: 8px;
+        background: var(--sage-soft);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sage-dark);
+        font-size: 1.3rem;
+      }
+      .mock-row-flex {
+        display: flex;
+        gap: var(--space-3);
+        align-items: center;
+      }
+
+      /* 라디오 (결제수단 / 사유) */
+      .mock-radio {
+        display: flex;
+        align-items: center;
+        gap: var(--space-3);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+        font-size: 0.9rem;
+      }
+      .mock-radio__mark {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        flex-shrink: 0;
+      }
+      .mock-radio--on {
+        border-color: var(--sage);
+        background: rgba(168, 184, 159, 0.08);
+      }
+      .mock-radio--on .mock-radio__mark {
+        border-color: var(--sage);
+        background: var(--sage);
+        box-shadow: inset 0 0 0 2px #fff;
+      }
+
+      /* 체크 */
+      .mock-check {
+        display: flex;
+        align-items: center;
+        gap: var(--space-2);
+        font-size: 0.82rem;
+        color: var(--ink-soft);
+      }
+      .mock-check__box {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        background: var(--sage);
+        color: #fff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+      }
+
+      /* 탭 */
+      .mock-tabs {
+        display: flex;
+        gap: var(--space-2);
+        border-bottom: 1px solid var(--line);
+      }
+      .mock-tab {
+        font-size: 0.88rem;
+        padding: var(--space-2) var(--space-3);
+        color: var(--ink-soft);
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+      }
+      .mock-tab--on {
+        color: var(--sage-dark);
+        font-weight: 700;
+        border-bottom-color: var(--sage);
+      }
+
+      /* 가로 막대 (결제수단 분포 등) */
+      .mock-barh {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+      .mock-barh__row {
+        display: grid;
+        grid-template-columns: 80px 1fr 70px;
+        align-items: center;
+        gap: var(--space-3);
+        font-size: 0.82rem;
+      }
+      .mock-barh__track {
+        height: 10px;
+        background: var(--cream);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .mock-barh__fill {
+        height: 100%;
+        background: var(--sage);
+        border-radius: 999px;
+      }
+      .mock-barh__val {
+        text-align: right;
+        color: var(--ink-soft);
+      }
+
+      /* 환불 정책 표 — 현재 적용 구간 강조 */
+      .mock-table tr.on td {
+        background: rgba(168, 184, 159, 0.18);
+        font-weight: 700;
+        color: var(--sage-dark);
+      }
+
+      /* 기간 필터 칩 */
+      .mock-filters {
+        display: flex;
+        gap: var(--space-2);
+        flex-wrap: wrap;
+      }
+      .mock-chip {
+        font-size: 0.8rem;
+        padding: 5px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--ink-soft);
+      }
+      .mock-chip--on {
+        background: var(--sage);
+        color: #fff;
+        border-color: var(--sage);
+      }
+
+      /* 보유 쿠폰 카드 */
+      .mock-cpn {
+        display: flex;
+        align-items: center;
+        gap: var(--space-4);
+        border-radius: var(--radius-md);
+        border: 1px solid var(--line);
+        padding: var(--space-3) var(--space-4);
+        background: #fff;
+      }
+      .mock-cpn__dc {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        white-space: nowrap;
+      }
+      .mock-cpn__name {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+      .mock-cpn__sub {
+        font-size: 0.76rem;
+        color: var(--ink-soft);
+      }
+
+      /* 내역 리스트 행 */
+      .mock-hist {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: var(--space-3) 0;
+        border-bottom: 1px solid var(--line);
+        font-size: 0.88rem;
+      }
+      .mock-hist:last-child {
+        border-bottom: none;
+      }
+      .mock-hist__sub {
+        font-size: 0.76rem;
+        color: var(--ink-soft);
+      }
+      .mock-plus {
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+      .mock-minus {
+        color: var(--ink-soft);
+      }
+
+      /* 화면 내 섹션 소제목 */
+      .mock-subhead {
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        margin-top: var(--space-2);
+      }
+
+      /* ===================== 코드 영역 (핵심/보조 카드) ===================== */
+      .code-stack {
+        margin-top: var(--space-8);
+      }
+
+      .code-group-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        margin: var(--space-6) 0 var(--space-3);
+        padding-bottom: var(--space-2);
+        border-bottom: 2px solid var(--sage);
+      }
+      .code-group-title:first-child {
+        margin-top: 0;
+      }
+      .code-group-title--aux {
+        color: var(--ink-soft);
+        border-bottom-color: var(--line);
+        font-size: 0.88rem;
+      }
+
+      .code-card {
+        background: var(--cream-card);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        margin-bottom: var(--space-4);
+        overflow: hidden;
+      }
+
+      .code-card__head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: var(--space-4);
+        padding: var(--space-4) var(--space-6);
+      }
+
+      .code-card__meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .code-card__name {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .code-card__tag {
+        display: inline-block;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #fff;
+        background: var(--sage-dark);
+        border-radius: 999px;
+        padding: 1px 9px;
+        margin-left: var(--space-2);
+        vertical-align: middle;
+      }
+
+      .code-card__desc {
+        font-size: 0.85rem;
+        color: var(--ink-soft);
+        line-height: 1.55;
+        max-width: 64ch;
+      }
+
+      .code-card__toggle {
+        flex-shrink: 0;
+        font-family: inherit;
+        font-size: 0.82rem;
+        white-space: nowrap;
+        background: var(--sage);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius-md);
+        padding: var(--space-2) var(--space-4);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .code-card__toggle:hover {
+        background: var(--sage-dark);
+      }
+      .code-card__toggle .arrow {
+        display: inline-block;
+        margin-left: 4px;
+        transition: transform 0.2s ease;
+      }
+      .code-card__toggle.is-open .arrow {
+        transform: rotate(180deg);
+      }
+
+      /* 핵심 카드 안의 코드 패널은 카드 안쪽에 맞춰 위쪽 라운드 제거 */
+      .code-card .code-panel {
+        margin-bottom: 0;
+        border-radius: 0;
+      }
+
+      /* 보조 메서드 — 더 작고 차분하게 */
+      .code-card--aux {
+        background: transparent;
+      }
+      .code-card--aux .code-card__head {
+        padding: var(--space-3) var(--space-4);
+      }
+      .code-card--aux .code-card__name {
+        font-size: 0.88rem;
+      }
+      .code-card--aux .code-card__desc {
+        font-size: 0.8rem;
+      }
+      .code-card--aux .code-card__toggle {
+        background: transparent;
+        color: var(--sage-dark);
+        border: 1px solid var(--sage);
+      }
+      .code-card--aux .code-card__toggle:hover {
+        background: var(--sage-soft);
+      }
+
+      /* ===================== 반응형 ===================== */
+      @media (max-width: 760px) {
+        .layout {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: static;
+          border-right: none;
+          border-bottom: 1px solid var(--line);
+        }
+
+        /* 2열 그리드 → 1열로 */
+        .retro-grid {
+          grid-template-columns: 1fr;
+        }
+        .def-list__row,
+        .tag-section,
+        .ts-step {
+          grid-template-columns: 1fr;
+          gap: var(--space-2);
+        }
+
+        /* 좁은 화면에서 카드 헤더는 세로로 쌓기 */
+        .code-card__head {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .code-card__toggle {
+          align-self: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ===================== 사이드바 ===================== -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-title">Sloway 포트폴리오</span>
+          <span class="sidebar__logo-name">김우영</span>
+        </div>
+
+        <nav class="nav" id="nav">
+          <!-- data-page 값이 메인 섹션의 id 와 짝 -->
+          <button class="nav__item" data-page="overview">프로젝트 개요</button>
+          <button class="nav__item" data-page="tech">기술 스택</button>
+
+          <hr class="nav__divider" />
+
+          <button class="nav__item" data-page="payment">결제</button>
+          <button class="nav__item" data-page="refund">환불</button>
+          <button class="nav__item" data-page="settlement">정산</button>
+          <button class="nav__item" data-page="stats">통계</button>
+          <button class="nav__item" data-page="coupon-point">쿠폰·포인트</button>
+
+          <hr class="nav__divider" />
+
+          <button class="nav__item" data-page="troubleshooting">트러블슈팅</button>
+          <button class="nav__item" data-page="performance">성능 개선</button>
+          <button class="nav__item" data-page="retrospective">회고</button>
+        </nav>
+      </aside>
+
+      <!-- ===================== 메인 콘텐츠 ===================== -->
+      <main class="main" id="main">
+        <!-- ========== 문서형 페이지: 프로젝트 개요 ========== -->
+        <section class="page" id="overview">
+          <header class="page__head">
+            <h1 class="page__title">프로젝트 개요</h1>
+            <p class="page__desc">Sloway — 워케이션 공간 예약 플랫폼. 결제·환불·정산·통계 도메인 담당.</p>
+          </header>
+          <div class="doc-block">
+            <dl class="def-list">
+              <div class="def-list__row">
+                <dt>기획 의도</dt>
+                <dd>숙소·코워킹오피스·워크앤스테이 공간을 검색·예약하고, 결제부터 환불·정산까지 한 번에 처리하는 워케이션 예약 플랫폼.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>나의 역할</dt>
+                <dd>5인 팀의 조장(PM) 겸 결제·환불·정산·통계 도메인 단독 개발.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>핵심 기여</dt>
+                <dd>외부 PG 연동 결제, 4일 주기 자동 정산, 대용량 데이터 통계까지 거래 흐름 전체 구현.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>기간</dt>
+                <dd>2026.04.27 ~ 2026.06.24</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 기술 스택 ========== -->
+        <section class="page" id="tech" hidden>
+          <header class="page__head">
+            <h1 class="page__title">기술 스택</h1>
+            <p class="page__desc">백엔드·프론트엔드·인프라 사용 기술.</p>
+          </header>
+          <div class="doc-block">
+            <div class="tag-section">
+              <span class="tag-section__label">Backend</span>
+              <div class="tag-group">
+                <span class="tag">Java 21</span>
+                <span class="tag">Spring Boot</span>
+                <span class="tag">Spring Data JPA</span>
+                <span class="tag">QueryDSL</span>
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">DB</span>
+              <div class="tag-group">
+                <span class="tag">PostgreSQL</span>
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">외부 연동</span>
+              <div class="tag-group">
+                <span class="tag">카카오페이</span>
+                <span class="tag">토스페이</span>
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">협업</span>
+              <div class="tag-group">
+                <span class="tag">Git/GitHub</span>
+                <span class="tag">SourceTree</span>
+                <span class="tag">Notion</span>
+                <span class="tag">Figma</span>
+                <span class="tag">ERDCloud</span>
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">기타</span>
+              <div class="tag-group">
+                <span class="tag">Swagger</span>
+                <span class="tag">스케줄러</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 결제 ========== -->
+        <section class="page" id="payment" hidden>
+          <header class="page__head">
+            <h1 class="page__title">결제</h1>
+            <p class="page__desc">카카오페이 / 토스페이 외부 PG 연동 + 쿠폰·포인트 통합 결제.</p>
+          </header>
+
+          <!-- 화면 재현 영역 -->
+          <div class="screen-area">
+            <!-- 화면 재현 (정적 mock — 실제 동작 X) -->
+            <div class="mock">
+              <div class="mock__head">결제하기</div>
+              <div class="mock__body">
+                <!-- 진행 스텝 -->
+                <div class="mock-steps">
+                  <span class="mock-step"><span class="mock-step__dot">✓</span>예약</span>
+                  <span class="mock-step__line"></span>
+                  <span class="mock-step mock-step--on"><span class="mock-step__dot">2</span>결제</span>
+                  <span class="mock-step__line"></span>
+                  <span class="mock-step"><span class="mock-step__dot">3</span>완료</span>
+                </div>
+
+                <!-- 예약 정보 -->
+                <div class="mock-card">
+                  <div class="mock-card__label">예약 정보</div>
+                  <div class="mock-row-flex">
+                    <div class="mock-thumb">🏞</div>
+                    <div style="flex: 1">
+                      <div class="mock-line"><span>청평 숲속 파인뷰 스테이</span></div>
+                      <div class="mock-line mock-line--sub"><span>워크앤스테이 · 기준 2인</span></div>
+                      <div class="mock-line mock-line--sub"><span>2026.06.20(금) ~ 06.22(일) · 2박</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 쿠폰 적용 -->
+                <div class="mock-field">
+                  <span class="mock-field__label">쿠폰</span>
+                  <div class="mock-select">여름맞이 15% 할인 (-30,000원) ▾</div>
+                </div>
+
+                <!-- 포인트 사용 -->
+                <div class="mock-field">
+                  <span class="mock-field__label">포인트 사용 <span class="mock-cpn__sub">(보유 5,000P)</span></span>
+                  <div class="mock-row-flex">
+                    <div class="mock-select" style="flex: 1">5,000</div>
+                    <div class="mock-chip mock-chip--on">전액 사용</div>
+                  </div>
+                </div>
+
+                <!-- 금액 요약 -->
+                <div class="mock-amt">
+                  <div class="mock-line"><span>상품 금액</span><span>280,000원</span></div>
+                  <div class="mock-line"><span>쿠폰 할인</span><span class="minus">-30,000원</span></div>
+                  <div class="mock-line"><span>포인트 사용</span><span class="minus">-5,000원</span></div>
+                  <div class="mock-line mock-line--total"><span>최종 결제 금액</span><span>245,000원</span></div>
+                </div>
+
+                <!-- 결제수단 선택 -->
+                <div class="mock-subhead">결제수단</div>
+                <div class="mock-radio mock-radio--on">
+                  <span class="mock-radio__mark"></span><span>카카오페이</span>
+                </div>
+                <div class="mock-radio">
+                  <span class="mock-radio__mark"></span><span>토스페이</span>
+                </div>
+
+                <label class="mock-check">
+                  <span class="mock-check__box">✓</span>주문 내용을 확인했으며 결제에 동의합니다.
+                </label>
+                <div class="mock-cta">245,000원 결제하기</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 코드 영역: 핵심 / 보조 카드 -->
+          <div class="code-stack">
+            <h2 class="code-group-title">핵심 로직</h2>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">buildReadyPay()</span>
+                  <p class="code-card__desc">▸ PG를 호출하기 전에 금액 위변조·예약 소유권·쿠폰/포인트를 모두 검증하고 최종 결제액을 계산하는 결제 준비 단계. 카카오·토스가 공유하는 공통 진입점으로, 검증을 전부 통과해야 READY 상태로 저장된다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-build">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-build" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.buildReadyPay()</span>
+                  <button class="code-panel__close" data-close="pay-build">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PayService.java — 카카오·토스 공통 진입점.
+// PG 호출 전에 모든 검증과 finalAmt 계산을 끝내고 READY 상태로 저장한다.
+private PayEntity buildReadyPay(PayCreateReqDto payCreateReqDto, Long loginMemberNo) {
+    validAmt(payCreateReqDto);
+    RsvnEntity rsvn = validRsvn(payCreateReqDto);
+    validRsvnOwner(rsvn, loginMemberNo);           // ② 본인 예약만 결제
+    validAmtMatchesRsvn(payCreateReqDto, rsvn);    // ① 결제 금액 위변조 방어
+    validDuplicate(rsvn.getNo());                  // 이미 결제 완료된 예약의 재결제 차단
+
+    CouponEntity coupon = null;
+    if (payCreateReqDto.getUcNo() != null) {
+        coupon = couponRepository.findById(payCreateReqDto.getUcNo())
+                .orElseThrow(() -&gt; new CustomException(CouponErrorCode.COUPON_NOT_FOUND));
+        validCoupon(coupon, loginMemberNo);        // ③ 본인 쿠폰만 사용
+    }
+    int dcAmt = calculateDcAmt(coupon, payCreateReqDto.getBaseAmt());
+    int usedPoint = payCreateReqDto.getUsedPoint() == null
+            ? 0 : payCreateReqDto.getUsedPoint();
+    validUsedPoint(usedPoint);                     // ⑤ 포인트 음수 입력 방어
+
+    // 결제 총액에서 쿠폰·포인트를 차감한 실제 결제 금액
+    int finalAmt = payCreateReqDto.getBaseAmt() + payCreateReqDto.getAddAmt()
+            - dcAmt - usedPoint;
+    validFinalAmt(payCreateReqDto, finalAmt, dcAmt, usedPoint);
+
+    PayEntity payEntity = payCreateReqDto.toEntity(rsvn, coupon, dcAmt, finalAmt);
+    return payRepository.save(payEntity);          // 아직 PG 미호출 — READY 상태로 먼저 저장
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">approvePay()</span>
+                  <p class="code-card__desc">▸ 카카오 결제창을 통과한 뒤 받은 pg_token으로 결제를 최종 승인하는 콜백 단계. 뒤로가기·콜백 재호출로 중복 승인돼도 한 번만 반영되도록 멱등 처리했다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-approve">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-approve" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.approvePay()</span>
+                  <button class="code-panel__close" data-close="pay-approve">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PayService.java — 카카오 결제창 통과 후 pg_token으로 최종 승인 (GET /pay/approve 콜백)
+@Transactional
+public PayEntity approvePay(Long payNo, String pgToken) {
+    PayEntity payEntity = payRepository.findById(payNo)
+            .orElseThrow(() -&gt; new CustomException(PayErrorCode.PAY_NOT_FOUND));
+
+    // 멱등 처리 — 콜백 재호출·뒤로가기로 중복 승인돼도 한 번만 반영
+    if (payEntity.getStatus() == PayStatus.COMPLETED) {
+        return payEntity;
+    }
+    Long memberNo = payEntity.getRsvnNo().getMemberNo().getNo();
+    KakaoApproveReqDto kakaoApproveReqDto = KakaoApproveReqDto.builder()
+            .tid(payEntity.getTid())
+            .partnerOrderId(payNo.toString())
+            .partnerUserId(memberNo.toString())
+            .pgToken(pgToken)
+            .build();
+
+    // PG 승인이 성공한 뒤에만 내부 후처리(예약 확정·쿠폰·포인트)를 실행 — 정합성 보장
+    kakaoPayClient.approve(kakaoApproveReqDto);
+    completePayAfterApprove(payEntity, memberNo);
+    return payEntity;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">confirmTossPay()</span>
+                  <p class="code-card__desc">▸ 토스페이 승인 단계. 클라이언트가 보낸 결제 금액을 서버에 저장된 금액과 다시 대조해, 조작된 금액으로 승인되는 위변조를 차단한 뒤 승인을 확정한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-toss">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-toss" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.confirmTossPay()</span>
+                  <button class="code-panel__close" data-close="pay-toss">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PayService.java — 토스페이 승인. 클라이언트 금액을 서버 저장 금액과 대조해 위변조를 차단한다.
+@Transactional
+public PayResDto confirmTossPay(String paymentKey, String orderId, Integer amount) {
+    // prepare 때 붙인 "SLOWAY_" prefix를 떼어 payNo 복원
+    Long payNo = Long.parseLong(orderId.replace("SLOWAY_", ""));
+    PayEntity payEntity = payRepository.findById(payNo)
+            .orElseThrow(() -&gt; new CustomException(PayErrorCode.PAY_NOT_FOUND));
+
+    // 멱등 처리 — 재confirm·중복 호출돼도 한 번만 반영
+    if (payEntity.getStatus() == PayStatus.COMPLETED) {
+        return PayResDto.from(payEntity);
+    }
+    // 금액 위변조 재검증 — 클라가 조작한 금액으로 승인되는 것 차단
+    if (!amount.equals(payEntity.getFinalAmt())) {
+        log.warn("토스 결제 금액 불일치 payNo={}, 요청={}, 서버={}", payNo, amount, payEntity.getFinalAmt());
+        throw new CustomException(PayErrorCode.PAY_AMOUNT_INVALID);
+    }
+    TossConfirmResDto confirmResDto = tossPayClient.confirm(TossConfirmReqDto.builder()
+            .paymentKey(paymentKey)
+            .orderId(orderId)
+            .amount(amount)
+            .build());
+    // 토스가 실제 승인 완료(DONE) 응답일 때만 후처리 진행
+    if (!"DONE".equals(confirmResDto.getStatus())) {
+        throw new CustomException(PayErrorCode.PAY_PROCESS_FAILED);
+    }
+    Long memberNo = payEntity.getRsvnNo().getMemberNo().getNo();
+    payEntity.assignTid(paymentKey);
+    completePayAfterApprove(payEntity, memberNo);
+    return PayResDto.from(payEntity);
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">completePayAfterApprove()</span>
+                  <p class="code-card__desc">▸ 카카오·토스 승인 직후 공통으로 실행되는 후처리. 예약 확정 → 쿠폰 사용 → 포인트 사용/적립을 한 트랜잭션에서 연쇄 처리해, PG 승인과 내부 상태를 한 번에 맞춘다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-complete">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-complete" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.completePayAfterApprove()</span>
+                  <button class="code-panel__close" data-close="pay-complete">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PayService.java — 카카오·토스 승인 후 공통 후처리.
+// 예약 확정 → 쿠폰 사용 → 포인트(사용/적립)를 한 트랜잭션에서 연쇄 처리한다.
+private void completePayAfterApprove(PayEntity payEntity, Long memberNo) {
+    payEntity.getRsvnNo().confirm();   // 결제 성공했으니 예약을 확정 상태로 전이
+    payEntity.approvePay();
+
+    // 쿠폰을 쓴 결제만 사용 처리 (안 쓴 결제는 ucNo가 null)
+    if (payEntity.getUcNo() != null) {
+        payEntity.getUcNo().useCoupon(payEntity);
+    }
+    Integer usedPoint = payEntity.getUsedPoint();
+    if (usedPoint != null &amp;&amp; usedPoint &gt; 0) {
+        pointService.usePointInternal(memberNo, usedPoint, payEntity);
+    }
+    pointService.earnPointInternal(memberNo, payEntity);   // 포인트 사용과 별개로 결제액 1% 적립
+}</code></pre>
+              </div>
+            </article>
+
+            <h2 class="code-group-title code-group-title--aux">보조 메서드</h2>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">calculateDcAmt()</span>
+                  <p class="code-card__desc">▸ 쿠폰 할인액 계산 — 정액(FIXED)은 고정 금액, 정률(RATE)은 상품금액 대비 비율로.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-dc">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-dc" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.calculateDcAmt()</span>
+                  <button class="code-panel__close" data-close="pay-dc">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>private int calculateDcAmt(CouponEntity coupon, Integer baseAmt) {
+    if (coupon == null) return 0;
+    if (coupon.getDcType() == CouponDcType.FIXED) {
+        return coupon.getDcValue();              // 정액 할인
+    } else if (coupon.getDcType() == CouponDcType.RATE) {
+        return baseAmt * coupon.getDcValue() / 100;   // 정률 할인
+    }
+    return 0;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">validDuplicate()</span>
+                  <p class="code-card__desc">▸ 같은 예약에 이미 완료(COMPLETED)된 결제가 있으면 중복 결제로 차단.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-dup">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-dup" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.validDuplicate()</span>
+                  <button class="code-panel__close" data-close="pay-dup">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>private void validDuplicate(Long rsvnNo) {
+    for (PayEntity entity : payRepository.findByRsvn(rsvnNo)) {
+        if (entity.getStatus() == PayStatus.COMPLETED) {
+            throw new CustomException(PayErrorCode.PAY_DUPLICATE);
+        }
+    }
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">validCoupon()</span>
+                  <p class="code-card__desc">▸ 쿠폰 사용 가능 여부 검증 — 본인 소유 → 사용가능 상태 → 만료 순으로 확인.</p>
+                </div>
+                <button class="code-card__toggle" data-code="pay-coupon">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="pay-coupon" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PayService.validCoupon()</span>
+                  <button class="code-panel__close" data-close="pay-coupon">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>private void validCoupon(CouponEntity coupon, Long loginMemberNo) {
+    // ③ 쿠폰 본인 소유 검증 — 남의 쿠폰으로 할인받는 것 차단
+    if (!Objects.equals(coupon.getMemberNo().getNo(), loginMemberNo)) {
+        throw new CustomException(CouponErrorCode.COUPON_FORBIDDEN);
+    }
+    if (coupon.getStatus() != CouponStatus.AVAILABLE) {
+        throw new CustomException(CouponErrorCode.COUPON_NOT_AVAILABLE);
+    }
+    if (coupon.getExpiredAt() != null &amp;&amp; coupon.getExpiredAt().isBefore(LocalDateTime.now())) {
+        throw new CustomException(CouponErrorCode.COUPON_EXPIRED);
+    }
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 환불 ========== -->
+        <section class="page" id="refund" hidden>
+          <header class="page__head">
+            <h1 class="page__title">환불</h1>
+            <p class="page__desc">환불 정책표 기반 8단계 통합 처리 (쿠폰 복원 · 포인트 환원 · PG 취소).</p>
+          </header>
+          <div class="screen-area">
+            <div class="mock">
+              <div class="mock__head">환불 요청</div>
+              <div class="mock__body">
+                <!-- 결제 정보 -->
+                <div class="mock-card">
+                  <div class="mock-card__label">결제 정보</div>
+                  <div class="mock-line"><span>청평 숲속 파인뷰 스테이</span><span>245,000원</span></div>
+                  <div class="mock-line mock-line--sub"><span>카카오페이 · 2026.06.14 결제</span></div>
+                  <div class="mock-line mock-line--sub"><span>이용 예정일 2026.06.20</span></div>
+                </div>
+
+                <!-- 환불 정책 안내 (현재 적용 구간 강조) -->
+                <div class="mock-subhead">환불 정책 (이용 예정일 기준)</div>
+                <table class="mock-table">
+                  <thead>
+                    <tr><th>취소 시점</th><th>환불율</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>7일 전</td><td>100%</td></tr>
+                    <tr class="on"><td>4~6일 전 (현재)</td><td>70%</td></tr>
+                    <tr><td>2~3일 전</td><td>50%</td></tr>
+                    <tr><td>1일 전</td><td>30%</td></tr>
+                    <tr><td>당일 / 이용 후</td><td>0%</td></tr>
+                  </tbody>
+                </table>
+
+                <!-- 환불 사유 -->
+                <div class="mock-field">
+                  <span class="mock-field__label">환불 사유</span>
+                  <div class="mock-select">개인 사정 ▾</div>
+                </div>
+
+                <!-- 환불액 -->
+                <div class="mock-amt">
+                  <div class="mock-line mock-line--sub"><span>이용 예정일까지 6일 → 환불율 70%</span></div>
+                  <div class="mock-line"><span>결제 금액</span><span>245,000원</span></div>
+                  <div class="mock-line mock-line--total"><span>예상 환불액</span><span>171,500원</span></div>
+                </div>
+
+                <div class="mock-cta">환불 요청하기</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 코드 영역: 핵심 / 보조 카드 -->
+          <div class="code-stack">
+            <h2 class="code-group-title">핵심 로직</h2>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">createRefund()</span>
+                  <p class="code-card__desc">▸ 사용자 환불 요청 진입점. 환불 가능한 결제인지·본인 결제인지 검증한 뒤, 이용 예정일까지 남은 기간 기준으로 환불율을 적용해 환불액을 BigDecimal로 계산한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="refund-create">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="refund-create" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">RefundService.createRefund()</span>
+                  <button class="code-panel__close" data-close="refund-create">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// RefundService.java — 환불 생성 진입점.
+// 이용 예정일까지 남은 기간 기준으로 환불율을 적용해 환불액을 산정한다.
+@Transactional
+public RefundResDto createRefund(RefundCreateReqDto refundCreateReqDto, Long loginMemberNo) {
+    PayEntity payEntity = validRefundablePay(refundCreateReqDto.getPayNo());   // 환불 가능 결제 검증
+    validRefundOwner(payEntity, loginMemberNo);   // ④ 본인 결제만 환불
+    RsvnEntity rsvn = rsvnRepository.findById(refundCreateReqDto.getRsvnNo())
+            .orElseThrow(() -&gt; new CustomException(RsvnErrorCode.RESERVATION_NOT_FOUND));
+    RefundEntity refundEntity = refundCreateReqDto.toEntity(payEntity, rsvn);
+    RefundRate rate = refundRate(refundEntity);
+    validDuplicate(payEntity);   // 이미 환불된 건은 중복 환불 차단
+    if (RefundRate.DDAY == rate) {
+        throw new CustomException(RefundErrorCode.REFUND_PERIOD_EXPIRED);
+    }
+    // 남은 기간별 환불율(rate)을 결제액(finalAmt)에 적용해 환불액 산정
+    BigDecimal finalAmt = BigDecimal.valueOf(payEntity.getFinalAmt());
+    BigDecimal rateBd = BigDecimal.valueOf(rate.getRate());
+    BigDecimal divisor = BigDecimal.valueOf(100);
+    BigDecimal refundAmt = finalAmt.multiply(rateBd).divide(divisor, 0, RoundingMode.DOWN);
+    refundEntity.applyRefund(rate, refundAmt);
+    RefundEntity entity = refundRepository.save(refundEntity);
+    doRefundProcess(entity);
+    return RefundResDto.from(entity);
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">doRefundProcess()</span>
+                  <p class="code-card__desc">▸ 환불의 실제 처리부. 적립 취소 → 사용 복원 순서로 포인트를 되돌리고 쿠폰을 회수한 뒤 PG 결제를 취소한다. 순서가 바뀌면 복원한 포인트까지 취소되는 버그가 생겨, 순서 의존성이 핵심이다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="refund-process">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="refund-process" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">RefundService.doRefundProcess()</span>
+                  <button class="code-panel__close" data-close="refund-process">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// RefundService.java — 환불 실제 처리.
+// 적립취소 → 사용복원 순서로 포인트·쿠폰을 되돌리고 PG 결제를 취소한다. (순서 의존성 주의)
+private void doRefundProcess(RefundEntity refundEntity) {
+    refundEntity.approveRefund();
+    PayEntity payEntity = refundEntity.getPayNo();
+
+    // 사용한 쿠폰 회수 처리
+    if (payEntity.getUcNo() != null) {
+        payEntity.getUcNo().returnCoupon();
+    }
+
+    // ★ 적립 포인트를 먼저 취소하고, 사용 포인트를 복원한다.
+    //   순서가 바뀌면 방금 복원한 포인트까지 적립 취소에 휩쓸려 사라진다. (트러블슈팅 ① 참고)
+    pointService.cancelEarnedPoint(payEntity);
+    pointService.refundUsedPoint(payEntity);
+
+    // 외부 PG(카카오/토스) 결제 취소 호출
+    PayMethod method = payEntity.getMethod();
+    if (method == PayMethod.KAKAOPAY) {
+        KakaoCancelReqDto cancelReqDto = KakaoCancelReqDto.builder()
+                .tid(payEntity.getTid())
+                .cancelAmount(payEntity.getFinalAmt())
+                .cancelTaxFreeAmount(0)
+                .build();
+        kakaoPayClient.cancel(cancelReqDto);
+    } else if (method == PayMethod.TOSSPAY) {
+        tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청");
+    }
+    payEntity.cancelPay();
+    refundEntity.completeRefund();
+}</code></pre>
+              </div>
+            </article>
+
+            <h2 class="code-group-title code-group-title--aux">보조 메서드</h2>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">refundRate()</span>
+                  <p class="code-card__desc">▸ 이용 예정일까지 남은 일수 구간별로 환불율을 차등 반환 (7일 전 100% ~ 당일 0%).</p>
+                </div>
+                <button class="code-card__toggle" data-code="refund-rate">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="refund-rate" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">RefundService.refundRate()</span>
+                  <button class="code-panel__close" data-close="refund-rate">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>private RefundRate refundRate(RefundEntity entity) {
+    LocalDateTime checkIn = entity.getRsvnNo().getCheckIn();
+    LocalDateTime requestedAt = entity.getRequestedAt();
+    long between = ChronoUnit.DAYS.between(requestedAt.toLocalDate(), checkIn.toLocalDate());
+    if (between &gt;= 7) {
+        return RefundRate.WEEK;          // 7일 전 — 100%
+    } else if (between &gt;= 4) {
+        return RefundRate.FOURTOSIX;     // 4~6일 전 — 70%
+    } else if (between &gt;= 2) {
+        return RefundRate.TWOTOTHREE;    // 2~3일 전 — 50%
+    } else if (between &gt;= 1) {
+        return RefundRate.ONEDAY;        // 1일 전 — 30%
+    } else {
+        return RefundRate.DDAY;          // 당일/이후 — 0%
+    }
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">validRefundablePay()</span>
+                  <p class="code-card__desc">▸ 환불 가능한 결제인지 검증 — 완료(COMPLETED) 상태 + 유효한 결제 금액.</p>
+                </div>
+                <button class="code-card__toggle" data-code="refund-valid">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="refund-valid" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">RefundService.validRefundablePay()</span>
+                  <button class="code-panel__close" data-close="refund-valid">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>private PayEntity validRefundablePay(Long payNo) {
+    PayEntity payEntity = payRepository.findById(payNo)
+            .orElseThrow(() -&gt; new CustomException(PayErrorCode.PAY_NOT_FOUND));
+    if (payEntity.getStatus() != PayStatus.COMPLETED) {
+        throw new CustomException(PayErrorCode.PAY_NOT_COMPLETED);
+    }
+    if (payEntity.getFinalAmt() == null || payEntity.getFinalAmt() &lt;= 0) {
+        throw new CustomException(RefundErrorCode.REFUND_AMOUNT_INVALID);
+    }
+    return payEntity;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">createRefundByHost()</span>
+                  <p class="code-card__desc">▸ 호스트가 예약을 거절할 때의 환불 — 사유 무관 전액(FULL) 환불로 처리한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="refund-host">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="refund-host" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">RefundService.createRefundByHost()</span>
+                  <button class="code-panel__close" data-close="refund-host">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>@Transactional
+public RefundResDto createRefundByHost(Long payNo) {
+    PayEntity payEntity = validRefundablePay(payNo);
+    validDuplicate(payEntity);
+
+    RefundEntity refundEntity = RefundEntity.builder()
+            .payNo(payEntity)
+            .rsvnNo(payEntity.getRsvnNo())
+            .refundReason(null)
+            .requestedAt(LocalDateTime.now())
+            .status(RefundStatus.REQUESTED)
+            .build();
+
+    BigDecimal refundAmt = BigDecimal.valueOf(payEntity.getFinalAmt());
+    refundEntity.applyRefund(RefundRate.FULL, refundAmt);   // 호스트 사유 — 전액 환불
+    RefundEntity entity = refundRepository.save(refundEntity);
+    doRefundProcess(entity);
+    return RefundResDto.from(entity);
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 정산 ========== -->
+        <section class="page" id="settlement" hidden>
+          <header class="page__head">
+            <h1 class="page__title">정산</h1>
+            <p class="page__desc">4일 단위 자동 정산 + carry-over 이월 + 세금계산서 PDF 발행.</p>
+          </header>
+          <div class="screen-area">
+            <div class="mock mock--wide">
+              <div class="mock__head">정산 관리</div>
+              <div class="mock__body">
+                <!-- 요약 KPI -->
+                <div class="mock-kpis">
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">1,705,400</div>
+                    <div class="mock-kpi__label">이번 달 지급액 (원)</div>
+                  </div>
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">3</div>
+                    <div class="mock-kpi__label">발행 완료</div>
+                  </div>
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">1</div>
+                    <div class="mock-kpi__label">이월 대기</div>
+                  </div>
+                </div>
+
+                <!-- 정산 내역 테이블 -->
+                <div class="mock-subhead">정산 내역</div>
+                <table class="mock-table">
+                  <thead>
+                    <tr>
+                      <th>정산 기간</th>
+                      <th>결제액</th>
+                      <th>수수료</th>
+                      <th>환불</th>
+                      <th>실지급액</th>
+                      <th>상태</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>06.05 ~ 06.08</td>
+                      <td>1,240,000</td>
+                      <td>-99,200</td>
+                      <td>-0</td>
+                      <td>1,140,800</td>
+                      <td><span class="mock-badge mock-badge--done">발행완료</span></td>
+                    </tr>
+                    <tr>
+                      <td>06.01 ~ 06.04</td>
+                      <td>880,000</td>
+                      <td>-70,400</td>
+                      <td>-245,000</td>
+                      <td>564,600</td>
+                      <td><span class="mock-badge mock-badge--done">발행완료</span></td>
+                    </tr>
+                    <tr>
+                      <td>05.28 ~ 05.31</td>
+                      <td>92,000</td>
+                      <td>-7,360</td>
+                      <td>-0</td>
+                      <td>—</td>
+                      <td><span class="mock-badge">이월</span></td>
+                    </tr>
+                    <tr>
+                      <td>05.24 ~ 05.27</td>
+                      <td>1,520,000</td>
+                      <td>-121,600</td>
+                      <td>-80,000</td>
+                      <td>1,318,400</td>
+                      <td><span class="mock-badge mock-badge--done">발행완료</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="mock-line mock-line--sub" style="justify-content: center">
+                  <span>‹ 1 2 3 ›</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 코드 영역: 핵심 / 보조 카드 -->
+          <div class="code-stack">
+            <h2 class="code-group-title">핵심 로직</h2>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">createSettle()</span>
+                  <p class="code-card__desc">▸ 호스트의 승인 공간을 타입별로 분류하고, 해당 기간의 이용 완료 결제를 합산해 수수료·환불을 뺀 실지급액을 산정하는 정산 생성의 중심 메서드.</p>
+                </div>
+                <button class="code-card__toggle" data-code="settle-create">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="settle-create" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">SettleService.createSettle()</span>
+                  <button class="code-panel__close" data-close="settle-create">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// SettleService.java — 이용 완료된 결제 건을 모아 수수료를 뗀 정산액을 산정 (발췌)
+@Transactional
+public SettleResDto createSettle(SettleCreateReqDto reqDto) {
+    HostEntity host = hostRepository.findById(reqDto.getHostNo())
+            .orElseThrow(() -&gt; new CustomException(HostErrorCode.HOST_NOT_FOUND));
+
+    // 호스트의 승인된 공간을 조회해, 공간 타입(오피스/스테이션/워크앤스테이)별 번호로 분류
+    List&lt;HostPlaceEntity&gt; hostPlaces =
+            hostPlaceRepository.findByHostEntityNoAndStatus(host.getNo(), ApprovalStatus.A);
+    List&lt;Long&gt; officeNos = hostPlaces.stream()
+            .filter(hp -&gt; hp.getOfficeEntity() != null)
+            .map(hp -&gt; hp.getOfficeEntity().getNo()).distinct().toList();
+    // stationNos, workStayNos 도 동일한 패턴으로 추출
+
+    LocalDateTime start = reqDto.getSettleStartDate().atStartOfDay();
+    LocalDateTime end   = reqDto.getSettleEndDate().atTime(LocalTime.MAX);
+
+    // 정산 대상(이용 완료 결제)을 공간 타입별로 합산
+    int officeAmt   = payRepository.sumByOfficeIn(officeNos, start, end).intValue();
+    int stationAmt  = payRepository.sumByStationIn(stationNos, start, end).intValue();
+    int workStayAmt = payRepository.sumByWorkStayIn(workStayNos, start, end).intValue();
+    int totalAmt = officeAmt + stationAmt + workStayAmt;
+
+    // 공간 타입별 수수료율(오피스 8% / 그 외)을 적용해 수수료 합산
+    int feeAmt = calcFee(officeAmt,   PlaceType.office,   start)
+               + calcFee(stationAmt,  PlaceType.station,  start)
+               + calcFee(workStayAmt, PlaceType.workStay, start);
+
+    // 같은 기간 환불액을 공간 타입별로 합산
+    int refundAmt = refundRepository.sumByOfficeIn(officeNos, start, end)
+            .add(refundRepository.sumByStationIn(stationNos, start, end))
+            .add(refundRepository.sumByWorkStayIn(workStayNos, start, end))
+            .intValue();
+    int payoutAmt = totalAmt - feeAmt - refundAmt;   // 결제액 - 수수료 - 환불액 = 실지급액
+
+    // 직전 회차 이월액(carry-over)을 더해, 최소 정산액 미달이면 다음 회차로 이월
+    Integer prevCarryOver = settleRepository.findLatestByHostNo(host.getNo())
+            .map(SettleEntity::getCarryOver).orElse(0);
+    int effectiveAmt = payoutAmt + prevCarryOver;
+    if (totalAmt == 0 &amp;&amp; prevCarryOver == 0) {
+        return null;   // 정산할 거래도, 이월액도 없으면 생성하지 않음
+    }
+
+    SettleEntity entity = reqDto.toEntity(host);
+    entity.applyAmounts(totalAmt, feeAmt, refundAmt, payoutAmt);
+    entity.settleWithCarry(effectiveAmt, MIN_PAYOUT);   // MIN_PAYOUT 미달이면 CARRIED로 이월
+    return SettleResDto.from(settleRepository.save(entity));
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">calcFee()</span>
+                  <p class="code-card__desc">▸ 공간 타입과 정산 시점을 기준으로 유효한 수수료율을 정책 테이블(Fee)에서 조회해 결제액에 적용한다. 기간별 수수료 정책 변경에 대응할 수 있다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="settle-fee">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="settle-fee" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">SettleService.calcFee()</span>
+                  <button class="code-panel__close" data-close="settle-fee">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// SettleService.java — 공간 타입별 수수료율을 정책 테이블에서 조회해 결제액에 적용
+private int calcFee(int amt, PlaceType placeType, LocalDateTime date) {
+    if (amt == 0) return 0;
+    int rate = feeRepository.findValidFee(placeType, date)
+            .orElseThrow(() -&gt; new CustomException(FeeErrorCode.FEE_NOT_FOUND))
+            .getRate();
+    return amt * rate / 100;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">settleWithCarry()</span>
+                  <p class="code-card__desc">▸ 실지급액이 최소 지급 기준(MIN_PAYOUT)에 미달하면 이번 회차에 지급하지 않고 carry-over로 다음 회차에 누적한다. 소액 잔액이 사라지지 않게 하는 Rich 도메인 메서드.</p>
+                </div>
+                <button class="code-card__toggle" data-code="settle-carry">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="settle-carry" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">SettleEntity.settleWithCarry()</span>
+                  <button class="code-panel__close" data-close="settle-carry">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// SettleEntity.java — 지급 기준 미달 시 다음 회차로 이월(carry-over)
+public void settleWithCarry(Integer effectiveAmt, int minPayOut) {
+    if (effectiveAmt &gt;= minPayOut) {   // 지급 최소 기준 이상인지 판정
+        this.status = SettleStatus.WAITING;
+        this.payoutAmt = effectiveAmt;
+        this.carryOver = 0;
+    } else {
+        this.status = SettleStatus.CARRIED;
+        this.payoutAmt = 0;
+        this.carryOver = effectiveAmt;   // 소액 잔액이 사라지지 않게 다음 회차로 누적
+    }
+}</code></pre>
+              </div>
+            </article>
+
+            <h2 class="code-group-title code-group-title--aux">보조 메서드</h2>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">settleBatch()<span class="code-card__tag">스케줄러</span></span>
+                  <p class="code-card__desc">▸ 4일 주기로 전체 호스트를 돌며 정산을 생성 → 완료 → 세금계산서 발행까지 자동 처리. 한 호스트가 실패해도 나머지는 계속되게 try-catch로 격리.</p>
+                </div>
+                <button class="code-card__toggle" data-code="settle-batch">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="settle-batch" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">SettleScheduler.settleBatch()</span>
+                  <button class="code-panel__close" data-close="settle-batch">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// SettleScheduler.java — 4일 주기 자동 정산 배치
+@Scheduled(cron = "0 0 0 */4 * *")
+public void settleBatch() {
+    LocalDate end = LocalDate.now().minusDays(1);
+    LocalDate start = end.minusDays(3);
+
+    for (HostEntity host : hostRepository.findAll()) {
+        try {
+            SettleCreateReqDto reqDto = SettleCreateReqDto.builder()
+                    .hostNo(host.getNo())
+                    .settleStartDate(start)
+                    .settleEndDate(end)
+                    .build();
+            SettleResDto result = settleService.createSettle(reqDto);
+            if (result != null &amp;&amp; result.getStatus() == SettleStatus.WAITING) {
+                settleService.completeSettle(result.getNo());
+                settleService.issueTaxInvoice(result.getNo());
+            }
+        } catch (Exception e) {
+            log.error("정산 배치 실패 hostNo={}", host.getNo(), e);   // 한 호스트 실패가 전체를 막지 않게 격리
+        }
+    }
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">issueTaxInvoice()</span>
+                  <p class="code-card__desc">▸ 정산 완료(COMPLETE) 상태에서만 세금계산서 발행(INVOICE)으로 전이하는 상태 가드 메서드.</p>
+                </div>
+                <button class="code-card__toggle" data-code="settle-invoice">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="settle-invoice" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">SettleEntity.issueTaxInvoice()</span>
+                  <button class="code-panel__close" data-close="settle-invoice">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// SettleEntity.java — 정산 완료 상태에서만 세금계산서 발행으로 전이
+public void issueTaxInvoice() {
+    if (this.status != SettleStatus.COMPLETE) {
+        throw new CustomException(SettleErrorCode.SETTLE_NOT_COMPLETED);
+    }
+    this.status = SettleStatus.INVOICE;
+    this.invoicedAt = LocalDateTime.now();
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 통계 ========== -->
+        <section class="page" id="stats" hidden>
+          <header class="page__head">
+            <h1 class="page__title">통계</h1>
+            <p class="page__desc">사전집계 파이프라인 + 매출·예약·회원·공간 통계 조회 API.</p>
+          </header>
+          <div class="screen-area">
+            <div class="mock mock--wide">
+              <div class="mock__head">매출 통계</div>
+              <div class="mock__body">
+                <!-- 기간 필터 -->
+                <div class="mock-filters">
+                  <span class="mock-chip">최근 1개월</span>
+                  <span class="mock-chip">3개월</span>
+                  <span class="mock-chip mock-chip--on">6개월</span>
+                  <span class="mock-chip">1년</span>
+                </div>
+
+                <!-- KPI -->
+                <div class="mock-kpis">
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">12,400,000</div>
+                    <div class="mock-kpi__label">총 매출 (원)</div>
+                  </div>
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">48</div>
+                    <div class="mock-kpi__label">결제 건수</div>
+                  </div>
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">258,333</div>
+                    <div class="mock-kpi__label">평균 결제액 (원)</div>
+                  </div>
+                  <div class="mock-kpi">
+                    <div class="mock-kpi__num">340,000</div>
+                    <div class="mock-kpi__label">환불액 (원)</div>
+                  </div>
+                </div>
+
+                <!-- 월별 매출 추이 -->
+                <div class="mock-subhead">월별 매출 추이</div>
+                <div class="mock-bars">
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 45%"></div><span class="mock-bar-label">1월</span></div>
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 62%"></div><span class="mock-bar-label">2월</span></div>
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 38%"></div><span class="mock-bar-label">3월</span></div>
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 78%"></div><span class="mock-bar-label">4월</span></div>
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 90%"></div><span class="mock-bar-label">5월</span></div>
+                  <div class="mock-bar-col"><div class="mock-bar" style="height: 100%"></div><span class="mock-bar-label">6월</span></div>
+                </div>
+
+                <!-- 결제수단 분포 -->
+                <div class="mock-subhead">결제수단 분포</div>
+                <div class="mock-barh">
+                  <div class="mock-barh__row">
+                    <span>카카오페이</span>
+                    <span class="mock-barh__track"><span class="mock-barh__fill" style="width: 68%"></span></span>
+                    <span class="mock-barh__val">68%</span>
+                  </div>
+                  <div class="mock-barh__row">
+                    <span>토스페이</span>
+                    <span class="mock-barh__track"><span class="mock-barh__fill" style="width: 32%"></span></span>
+                    <span class="mock-barh__val">32%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 코드 영역: 핵심 / 보조 카드 -->
+          <div class="code-stack">
+            <h2 class="code-group-title">핵심 로직</h2>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">loadDailyStats()</span>
+                  <p class="code-card__desc">▸ 조회마다 결제 원장을 집계하면 비싸서, 하루치 결제·환불 통계를 사전집계 테이블에 미리 적재한다. 같은 행이 있으면 update, 없으면 insert하는 upsert 구조라 재적재돼도 멱등하다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-load">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-load" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">StatsService.loadDailyStats()</span>
+                  <button class="code-panel__close" data-close="stats-load">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// StatsService.java — 일자별 통계를 사전집계 테이블에 upsert 적재 (스케줄러가 자정 호출)
+@Transactional
+public void loadDailyStats(LocalDate targetDate) {
+    LocalDateTime startTime = targetDate.atStartOfDay();
+    LocalDateTime endTime = targetDate.atTime(23, 59, 59);
+    List&lt;Tuple&gt; list = payRepository.sumByMethodBetween(startTime, endTime);
+    for (Tuple tuple : list) {
+        PayMethod payMethod = tuple.get(0, PayMethod.class);
+        Long count = tuple.get(1, Long.class);
+        Long sum = tuple.get(2, Long.class);
+        // 같은 (일자, 결제수단) 행이 있으면 update, 없으면 insert → 재적재돼도 멱등(upsert)
+        dailyPayStatsRepository
+                .findByStatDateAndPayMethod(targetDate, payMethod)
+                .ifPresentOrElse(
+                        entity -&gt; entity.updateStats(count.intValue(), sum),
+                        () -&gt; dailyPayStatsRepository.save(
+                                DailyPayStatsEntity.builder()
+                                        .statDate(targetDate)
+                                        .payMethod(payMethod)
+                                        .payCount(count.intValue())
+                                        .totalAmt(sum)
+                                        .build()));
+    }
+    // 환불 통계도 같은 방식으로 upsert
+    Tuple refundTuple = refundRepository.sumBetween(startTime, endTime);
+    Long refundCount = refundTuple.get(0, Long.class);
+    BigDecimal refundAmt = refundTuple.get(1, BigDecimal.class);
+    dailyRefundStatsRepository.findByStatDate(targetDate)
+            .ifPresentOrElse(
+                    entity -&gt; entity.updateStats(refundCount.intValue(), refundAmt),
+                    () -&gt; dailyRefundStatsRepository.save(
+                            DailyRefundStatsEntity.builder()
+                                    .statDate(targetDate)
+                                    .refundCount(refundCount.intValue())
+                                    .refundAmt(refundAmt)
+                                    .build()));
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">findHostSalesStats()</span>
+                  <p class="code-card__desc">▸ 호스트의 매출 통계를 조회한다. 월별 추이를 달마다 쿼리하지 않고 단일 GROUP BY 쿼리로 집계하도록 최적화한 메서드 (성능 개선 페이지의 대상).</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-host">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-host" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">StatsService.findHostSalesStats()</span>
+                  <button class="code-panel__close" data-close="stats-host">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// StatsService.java — 호스트 매출 통계 (월별 추이를 단일 GROUP BY 쿼리로 집계, 발췌)
+public HostSalesStatsResDto findHostSalesStats(Long memberNo, int year, int month, int months) {
+    HostEntity hostEntity = hostRepository.findByMemberNo(memberNo)
+            .orElseThrow(() -&gt; new CustomException(HostErrorCode.HOST_NOT_FOUND));
+
+    // 호스트의 승인 공간을 타입별 번호로 분류 (officeNos / stationNos / workStayNos)
+    List&lt;HostPlaceEntity&gt; hostPlaces =
+            hostPlaceRepository.findByHostEntityNoAndStatus(hostEntity.getNo(), ApprovalStatus.A);
+    List&lt;Long&gt; officeNos = hostPlaces.stream()
+            .filter(hp -&gt; hp.getOfficeEntity() != null)
+            .map(hp -&gt; hp.getOfficeEntity().getNo()).distinct().toList();
+    // stationNos, workStayNos 도 동일 패턴
+
+    YearMonth ym = YearMonth.of(year, month);
+    LocalDateTime start = ym.minusMonths(months - 1).atDay(1).atStartOfDay();
+    LocalDateTime end   = ym.atEndOfMonth().atTime(23, 59, 59);
+
+    // 타입별 매출/환불/건수 합계는 각각의 sum 쿼리로 집계 (totalAmt · refundAmt · payCount)
+
+    // [성능 개선] 달마다 쿼리를 따로 날리지 않고, 월별 매출을 GROUP BY 한 쿼리로 한 번에 집계
+    //            → 1회 조회 18쿼리 → 1쿼리 (실측 약 8.9배 단축, '성능 개선' 페이지 참고)
+    Map&lt;String, Long&gt; monthlySales = payRepository
+            .sumByMonthBetween(officeNos, stationNos, workStayNos, start, end)
+            .stream()
+            .collect(Collectors.toMap(
+                    m -&gt; m.getMonth(),
+                    m -&gt; m.getSum() == null ? 0L : m.getSum()));
+
+    // 비어 있는 달은 0으로 채워 month 수만큼의 추이 데이터를 구성
+    List&lt;MonthlyTrendResDto&gt; trend = buildTrend(ym, months,
+            (s, e) -&gt; monthlySales.getOrDefault(YearMonth.from(s).toString(), 0L));
+
+    return HostSalesStatsResDto.of(totalAmt, payCount, refundAmt, trend);
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">HostSalesStatsResDto.of()</span>
+                  <p class="code-card__desc">▸ 응답 DTO 팩토리. 매출 금액을 Long으로 다뤄 int 오버플로(약 21억, 트러블슈팅 ②)를 막고, 결제 0건일 때 평균 계산의 0 나누기를 가드한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-dto">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-dto" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">HostSalesStatsResDto.of()</span>
+                  <button class="code-panel__close" data-close="stats-dto">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// HostSalesStatsResDto.java — 금액 Long 처리(int 오버플로 방지) + 0 나누기 가드
+public static HostSalesStatsResDto of(Long totalAmt, Long payCount, Long refundAmt, List&lt;MonthlyTrendResDto&gt; trend) {
+    long avgAmt = payCount == 0 ? 0 : totalAmt / payCount;   // 결제 0건일 때 ArithmeticException 방지
+    return HostSalesStatsResDto.builder()
+            .totalAmt(totalAmt)
+            .payCount(payCount)
+            .avgAmt(avgAmt)
+            .refundAmt(refundAmt)
+            .trend(trend)
+            .build();
+}</code></pre>
+              </div>
+            </article>
+
+            <h2 class="code-group-title code-group-title--aux">보조 메서드</h2>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">loadDailyStats()<span class="code-card__tag">스케줄러</span></span>
+                  <p class="code-card__desc">▸ 매일 자정, 전날 하루치 통계를 집계 테이블에 적재하도록 트리거하는 스케줄러.</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-sched">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-sched" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">StatsScheduler.loadDailyStats()</span>
+                  <button class="code-panel__close" data-close="stats-sched">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// StatsScheduler.java — 매일 자정, 전날 하루치 통계를 집계 테이블에 적재
+@Scheduled(cron = "0 0 0 * * *")
+public void loadDailyStats() {
+    statsService.loadDailyStats(LocalDate.now().minusDays(1));
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">buildTrend()</span>
+                  <p class="code-card__desc">▸ 월별 추이 집계 공통 헬퍼. 집계 방식만 함수형 인자(ToLongBiFunction)로 받아 매출·예약·회원 추이의 중복 코드를 제거.</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-trend">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-trend" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">StatsService.buildTrend()</span>
+                  <button class="code-panel__close" data-close="stats-trend">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// StatsService.java — 월별 추이 집계 공통 헬퍼 (집계 방식만 함수형 인자로 주입)
+private List&lt;MonthlyTrendResDto&gt; buildTrend(YearMonth base, int months,
+        ToLongBiFunction&lt;LocalDateTime, LocalDateTime&gt; valueFn) {
+    List&lt;MonthlyTrendResDto&gt; trend = new ArrayList&lt;&gt;();
+    for (int i = months - 1; i &gt;= 0; i--) {
+        YearMonth ymMinus = base.minusMonths(i);
+        LocalDateTime mStart = ymMinus.atDay(1).atStartOfDay();
+        LocalDateTime mEnd = ymMinus.atEndOfMonth().atTime(23, 59, 59);
+        long mTotal = valueFn.applyAsLong(mStart, mEnd);   // 집계 방식은 호출부가 람다로 결정
+        trend.add(MonthlyTrendResDto.of(ymMinus.toString(), mTotal));
+    }
+    return trend;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">findBookingStats()</span>
+                  <p class="code-card__desc">▸ 예약 상태별(확정/완료/취소) 건수와 월별 추이를 집계. buildTrend에 람다를 넘겨 추이를 구성한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="stats-booking">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="stats-booking" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">StatsService.findBookingStats()</span>
+                  <button class="code-panel__close" data-close="stats-booking">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// StatsService.java — 예약 상태별(확정/완료/취소) 통계 + 월별 추이
+public BookingStatsResDto findBookingStats(int year, int month, int months) {
+    YearMonth ym = YearMonth.of(year, month);
+    LocalDateTime start = ym.minusMonths(months - 1).atDay(1).atStartOfDay();
+    LocalDateTime end = ym.atEndOfMonth().atTime(23, 59, 59);
+
+    Map&lt;RsvnStatus, Long&gt; counts = statsRepositoryCustom.countRsvnGroupByStatus(start, end);
+    long confirmed = counts.getOrDefault(RsvnStatus.S, 0L);
+    long complete = counts.getOrDefault(RsvnStatus.E, 0L);
+    long cancel = counts.getOrDefault(RsvnStatus.C, 0L);
+    long total = counts.values().stream().mapToLong(Long::longValue).sum();
+
+    List&lt;MonthlyTrendResDto&gt; trend = buildTrend(ym, months,
+            (s, e) -&gt; statsRepositoryCustom.countRsvnByCreatedAtBetween(s, e));
+    return BookingStatsResDto.of(total, confirmed, cancel, complete, trend);
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 쿠폰·포인트 ========== -->
+        <section class="page" id="coupon-point" hidden>
+          <header class="page__head">
+            <h1 class="page__title">쿠폰·포인트</h1>
+            <p class="page__desc">쿠폰 이벤트 발급/다운로드 + 결제액 1% 적립 + 7일 후 확정.</p>
+          </header>
+          <div class="screen-area">
+            <div class="mock">
+              <div class="mock__head">쿠폰 · 포인트</div>
+              <div class="mock__body">
+                <!-- 탭 -->
+                <div class="mock-tabs">
+                  <span class="mock-tab mock-tab--on">쿠폰함</span>
+                  <span class="mock-tab">포인트</span>
+                </div>
+
+                <!-- 진행 중 이벤트 -->
+                <div class="mock-subhead">진행 중 이벤트</div>
+                <div class="mock-coupon">
+                  <div>
+                    <div class="mock-coupon__name">신규가입 1만원 할인</div>
+                    <div class="mock-coupon__sub">발급 후 30일 · 잔여 312장</div>
+                  </div>
+                  <div class="mock-get">받기</div>
+                </div>
+                <div class="mock-coupon">
+                  <div>
+                    <div class="mock-coupon__name">여름맞이 15% 할인</div>
+                    <div class="mock-coupon__sub">발급 후 14일 · 잔여 87장</div>
+                  </div>
+                  <div class="mock-get">받기</div>
+                </div>
+
+                <!-- 보유 쿠폰 -->
+                <div class="mock-subhead">보유 쿠폰 (2)</div>
+                <div class="mock-cpn">
+                  <span class="mock-cpn__dc">15%</span>
+                  <div style="flex: 1">
+                    <div class="mock-cpn__name">여름맞이 15% 할인</div>
+                    <div class="mock-cpn__sub">~2026.06.28 · 사용 가능</div>
+                  </div>
+                  <span class="mock-badge mock-badge--done">사용가능</span>
+                </div>
+                <div class="mock-cpn">
+                  <span class="mock-cpn__dc">5,000원</span>
+                  <div style="flex: 1">
+                    <div class="mock-cpn__name">첫 결제 감사 쿠폰</div>
+                    <div class="mock-cpn__sub">~2026.07.15 · 사용 가능</div>
+                  </div>
+                  <span class="mock-badge mock-badge--done">사용가능</span>
+                </div>
+
+                <!-- 포인트 요약 -->
+                <div class="mock-card">
+                  <div class="mock-card__label">내 포인트</div>
+                  <div class="mock-line"><span>보유 포인트</span><span>5,000 P</span></div>
+                  <div class="mock-line mock-line--sub"><span>적립 예정 (7일 후 확정)</span><span>2,450 P</span></div>
+                </div>
+
+                <!-- 포인트 내역 -->
+                <div class="mock-subhead">최근 내역</div>
+                <div class="mock-hist">
+                  <div>
+                    <div>적립 예정 (결제 1%)</div>
+                    <div class="mock-hist__sub">2026.06.14 · 확정 7일 후</div>
+                  </div>
+                  <span class="mock-plus">+2,450 P</span>
+                </div>
+                <div class="mock-hist">
+                  <div>
+                    <div>결제 사용</div>
+                    <div class="mock-hist__sub">2026.06.14 · 청평 파인뷰</div>
+                  </div>
+                  <span class="mock-minus">-5,000 P</span>
+                </div>
+                <div class="mock-hist">
+                  <div>
+                    <div>가입 축하 적립</div>
+                    <div class="mock-hist__sub">2026.05.30</div>
+                  </div>
+                  <span class="mock-plus">+5,000 P</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 코드 영역: 핵심 / 보조 카드 -->
+          <div class="code-stack">
+            <h2 class="code-group-title">핵심 로직</h2>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">downloadCoupon()</span>
+                  <p class="code-card__desc">▸ 게시된 쿠폰 이벤트 템플릿을 복사해 회원 소유의 실제 쿠폰을 발급한다. 같은 회원이 같은 이벤트를 두 번 받지 못하도록 1인 1회 발급을 제한한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-download">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-download" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">CouponEventService.downloadCoupon()</span>
+                  <button class="code-panel__close" data-close="cp-download">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// CouponEventService.java — 게시된 이벤트에서 회원 소유 쿠폰을 발급(다운로드)
+@Transactional
+public CouponResDto downloadCoupon(Long eventNo, Long memberNo) {
+    CouponEventEntity couponEventEntity = couponEventRepository.findById(eventNo)
+            .orElseThrow(() -&gt; new CustomException(CouponEventErrorCode.COUPONEVENT_NOT_FOUND));
+    couponEventEntity.validateDownloadable();   // 종료(CLOSED)·소진(SOLDOUT)된 이벤트 발급 차단
+
+    // 1인 1회 발급 제한 — 같은 회원이 같은 이벤트를 이미 받았으면 중복 발급 차단
+    if (couponEventRepository.existsByEventAndMember(eventNo, memberNo)) {
+        throw new CustomException(CouponEventErrorCode.COUPONEVENT_ALREADY_DOWNLOADED);
+    }
+    MemberEntity memberEntity = memberRepository.findById(memberNo)
+            .orElseThrow(() -&gt; new CustomException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+    // 이벤트 템플릿(할인 조건·유효일수)을 복사해 회원 소유의 실제 쿠폰을 발급
+    LocalDateTime expiredAt = LocalDateTime.now().plusDays(couponEventEntity.getValidDays());
+    CouponEntity couponEntity = CouponEntity.builder()
+            .couponName(couponEventEntity.getCouponName())
+            .dcType(couponEventEntity.getDcType())
+            .dcValue(couponEventEntity.getDcValue())
+            .memberNo(memberEntity)
+            .expiredAt(expiredAt)
+            .status(CouponStatus.AVAILABLE)
+            .couponEventNo(couponEventEntity)
+            .build();
+    CouponEntity savedEntity = couponRepository.save(couponEntity);
+
+    couponEventEntity.issue();   // 발급 수량(issuedCount) 증가 + 소진 가드(동시성 이중 안전망)
+    return CouponResDto.from(savedEntity);
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">returnCoupon()</span>
+                  <p class="code-card__desc">▸ 환불 시 사용된 쿠폰을 회수하는 Rich 도메인 메서드. 회수 시점에 이미 유효기간이 지났으면 되살리지 않고 EXPIRED로 두어, 만료된 쿠폰이 부활하는 것을 막는다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-return">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-return" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">CouponEntity.returnCoupon()</span>
+                  <button class="code-panel__close" data-close="cp-return">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// CouponEntity.java — 환불 시 쿠폰 회수. 만료 여부에 따라 EXPIRED/AVAILABLE로 분기
+public void returnCoupon() {
+    if (this.status != CouponStatus.USED) {
+        throw new CustomException(CouponErrorCode.COUPON_NOT_USED);
+    }
+    this.payNo = null;
+    this.usedAt = null;
+    // 환불 시점에 이미 만료됐으면 되살리지 않고 EXPIRED — 만료된 쿠폰이 부활하는 것 방지
+    if (this.expiredAt != null &amp;&amp; this.expiredAt.isBefore(LocalDateTime.now())) {
+        this.status = CouponStatus.EXPIRED;
+    } else {
+        this.status = CouponStatus.AVAILABLE;
+    }
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">calcBalance()</span>
+                  <p class="code-card__desc">▸ 포인트 잔액 계산. 사용 내역(USED)을 음수로 저장해 두어, 적립(SAVE)과 단순히 더하기만 하면 차감 효과가 나도록 설계했다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-balance">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-balance" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PointService.calcBalance()</span>
+                  <button class="code-panel__close" data-close="cp-balance">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PointService.java — 포인트 잔액 = 적립(SAVE, +) + 사용(USED, -) 합산
+// 사용 row가 음수로 저장돼 있어, 더하면 자연스럽게 차감 효과가 난다.
+private int calcBalance(Long memberNo) {
+    int saveSum = pointRepository.sumByMemberAndStatus(memberNo, PointStatus.SAVE);
+    int usedSum = pointRepository.sumByMemberAndStatus(memberNo, PointStatus.USED);
+    return saveSum + usedSum;
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">refundUsedPoint() / cancelEarnedPoint()</span>
+                  <p class="code-card__desc">▸ 환불 시 포인트 복원·취소 한 쌍. 사용 포인트는 새 SAVE row로 복원하고, 이 결제로 적립된 포인트는 취소한다. 둘은 같은 EARN을 건드려 호출 순서에 의존한다(트러블슈팅 ①).</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-refund">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-refund" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PointService.refundUsedPoint() / cancelEarnedPoint()</span>
+                  <button class="code-panel__close" data-close="cp-refund">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PointService.java — 환불 시 사용했던 포인트를 복원. USE row 합계만큼 새 SAVE row 생성.
+@Transactional
+public void refundUsedPoint(PayEntity payEntity) {
+    MemberEntity member = findMember(payEntity.getRsvnNo().getMemberNo().getNo());
+    List&lt;PointEntity&gt; pointList = pointRepository.findByPayAndDealType(payEntity.getNo(), PointDealType.USE);
+    int sumPoint = pointList.stream().mapToInt(PointEntity::getAmount).sum();
+    int returnPoint = Math.abs(sumPoint);
+    if (returnPoint == 0) return;
+    PointEntity entity = PointEntity.builder()
+            .memberNo(member)
+            .payNo(payEntity)
+            .amount(returnPoint)
+            .dealType(PointDealType.EARN)
+            .status(PointStatus.SAVE)
+            .expiredAt(LocalDateTime.now().plusYears(1))
+            .build();
+    pointRepository.save(entity);
+}
+
+// 환불 시 그 결제로 적립됐던 포인트를 취소. 아직 미확정(WAIT)·확정(SAVE)인 EARN만 cancel.
+@Transactional
+public void cancelEarnedPoint(PayEntity payEntity) {
+    List&lt;PointEntity&gt; pointList = pointRepository.findByPayAndDealType(payEntity.getNo(), PointDealType.EARN);
+    pointList.stream()
+            .filter(p -&gt; p.getStatus() == PointStatus.WAIT || p.getStatus() == PointStatus.SAVE)
+            .forEach(PointEntity::cancel);
+}</code></pre>
+              </div>
+            </article>
+
+            <h2 class="code-group-title code-group-title--aux">보조 메서드</h2>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">confirmEarnPointsScheduled()<span class="code-card__tag">스케줄러</span></span>
+                  <p class="code-card__desc">▸ 매일 자정, 적립 후 7일이 지난 WAIT 상태의 적립 포인트를 SAVE(확정)로 전이시켜 사용 가능하게 만든다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-confirm">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-confirm" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PointScheduler / PointService.confirmEarnPointsScheduled()</span>
+                  <button class="code-panel__close" data-close="cp-confirm">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PointScheduler.java — 매일 자정, 결제 7일 후 적립 포인트를 자동 확정
+@Scheduled(cron = "0 0 0 * * *")
+public void confirmEarnPoints() {
+    pointService.confirmEarnPointsScheduled();
+}
+
+// PointService.java — 적립 후 7일 경과한 WAIT 상태 EARN 포인트를 SAVE(확정)로 전이
+@Transactional
+public void confirmEarnPointsScheduled() {
+    List&lt;PointEntity&gt; pointEntityList =
+            pointRepository.findExpiredWaitForEarn(LocalDateTime.now().minusDays(7));
+    pointEntityList.stream()
+            .filter(p -&gt; p.getStatus() == PointStatus.WAIT)
+            .forEach(PointEntity::confirmEarn);
+}</code></pre>
+              </div>
+            </article>
+
+            <article class="code-card code-card--aux">
+              <div class="code-card__head">
+                <div class="code-card__meta">
+                  <span class="code-card__name">earnPointInternal()</span>
+                  <p class="code-card__desc">▸ 결제 승인 시 호출되어 결제액의 1%를 적립 포인트(WAIT)로 생성. 7일 뒤 위 스케줄러가 확정한다.</p>
+                </div>
+                <button class="code-card__toggle" data-code="cp-earn">코드 <span class="arrow">▾</span></button>
+              </div>
+              <div class="code-panel" id="cp-earn" hidden>
+                <div class="code-panel__bar">
+                  <span class="code-panel__label">PointService.earnPointInternal()</span>
+                  <button class="code-panel__close" data-close="cp-earn">접기 ▲</button>
+                </div>
+                <pre class="code-panel__body"><code>// PointService.java — 결제 승인 시 결제액 1%를 적립 포인트로 생성 (WAIT 상태)
+@Transactional
+public void earnPointInternal(Long memberNo, PayEntity payEntity) {
+    int savePoint = (int) (payEntity.getFinalAmt() * 0.01);   // 결제액 1% 적립
+    LocalDateTime expiredAt = LocalDateTime.now().plusYears(1);   // 유효기간 1년
+    MemberEntity memberEntity = findMember(memberNo);
+
+    PointEntity pointEntity = PointEntity.builder()
+            .memberNo(memberEntity)
+            .payNo(payEntity)
+            .amount(savePoint)
+            .dealType(PointDealType.EARN)
+            .expiredAt(expiredAt)
+            .status(PointStatus.WAIT)   // 즉시 사용 불가 — 7일 뒤 SAVE로 전이되어 확정
+            .build();
+    pointRepository.save(pointEntity);
+}</code></pre>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 트러블슈팅 ========== -->
+        <section class="page" id="troubleshooting" hidden>
+          <header class="page__head">
+            <h1 class="page__title">트러블슈팅</h1>
+            <p class="page__desc">개발 중 마주친 문제와 해결 과정.</p>
+          </header>
+          <div class="doc-block doc-block--flush">
+            <article class="ts-card">
+              <h2 class="ts-card__title">① 환불 시 포인트가 사라지던 문제</h2>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--symptom">증상</span>
+                <p>환불 시 사용했던 포인트를 복원했는데, 복원되자마자 다시 사라졌다. 에러는 발생하지 않아 원인이 보이지 않았다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--cause">원인</span>
+                <p>환불 처리에서 두 작업이 같은 종류의 포인트(EARN/SAVE)를 건드렸다. refundUsedPoint는 사용 포인트를 새 적립(EARN)으로 복원하고, cancelEarnedPoint는 이 결제의 적립(EARN) 포인트를 전부 취소한다. 복원을 먼저 하면 뒤이은 적립 취소가 방금 복원한 포인트까지 같이 지웠다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--fix">해결</span>
+                <p>실행 순서를 "적립 취소 → 사용 복원"으로 고정. 취소가 먼저 끝난 뒤 복원하므로 복원분이 취소 대상에서 빠진다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--learn">배운 점</span>
+                <p>에러가 없어도 결과가 틀릴 수 있다. 증상이 아니라 전체 흐름을 끝까지 따라가야 진짜 원인이 잡힌다.</p>
+              </div>
+            </article>
+
+            <article class="ts-card">
+              <h2 class="ts-card__title">② 매출 통계 값이 음수로 뒤집히던 문제</h2>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--symptom">증상</span>
+                <p>대량 더미 데이터로 테스트하던 중 일 매출 합계가 음수로 표시됐다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--cause">원인</span>
+                <p>매출 합계가 int 한계(약 21억)를 초과하면서 값이 음수로 오버플로됐다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--fix">해결</span>
+                <p>금액 필드를 Long으로 변경. 문제가 된 필드만이 아니라 같은 금액을 다루는 다른 필드까지 일관되게 맞춰 재발을 방지했다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--learn">배운 점</span>
+                <p>평소 데이터로는 안 보이는 문제가 한계 상황에서 드러난다. 기능 완성 후 일부러 과부하를 만들어 약점을 미리 찾는 습관이 생겼다.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 성능 개선 ========== -->
+        <section class="page" id="performance" hidden>
+          <header class="page__head">
+            <h1 class="page__title">성능 개선</h1>
+            <p class="page__desc">쿼리 최적화 전/후 측정 (18쿼리 → 1쿼리, 8.9배).</p>
+          </header>
+          <div class="doc-block">
+            <h2 class="perf-title">호스트 매출 추이 쿼리 최적화</h2>
+            <div class="def-list">
+              <div class="def-list__row">
+                <dt>문제</dt>
+                <dd>호스트 매출 추이를 월별로 보여주는데, 각 월마다 쿼리를 따로 날려 1회 조회에 18개 쿼리가 실행됐다.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>개선</dt>
+                <dd>월별 집계를 GROUP BY 한 쿼리로 묶어, 1회 조회당 쿼리를 18개 → 1개로 축소.</dd>
+              </div>
+            </div>
+
+            <h3 class="perf-subtitle">측정 결과 <span>(100회 반복)</span></h3>
+            <table class="metric-table">
+              <thead>
+                <tr>
+                  <th>구분</th>
+                  <th>총 시간</th>
+                  <th>평균 / 회</th>
+                  <th>누적 쿼리</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>개선 전 <small>(18쿼리/회)</small></td>
+                  <td>299,994 ms</td>
+                  <td>2,999 ms</td>
+                  <td>1,800개</td>
+                </tr>
+                <tr class="metric-table__after">
+                  <td>개선 후 <small>(1쿼리/회)</small></td>
+                  <td>33,805 ms</td>
+                  <td>338 ms</td>
+                  <td>100개</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="metric-highlight">
+              <strong class="metric-highlight__num">약 8.9배</strong>
+              <span class="metric-highlight__sub">빠름 · 88.7% 단축</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 회고 ========== -->
+        <section class="page" id="retrospective" hidden>
+          <header class="page__head">
+            <h1 class="page__title">회고</h1>
+            <p class="page__desc">프로젝트를 통해 배운 점과 아쉬운 점.</p>
+          </header>
+          <div class="doc-block doc-block--flush">
+            <div class="retro-grid">
+              <article class="retro-card">
+                <h3 class="retro-card__title">잘한 점</h3>
+                <p>결제부터 정산까지 거래 흐름 전체를 단독 구현. PG 연동 전 가짜 결제로 흐름을 먼저 검증한 뒤 붙여 문제 추적을 쉽게 했다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">어려웠던 점</h3>
+                <p>정산은 결제·환불·세금계산서가 얽혀 흐름이 복잡했다. 여러 번 다시 그려보며 끝까지 잡아냈다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">아쉬운 점</h3>
+                <p>일정상 리팩토링을 충분히 못 했다. 다음엔 처음부터 구조와 가독성을 염두에 두고 개발하려 한다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">배운 점</h3>
+                <p>거래 흐름 전체를 다뤄보며 시스템이 어떻게 맞물려 도는지 보는 눈이 생겼다.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      /* ============================================================
+         Sloway 포트폴리오 — SPA 네비게이션 + 코드 패널 토글
+         외부 라이브러리 없이 바닐라 JS
+         ============================================================ */
+
+      (function () {
+        'use strict';
+
+        /* ---------- 1. 사이드바 네비게이션 (페이지 전환) ---------- */
+        var navItems = document.querySelectorAll('.nav__item');
+        var pages = document.querySelectorAll('.page');
+
+        // 페이지 전환: id 에 해당하는 섹션만 보이고 나머지는 숨김
+        function showPage(pageId) {
+          var matched = false;
+
+          pages.forEach(function (page) {
+            var isTarget = page.id === pageId;
+            page.hidden = !isTarget;
+            if (isTarget) matched = true;
+          });
+
+          // 사이드바 활성 표시
+          navItems.forEach(function (item) {
+            item.classList.toggle('is-active', item.dataset.page === pageId);
+          });
+
+          // 잘못된 해시면 첫 페이지로 폴백
+          if (!matched && pages.length > 0) {
+            showPage(pages[0].id);
+            return;
+          }
+
+          // 새 페이지로 넘어오면 스크롤 맨 위로
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+
+        // 사이드바 클릭 → 해시 변경 (해시 변경이 showPage 를 트리거)
+        navItems.forEach(function (item) {
+          item.addEventListener('click', function () {
+            var pageId = item.dataset.page;
+            if (location.hash === '#' + pageId) {
+              showPage(pageId); // 같은 해시 재클릭 시에도 강제 반영
+            } else {
+              location.hash = pageId;
+            }
+          });
+        });
+
+        // 해시 변경 / 새로고침 / 북마크 대응
+        function routeFromHash() {
+          var pageId = location.hash.replace('#', '') || pages[0].id;
+          showPage(pageId);
+        }
+        window.addEventListener('hashchange', routeFromHash);
+
+        /* ---------- 2. 코드 패널 토글 (펼침/접힘) ---------- */
+        // data-code 를 가진 모든 버튼(.demo-trigger / .code-card__toggle)이
+        // 같은 로직으로 자신이 가리키는 코드 패널을 토글
+        document.querySelectorAll('[data-code]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var panel = document.getElementById(btn.dataset.code);
+            if (!panel) return;
+
+            var willOpen = panel.hidden; // 현재 닫혀있으면 열기
+            panel.hidden = !willOpen;
+            btn.classList.toggle('is-open', willOpen);
+
+            // 막 펼친 패널이면 부드럽게 스크롤
+            if (willOpen) {
+              panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+          });
+        });
+
+        // 코드 패널 안의 "접기" 버튼
+        document.querySelectorAll('.code-panel__close').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var panel = document.getElementById(btn.dataset.close);
+            if (panel) panel.hidden = true;
+
+            // 짝이 되는 토글 버튼의 열림 표시(화살표 회전)도 해제
+            var trigger = document.querySelector(
+              '[data-code="' + btn.dataset.close + '"]'
+            );
+            if (trigger) trigger.classList.remove('is-open');
+          });
+        });
+
+        /* ---------- 3. 초기 진입 ---------- */
+        routeFromHash();
+      })();
+    </script>
+  </body>
+</html>
