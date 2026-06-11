@@ -61,7 +61,6 @@ export default function CouponPoint({ active }) {
 			</header>
 
 			<div className="pay2">
-				{/* ===== 왼쪽: 쿠폰·포인트 본문 (MyCoupons + PointHistory 재현) ===== */}
 				<div className="cp-app">
 					{/* 탭 */}
 					<div className="cp-tabs">
@@ -69,7 +68,6 @@ export default function CouponPoint({ active }) {
 						<span className="cp-tab">포인트</span>
 					</div>
 
-					{/* 보유 쿠폰 — 상태 탭 (MyCoupons Tabs 재현) */}
 					<div className="cp-subtabs">
 						<span className="cp-subtab cp-subtab--on">사용 가능 2</span>
 						<span className="cp-subtab">사용 완료 1</span>
