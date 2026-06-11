@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sloway 포트폴리오 · 김우영</title>
+
+    <!-- Noto Sans KR (Google Fonts CDN) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- highlight.js (코드 문법 하이라이트, Java) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- 분리된 스타일: 공통/구조 + 도메인 화면 재현 (상대경로, 빌드 없음) -->
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/screens.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <!-- ===================== 사이드바 ===================== -->
+      <aside class="sidebar">
+        <div class="sidebar__logo">
+          <span class="sidebar__logo-title">Sloway 포트폴리오</span>
+          <span class="sidebar__logo-name">김우영</span>
+        </div>
+
+        <nav class="nav" id="nav">
+          <!-- data-page 값이 메인 섹션의 id 와 짝 -->
+          <button class="nav__item" data-page="overview">프로젝트 개요</button>
+          <button class="nav__item" data-page="tech">기술 스택</button>
+
+          <hr class="nav__divider" />
+
+          <!-- 세미 프로젝트 그룹 (아코디언) -->
+          <div class="nav__accordion">
+            <button class="nav__group" data-group="semi">
+              <span>세미 프로젝트 (TaskFlow)</span>
+              <span class="nav__arrow">▾</span>
+            </button>
+            <div class="nav__sub" data-sub="semi">
+              <button class="nav__item nav__item--sub" data-page="semi-project">프로젝트 관리</button>
+              <button class="nav__item nav__item--sub" data-page="semi-checklist">체크리스트</button>
+            </div>
+          </div>
+
+          <!-- 파이널 프로젝트 그룹 (아코디언) -->
+          <div class="nav__accordion">
+            <button class="nav__group" data-group="final">
+              <span>파이널 프로젝트 (Sloway)</span>
+              <span class="nav__arrow">▾</span>
+            </button>
+            <div class="nav__sub" data-sub="final">
+              <button class="nav__item nav__item--sub" data-page="payment">결제</button>
+              <button class="nav__item nav__item--sub" data-page="refund">환불</button>
+              <button class="nav__item nav__item--sub" data-page="settlement">정산</button>
+              <button class="nav__item nav__item--sub" data-page="stats">통계</button>
+              <button class="nav__item nav__item--sub" data-page="coupon-point">쿠폰·포인트</button>
+            </div>
+          </div>
+
+          <hr class="nav__divider" />
+
+          <button class="nav__item" data-page="troubleshooting">트러블슈팅</button>
+          <button class="nav__item" data-page="performance">성능 개선</button>
+          <button class="nav__item" data-page="retrospective">회고</button>
+        </nav>
+      </aside>
+
+      <!-- ===================== 메인 콘텐츠 ===================== -->
+      <main class="main" id="main">
+        <!-- ========== 문서형 페이지: 프로젝트 개요 ========== -->
+        <section class="page" id="overview">
+          <header class="page__head">
+            <h1 class="page__title">프로젝트 개요</h1>
+            <p class="page__desc">Sloway — 워케이션 공간 예약 플랫폼. 결제·환불·정산·통계 도메인 담당.</p>
+          </header>
+          <div class="doc-block">
+            <dl class="def-list">
+              <div class="def-list__row">
+                <dt>기획 의도</dt>
+                <dd>숙소·코워킹오피스·워크앤스테이 공간을 검색·예약하고, 결제부터 환불·정산까지 한 번에 처리하는 워케이션 예약 플랫폼.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>나의 역할</dt>
+                <dd>5인 팀의 조장(PM) 겸 결제·환불·정산·통계 도메인 단독 개발.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>핵심 기여</dt>
+                <dd>외부 PG 연동 결제, 4일 주기 자동 정산, 대용량 데이터 통계까지 거래 흐름 전체 구현.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>기간</dt>
+                <dd>2026.04.27 ~ 2026.06.24</dd>
+              </div>
+            </dl>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 기술 스택 ========== -->
+        <section class="page" id="tech" hidden>
+          <header class="page__head">
+            <h1 class="page__title">기술 스택</h1>
+            <p class="page__desc">백엔드·프론트엔드·인프라 사용 기술.</p>
+          </header>
+          <div class="doc-block">
+            <div class="tag-section">
+              <span class="tag-section__label">Backend</span>
+              <div class="tag-group">
+                <img class="tag-badge" alt="Java 21" src="https://img.shields.io/badge/Java_21-007396?style=for-the-badge&amp;logo=openjdk&amp;logoColor=white" />
+                <img class="tag-badge" alt="Spring Boot" src="https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&amp;logo=springboot&amp;logoColor=white" />
+                <img class="tag-badge" alt="Spring Data JPA" src="https://img.shields.io/badge/Spring_Data_JPA-6DB33F?style=for-the-badge&amp;logo=spring&amp;logoColor=white" />
+                <img class="tag-badge" alt="QueryDSL" src="https://img.shields.io/badge/QueryDSL-0769AD?style=for-the-badge" />
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">DB</span>
+              <div class="tag-group">
+                <img class="tag-badge" alt="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&amp;logo=postgresql&amp;logoColor=white" />
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">외부 연동</span>
+              <div class="tag-group">
+                <img class="tag-badge" alt="KakaoPay" src="https://img.shields.io/badge/KakaoPay-FFCD00?style=for-the-badge&amp;logo=kakaotalk&amp;logoColor=black" />
+                <img class="tag-badge" alt="TossPay" src="https://img.shields.io/badge/TossPay-0064FF?style=for-the-badge&amp;logo=toss&amp;logoColor=white" />
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">협업</span>
+              <div class="tag-group">
+                <img class="tag-badge" alt="GitHub" src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&amp;logo=github&amp;logoColor=white" />
+                <img class="tag-badge" alt="Sourcetree" src="https://img.shields.io/badge/Sourcetree-0052CC?style=for-the-badge&amp;logo=sourcetree&amp;logoColor=white" />
+                <img class="tag-badge" alt="Notion" src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&amp;logo=notion&amp;logoColor=white" />
+                <img class="tag-badge" alt="Figma" src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&amp;logo=figma&amp;logoColor=white" />
+                <img class="tag-badge" alt="ERDCloud" src="https://img.shields.io/badge/ERDCloud-2965F1?style=for-the-badge" />
+              </div>
+            </div>
+            <div class="tag-section">
+              <span class="tag-section__label">기타</span>
+              <div class="tag-group">
+                <img class="tag-badge" alt="Swagger" src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&amp;logo=swagger&amp;logoColor=black" />
+                <img class="tag-badge" alt="Spring Scheduler" src="https://img.shields.io/badge/Spring_Scheduler-6DB33F?style=for-the-badge&amp;logo=spring&amp;logoColor=white" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 세미 페이지: 프로젝트 관리 ========== -->
+        <section class="page" id="semi-project" hidden>
+          <header class="page__head">
+            <h1 class="page__title">프로젝트 관리</h1>
+            <p class="page__desc">세미 프로젝트 (TaskFlow)</p>
+          </header>
+          <div class="screen-area">
+            <div class="domain-ph">화면 재현 예정 — 이후 하나씩 채웁니다.</div>
+          </div>
+          <div class="code-trigger-list">
+            <div class="code-trigger-item">
+              <div class="code-trigger-meta">
+                <span class="code-trigger-name">4개 테이블 트랜잭션 처리 (프로젝트 생성)</span>
+                <p class="code-trigger-desc">▸ (설명 자리)</p>
+              </div>
+              <button class="code-trigger-btn" data-code-img="images/semi-project-transaction.png" data-code-label="4개 테이블 트랜잭션 처리">코드 보기</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 세미 페이지: 체크리스트 ========== -->
+        <section class="page" id="semi-checklist" hidden>
+          <header class="page__head">
+            <h1 class="page__title">체크리스트</h1>
+            <p class="page__desc">세미 프로젝트 (TaskFlow)</p>
+          </header>
+          <div class="screen-area">
+            <div class="domain-ph">화면 재현 예정 — 이후 하나씩 채웁니다.</div>
+          </div>
+          <div class="code-trigger-list">
+            <div class="code-trigger-item">
+              <div class="code-trigger-meta">
+                <span class="code-trigger-name">체크리스트 CRUD (단건·다건 등록 / 완료 즉시 반영)</span>
+                <p class="code-trigger-desc">▸ (설명 자리)</p>
+              </div>
+              <button class="code-trigger-btn" data-code-img="images/semi-checklist-crud.png" data-code-label="체크리스트 CRUD">코드 보기</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 결제 ========== -->
+        <section class="page" id="payment" hidden>
+          <header class="page__head">
+            <h1 class="page__title">결제</h1>
+            <p class="page__desc">카카오페이 / 토스페이 외부 PG 연동 + 쿠폰·포인트 통합 결제.</p>
+          </header>
+
+          <!-- 좌: 결제 상세 본문 재현 / 우: 기능 토글 + 코드 -->
+          <div class="pay2">
+            <!-- ===== 왼쪽: 결제 상세 본문 (PaymentDetail 재현) ===== -->
+            <div class="pd">
+              <div class="pd__statusrow">
+                <span class="pd__badge">결제완료</span>
+                <span class="pd__id">PAY-000001</span>
+              </div>
+              <div class="pd__card">
+                <div class="pd__sec">
+                  <div class="pd__title">결제 정보</div>
+                  <div class="pd__inforow"><span>결제 일시</span><strong>2026.06.14 14:30</strong></div>
+                  <div class="pd__inforow"><span>결제 수단</span><strong><span class="pd__mchip">💛</span>카카오페이</strong></div>
+                  <div class="pd__inforow"><span>PG사</span><strong>카카오페이</strong></div>
+                  <div class="pd__inforow"><span>승인 번호</span><strong class="pd__mono">T1a2b3c4d5e6f7g8h9</strong></div>
+                </div>
+                <div class="pd__sec">
+                  <div class="pd__title">결제 금액</div>
+                  <div class="pd__pricerow"><span>기본 금액</span><strong>280,000원</strong></div>
+                  <div class="pd__pricerow"><span>쿠폰 할인</span><strong class="dc">-30,000원</strong></div>
+                  <div class="pd__pricerow"><span>포인트 사용</span><strong class="dc">-5,000원</strong></div>
+                  <div class="pd__total">
+                    <span class="pd__total-label">최종 결제 금액</span>
+                    <span class="pd__total-num">245,000<span>원</span></span>
+                  </div>
+                  <div class="pd__earn"><span>🌱</span><span>이용 완료 후 <strong>2,450P</strong> 적립 예정</span></div>
+                </div>
+              </div>
+              <div class="pd__actions">
+                <button class="pd__btn-primary">환불 요청하기</button>
+                <button class="pd__btn-ghost">영수증 보기</button>
+              </div>
+            </div>
+
+            <!-- ===== 오른쪽: 기능 목록 (아코디언, 기본 전부 닫힘) ===== -->
+            <div class="pay2__right">
+              <!-- 결제 준비 · 검증 → PayService.buildReadyPay -->
+              <div class="func">
+                <button class="func__head func__head--rich is-open">
+                  <span class="func__head-main">
+                    <span class="func__name">결제 준비 · 검증</span>
+                    <span class="func__desc">PG 호출 전 단계에서 금액·중복 결제·쿠폰 유효성을 모두 검증해, 외부 결제와 DB 상태가 어긋나는 것을 방지합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body">
+                  <div class="func__bar">
+                    <span class="func__bar-name">결제 준비 · 검증</span>
+                    <span class="func__bar-file">PayService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 카카오·토스 공통 진입점 — API 호출 전에 모든 검증과 finalAmt 계산을 끝내고 저장
+    private PayEntity buildReadyPay(PayCreateReqDto payCreateReqDto, Long loginMemberNo){
+        validAmt(payCreateReqDto);
+        RsvnEntity rsvn = validRsvn(payCreateReqDto);
+        validRsvnOwner(rsvn, loginMemberNo);           // 본인 예약만 결제
+        validAmtMatchesRsvn(payCreateReqDto, rsvn);    // 결제 금액 위변조
+        validDuplicate(rsvn.getNo());                  // 이미 결제 완료된 예약의 재 결제 차단
+        CouponEntity coupon = null;
+        if (payCreateReqDto.getUcNo() != null) {
+            coupon = couponRepository.findById(payCreateReqDto.getUcNo())
+                    .orElseThrow(() -&gt; new CustomException(CouponErrorCode.COUPON_NOT_FOUND));
+            validCoupon(coupon, loginMemberNo);        // 본인 쿠폰만 사용
+        }
+        int dcAmt = calculateDcAmt(coupon, payCreateReqDto.getBaseAmt());
+        int usedPoint = payCreateReqDto.getUsedPoint() == null
+                ? 0 : payCreateReqDto.getUsedPoint();
+        validUsedPoint(usedPoint);                     // 포인트 음수 방어
+        // 결제 총액에서 쿠폰·포인트를 차감한 실제 결제 금액
+        int finalAmt = payCreateReqDto.getBaseAmt() + payCreateReqDto.getAddAmt()
+                - dcAmt - usedPoint;
+        validFinalAmt(payCreateReqDto, finalAmt, dcAmt, usedPoint);
+        PayEntity payEntity = payCreateReqDto.toEntity(rsvn, coupon, dcAmt, finalAmt);
+        return payRepository.save(payEntity);          // 아직 PG 미호출 — READY 상태로 먼저 저장
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 결제 승인 (카카오페이) → PayService.approvePay -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">결제 승인 (카카오페이)</span>
+                    <span class="func__desc">카카오페이 최종 승인을 멱등 처리해, 콜백이 중복 호출돼도 결제가 한 번만 반영되게 합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">결제 승인 (카카오페이)</span>
+                    <span class="func__bar-file">PayService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 카카오 결제창 통과 후  최종 승인하는 단계
+    @Transactional
+    public PayEntity approvePay(Long payNo, String pgToken) {
+        PayEntity payEntity = payRepository.findById(payNo)
+                .orElseThrow(() -&gt; new CustomException(PayErrorCode.PAY_NOT_FOUND));
+        // 멱등 처리 — 콜백 재호출·뒤로가기로 중복 승인돼도 한 번만 반영
+        if (payEntity.getStatus() == PayStatus.COMPLETED) {
+            return payEntity;
+        }
+        Long memberNo = payEntity.getRsvnNo().getMemberNo().getNo();
+        KakaoApproveReqDto kakaoApproveReqDto = KakaoApproveReqDto.builder()
+                .tid(payEntity.getTid())
+                .partnerOrderId(payNo.toString())
+                .partnerUserId(memberNo.toString())
+                .pgToken(pgToken)
+                .build();
+        // 승인이 성공한 뒤에만 내부 후 처리(예약 확정·쿠폰·포인트)를 실행
+        kakaoPayClient.approve(kakaoApproveReqDto);
+        completePayAfterApprove(payEntity, memberNo);
+        return payEntity;
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 결제 완료 후처리 → PayService.completePayAfterApprove -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">결제 완료 후처리</span>
+                    <span class="func__desc">승인이 끝나면 예약 확정·쿠폰 사용·포인트 차감/적립을 하나의 흐름으로 묶어 처리하며, 카카오·토스가 공통으로 사용합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">결제 완료 후처리</span>
+                    <span class="func__bar-file">PayService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 카카오·토스 승인 후 공통 후처리 — 예약 확정 → 쿠폰 → 포인트
+    private void completePayAfterApprove(PayEntity payEntity, Long memberNo) {
+        payEntity.getRsvnNo().confirm();   // 결제 성공했으니 예약을 확정 상태로 전이
+        payEntity.approvePay();
+        // 쿠폰을 쓴 결제만 사용 처리
+        if (payEntity.getUcNo() != null) {
+            payEntity.getUcNo().useCoupon(payEntity);
+        }
+        Integer usedPoint = payEntity.getUsedPoint();
+        if (usedPoint != null &amp;&amp; usedPoint &gt; 0) {
+            pointService.usePointInternal(memberNo, payEntity.getUsedPoint(), payEntity);
+        }
+        pointService.earnPointInternal(memberNo, payEntity);
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 환불 ========== -->
+        <section class="page" id="refund" hidden>
+          <header class="page__head">
+            <h1 class="page__title">환불</h1>
+            <p class="page__desc">환불 정책표 기반 8단계 통합 처리 (쿠폰 복원 · 포인트 환원 · PG 취소).</p>
+          </header>
+          <!-- 좌: 환불 신청 화면 재현 / 우: 기능 토글 + 코드 -->
+          <div class="pay2">
+            <!-- ===== 왼쪽: 환불 신청 본문 (RefundRequest 재현) ===== -->
+            <div class="rf-app">
+              <div class="rf-topbar">
+                <div class="rf-back">‹ 결제 상세</div>
+                <div class="rf-title">예약 취소·환불 신청<small>신중하게 결정해주세요</small></div>
+              </div>
+
+              <div class="rf-body">
+                <!-- 결제 금액 + 환불 정책 -->
+                <div class="rf-summary">
+                  <div class="rf-amt-center">
+                    <div class="rf-amt-label">결제 금액</div>
+                    <div class="rf-amt-num">245,000<span> 원</span></div>
+                  </div>
+                  <hr class="rf-dash" />
+                  <div class="rf-policy-title">환불 정책</div>
+                  <div class="rf-policy">
+                    <div class="rf-policy-row"><span>7일 이전</span><strong>100%</strong></div>
+                    <div class="rf-policy-row on"><span>4~6일 전 (현재)</span><strong>70%</strong></div>
+                    <div class="rf-policy-row"><span>2~3일 전</span><strong>50%</strong></div>
+                    <div class="rf-policy-row"><span>1일 전</span><strong>30%</strong></div>
+                    <div class="rf-policy-row"><span>당일 · 이용 후</span><strong>0%</strong></div>
+                  </div>
+                  <div class="rf-hint">
+                    <span>💡</span>
+                    <span>실제 환불 금액은 예약 일정(체크인 기준)에 따라 환불 신청 시 자동 계산됩니다.</span>
+                  </div>
+                </div>
+
+                <!-- 취소 사유 -->
+                <div>
+                  <div class="rf-sec-title">취소 사유 <span class="req">*</span></div>
+                  <div class="rf-sec-desc">서비스 개선을 위해 취소 사유를 남겨주시면 감사합니다</div>
+                  <div class="rf-reasons">
+                    <div class="rf-reason">일정이 변경됐어요</div>
+                    <div class="rf-reason">다른 공간으로 변경하려고요</div>
+                    <div class="rf-reason">건강상의 이유</div>
+                    <div class="rf-reason on">개인 사정 / 긴급 상황</div>
+                    <div class="rf-reason">가격이 부담돼요</div>
+                    <div class="rf-reason">기타</div>
+                  </div>
+                </div>
+
+                <!-- 환불 처리 방식 -->
+                <div>
+                  <div class="rf-sec-title">환불 처리 방식</div>
+                  <div class="rf-method">
+                    <div class="rf-method-head">
+                      <div class="rf-method-icon" style="background: #fee500; color: #191919">💬</div>
+                      <div class="rf-method-body">
+                        <div class="rf-method-name">카카오페이 자동 환불</div>
+                        <div class="rf-method-desc">결제 시 사용한 카카오페이 계정으로 자동 환불됩니다</div>
+                      </div>
+                      <span class="rf-method-badge">즉시 처리</span>
+                    </div>
+                    <div class="rf-time">
+                      <span>⏱️</span>
+                      <span>환불 소요 시간: <strong>카드사 정책에 따라 영업일 기준 3 ~ 7일</strong></span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 동의 + 경고 -->
+                <div>
+                  <div class="rf-agree">
+                    <span class="rf-check">✓</span>
+                    <span>위 <strong>환불 정책</strong>에 동의하며, 예약을 취소합니다</span>
+                  </div>
+                  <div class="rf-warn" style="margin-top: var(--space-3)">
+                    <div class="rf-warn-icon">⚠️</div>
+                    <div>
+                      <div class="rf-warn-title">취소 후에는 되돌릴 수 없어요</div>
+                      <div class="rf-warn-text">동일한 공간·일정 재예약 시 가격이 달라질 수 있습니다</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 액션 -->
+                <div class="rf-actions">
+                  <button class="rf-btn-keep">유지하기</button>
+                  <button class="rf-btn-submit">환불 신청하기</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 오른쪽: 기능 목록 (아코디언, 기본 전부 닫힘) ===== -->
+            <div class="pay2__right">
+              <!-- 환불 요청 · 환불율 적용 → RefundService.createRefund -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">환불 요청 · 환불율 적용</span>
+                    <span class="func__desc">환불 가능 여부와 본인 결제인지 검증한 뒤, 이용 예정일까지 남은 기간을 기준으로 환불율을 적용해 환불액을 산정합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">환불 요청 · 환불율 적용</span>
+                    <span class="func__bar-file">RefundService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 환불 생성 진입점 — 환불 가능 여부를 검증한 뒤, 이용 예정일까지 남은 기간 기준으로 환불액 산정
+    @Transactional
+    public RefundResDto createRefund(RefundCreateReqDto refundCreateReqDto, Long loginMemberNo) {
+        PayEntity payEntity = validRefundablePay(refundCreateReqDto.getPayNo());   // 환불 가능한 결제인지 검증(완료 상태·금액)
+        validRefundOwner(payEntity, loginMemberNo);   // 본인 결제만 환불
+        RsvnEntity rsvn = rsvnRepository.findById(refundCreateReqDto.getRsvnNo())
+                .orElseThrow(() -&gt; new CustomException(RsvnErrorCode.RESERVATION_NOT_FOUND));
+        RefundEntity refundEntity = refundCreateReqDto.toEntity(payEntity, rsvn);
+        RefundRate rate = refundRate(refundEntity);
+        validDuplicate(payEntity);   // 이미 환불된 건은 중복 환불 차단
+        if (RefundRate.DDAY == rate) {
+            log.warn("환불 기간 만료 : payNo:{},rsvnNo:{}", refundCreateReqDto.getPayNo(), refundCreateReqDto.getRsvnNo());
+            throw new CustomException(RefundErrorCode.REFUND_PERIOD_EXPIRED);
+        }
+        // 남은 기간별 환불율(rate)을 결제액(finalAmt)에 적용해 환불액 산정
+        BigDecimal finalAmt = BigDecimal.valueOf(payEntity.getFinalAmt());
+        BigDecimal rateBd = BigDecimal.valueOf(rate.getRate());
+        BigDecimal divisor = BigDecimal.valueOf(100);
+        BigDecimal refundAmt = finalAmt.multiply(rateBd).divide(divisor, 0, RoundingMode.DOWN);
+        refundEntity.applyRefund(rate, refundAmt);
+        RefundEntity entity = refundRepository.save(refundEntity);
+        doRefundProcess(entity);
+        return RefundResDto.from(entity);
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 환불 처리 (포인트·쿠폰·PG 취소) → RefundService.doRefundProcess -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">환불 처리 (포인트·쿠폰·PG 취소)</span>
+                    <span class="func__desc">적립 포인트를 먼저 취소하고 사용 포인트를 복원한 뒤, 쿠폰 회수와 카카오·토스 결제 취소까지 정해진 순서로 처리합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">환불 처리 (포인트·쿠폰·PG 취소)</span>
+                    <span class="func__bar-file">RefundService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 환불 실제 처리
+    private void doRefundProcess(RefundEntity refundEntity) {
+        refundEntity.approveRefund();
+        PayEntity payEntity = refundEntity.getPayNo();
+        // 사용한 쿠폰 회수 처리
+        if (payEntity.getUcNo() != null) {
+            payEntity.getUcNo().returnCoupon();
+        }
+        // 적립 포인트 선 취소 후 복원
+        pointService.cancelEarnedPoint(payEntity);
+        pointService.refundUsedPoint(payEntity);
+        // 카카오/토스 결제 취소 호출
+        PayMethod method = payEntity.getMethod();
+        if (method == PayMethod.KAKAOPAY) {
+            KakaoCancelReqDto cancelReqDto = KakaoCancelReqDto.builder()
+                    .tid(payEntity.getTid())
+                    .cancelAmount(payEntity.getFinalAmt())
+                    .cancelTaxFreeAmount(0)
+                    .build();
+            kakaoPayClient.cancel(cancelReqDto);
+        } else if (method == PayMethod.TOSSPAY) {
+            tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청");
+        }
+        payEntity.cancelPay();
+        refundEntity.completeRefund();
+        refundEntity.getRsvnNo().cancel();  // confirm()과 동일한 패턴 — 환불 완료 시 예약 상태 C로 전이
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 환불율 산정 → RefundService.refundRate -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">환불율 산정</span>
+                    <span class="func__desc">이용 예정일까지 남은 일수를 구간별로 나눠 환불율을 차등 적용합니다 (7일 전 100% ~ 당일 0%).</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">환불율 산정</span>
+                    <span class="func__bar-file">RefundService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 이용 예정일까지 남은 일수 확인 후 환불율을 차등 반환
+    private RefundRate refundRate(RefundEntity entity) {
+        LocalDateTime checkIn = entity.getRsvnNo().getCheckIn();
+        LocalDateTime requestedAt = entity.getRequestedAt();
+        long between = ChronoUnit.DAYS.between(requestedAt.toLocalDate(), checkIn.toLocalDate());
+        if (between &gt;= 7) {
+            return RefundRate.WEEK;
+        } else if (between &gt;= 4) {
+            return RefundRate.FOURTOSIX;
+        } else if (between &gt;= 2) {
+            return RefundRate.TWOTOTHREE;
+        } else if (between &gt;= 1) {
+            return RefundRate.ONEDAY;
+        } else {
+            return RefundRate.DDAY;
+        }
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 정산 ========== -->
+        <section class="page" id="settlement" hidden>
+          <header class="page__head">
+            <h1 class="page__title">정산</h1>
+            <p class="page__desc">4일 단위 자동 정산 + carry-over 이월 + 세금계산서 PDF 발행.</p>
+          </header>
+          <!-- 좌: 정산 관리 화면 재현 / 우: 기능 토글 + 코드 -->
+          <div class="pay2">
+            <!-- ===== 왼쪽: 정산 관리 본문 (AdminSettlementList 재현) ===== -->
+            <div class="st-app">
+              <div class="st-head">
+                <div class="st-head__title">정산 관리</div>
+                <div class="st-head__desc">호스트 정산 내역을 모니터링합니다 (4일마다 자동 정산·완료·발행)</div>
+              </div>
+
+              <!-- KPI -->
+              <div class="st-kpis">
+                <div class="st-kpi">
+                  <div class="st-kpi__label">⏳ 정산 대기</div>
+                  <div class="st-kpi__value">3<span>건</span></div>
+                </div>
+                <div class="st-kpi">
+                  <div class="st-kpi__label">✅ 정산 완료</div>
+                  <div class="st-kpi__value">5<span>건</span></div>
+                </div>
+                <div class="st-kpi">
+                  <div class="st-kpi__label">🧾 세금계산서 발행</div>
+                  <div class="st-kpi__value">12<span>건</span></div>
+                </div>
+                <div class="st-kpi">
+                  <div class="st-kpi__label">💰 총 정산액</div>
+                  <div class="st-kpi__value">8,420,000<span>원</span></div>
+                </div>
+              </div>
+
+              <!-- 필터 -->
+              <div class="st-filters">
+                <span class="st-filter st-filter--on">전체</span>
+                <span class="st-filter">대기</span>
+                <span class="st-filter">완료</span>
+                <span class="st-filter">세금계산서 발행</span>
+              </div>
+
+              <!-- 테이블 -->
+              <div class="st-table">
+                <div class="st-thead">
+                  <div>정산 번호</div>
+                  <div>호스트</div>
+                  <div>회차 기간</div>
+                  <div class="st-num">총매출</div>
+                  <div class="st-num">최종 정산액</div>
+                  <div>상태</div>
+                </div>
+                <div class="st-row">
+                  <div>#14</div>
+                  <div>호스트 #3001</div>
+                  <div>2026.06.05 ~ 06.08</div>
+                  <div class="st-num">1,240,000원</div>
+                  <div class="st-num"><strong>1,140,800원</strong></div>
+                  <div><span class="st-sbadge st-sbadge--invoice">세금계산서 발행</span></div>
+                </div>
+                <div class="st-row">
+                  <div>#13</div>
+                  <div>호스트 #3002</div>
+                  <div>2026.06.05 ~ 06.08</div>
+                  <div class="st-num">880,000원</div>
+                  <div class="st-num"><strong>564,600원</strong></div>
+                  <div><span class="st-sbadge st-sbadge--invoice">세금계산서 발행</span></div>
+                </div>
+                <div class="st-row">
+                  <div>#12</div>
+                  <div>호스트 #3001</div>
+                  <div>2026.06.01 ~ 06.04</div>
+                  <div class="st-num">1,520,000원</div>
+                  <div class="st-num"><strong>1,318,400원</strong></div>
+                  <div><span class="st-sbadge st-sbadge--done">정산 완료</span></div>
+                </div>
+                <div class="st-row">
+                  <div>#11</div>
+                  <div>호스트 #3003</div>
+                  <div>2026.05.28 ~ 05.31</div>
+                  <div class="st-num">92,000원</div>
+                  <div class="st-num"><strong>—</strong></div>
+                  <div><span class="st-sbadge st-sbadge--wait">정산 대기</span></div>
+                </div>
+              </div>
+              <div class="st-pager">‹ 1 2 3 ›</div>
+            </div>
+
+            <!-- ===== 오른쪽: 기능 목록 (아코디언, 기본 전부 닫힘) ===== -->
+            <div class="pay2__right">
+              <!-- 정산 생성 → SettleService.createSettle -->
+              <div class="func">
+                <button class="func__head">정산 생성 (타입별 합산·실지급액 산정)<span class="func__arrow">▾</span></button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">정산 생성</span>
+                    <span class="func__bar-file">SettleService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 정산 생성
+    @Transactional
+    public SettleResDto createSettle(SettleCreateReqDto reqDto) {
+        HostEntity host = hostRepository.findById(reqDto.getHostNo())
+                .orElseThrow(() -&gt; new CustomException(HostErrorCode.HOST_NOT_FOUND));
+        List&lt;HostPlaceEntity&gt; hostPlaces =
+                hostPlaceRepository.findByHostEntityNoAndStatus(host.getNo(), ApprovalStatus.A);
+        List&lt;Long&gt; officeNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getOfficeEntity() != null)
+                .map(hp -&gt; hp.getOfficeEntity().getNo())
+                .distinct()
+                .toList();
+        List&lt;Long&gt; stationNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getStationEntity() != null)
+                .map(hp -&gt; hp.getStationEntity().getNo())
+                .distinct()
+                .toList();
+        List&lt;Long&gt; workStayNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getWorkStayEntity() != null)
+                .map(hp -&gt; hp.getWorkStayEntity().getNo())
+                .distinct()
+                .toList();
+        LocalDateTime start = reqDto.getSettleStartDate().atStartOfDay();
+        LocalDateTime end = reqDto.getSettleEndDate().atTime(LocalTime.MAX);
+        // 정산 대상(이용 완료)을 공간 타입별로 합산
+        int officeAmt = payRepository.sumByOfficeIn(officeNos, start, end).intValue();
+        int stationAmt = payRepository.sumByStationIn(stationNos, start, end).intValue();
+        int workStayAmt = payRepository.sumByWorkStayIn(workStayNos, start, end).intValue();
+        int totalAmt = officeAmt + stationAmt + workStayAmt;
+        // 공간 타입별 수수료율을 적용해 수수료 합산
+        int feeAmt = calcFee(officeAmt, PlaceType.office,start)
+                + calcFee(stationAmt, PlaceType.station,start)
+                + calcFee(workStayAmt, PlaceType.workStay,start);
+        int refundAmt = refundRepository.sumByOfficeIn(officeNos, start, end)
+                .add(refundRepository.sumByStationIn(stationNos, start, end))
+                .add(refundRepository.sumByWorkStayIn(workStayNos, start, end))
+                .intValue();
+        int payoutAmt = totalAmt - feeAmt - refundAmt;   // 결제액에서 수수료·환불액을 뺀 실지급액
+        Integer prevCarryOver = settleRepository.findLatestByHostNo(host.getNo())
+                .map(SettleEntity::getCarryOver).orElse(0);
+        int effectiveAmt = payoutAmt + prevCarryOver;
+        if (totalAmt == 0 &amp;&amp; prevCarryOver == 0) {
+            return null;
+        }
+        SettleEntity entity = reqDto.toEntity(host);
+        entity.applyAmounts(totalAmt, feeAmt, refundAmt, payoutAmt);
+        entity.settleWithCarry(effectiveAmt, MIN_PAYOUT);
+        return SettleResDto.from(settleRepository.save(entity));   // 정산 데이터 저장
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 수수료 계산 → SettleService.calcFee -->
+              <div class="func">
+                <button class="func__head">공간 타입별 수수료 계산<span class="func__arrow">▾</span></button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">수수료 계산</span>
+                    <span class="func__bar-file">SettleService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 공간 타입별 수수료율을 결제액에 적용
+    private int calcFee(int amt, PlaceType placeType,LocalDateTime date) {
+                if (amt == 0) return 0;
+        int rate = feeRepository.findValidFee(placeType, date)
+                .orElseThrow(() -&gt; new CustomException(FeeErrorCode.FEE_NOT_FOUND))
+                .getRate();
+        return amt * rate / 100;
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 자동 정산 배치 → SettleScheduler.settleBatch -->
+              <div class="func">
+                <button class="func__head">자동 정산 배치 (4일 주기)<span class="func__arrow">▾</span></button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">자동 정산 배치</span>
+                    <span class="func__bar-file">SettleScheduler.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    @Scheduled(cron = "0 0 0 */4 * *")
+    public void settleBatch() {
+        LocalDate end = LocalDate.now().minusDays(1);
+        LocalDate start = end.minusDays(3);
+
+        for (HostEntity host : hostRepository.findAll()) {
+            try {
+                SettleCreateReqDto reqDto = SettleCreateReqDto.builder()
+                        .hostNo(host.getNo())
+                        .settleStartDate(start)
+                        .settleEndDate(end)
+                        .build();
+                SettleResDto result = settleService.createSettle(reqDto);
+                if(result != null &amp;&amp; result.getStatus() == SettleStatus.WAITING){
+                    settleService.completeSettle(result.getNo());
+                    settleService.issueTaxInvoice(result.getNo());
+                }
+            } catch (Exception e) {
+                log.error("정산 배치 실패 hostNo={}", host.getNo(), e);
+            }
+        }
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 통계 ========== -->
+        <section class="page" id="stats" hidden>
+          <header class="page__head">
+            <h1 class="page__title">통계</h1>
+            <p class="page__desc">사전집계 파이프라인 + 매출·예약·회원·공간 통계 조회 API.</p>
+          </header>
+          <!-- 좌: 수익 통계 화면 재현 / 우: 기능 토글 + 코드 -->
+          <div class="pay2">
+            <!-- ===== 왼쪽: 수익 통계 본문 (RevenueStats 재현) ===== -->
+            <div class="sv-app">
+              <div class="sv-head">
+                <div class="sv-head__title">수익 통계</div>
+                <div class="sv-head__desc">월별 매출·환불·순매출 추이</div>
+              </div>
+
+              <!-- 기간 탭 -->
+              <div class="sv-tabs">
+                <span class="sv-tab">이번 달</span>
+                <span class="sv-tab">3개월</span>
+                <span class="sv-tab sv-tab--on">6개월</span>
+                <span class="sv-tab">1년</span>
+              </div>
+
+              <!-- KPI -->
+              <div class="sv-kpis">
+                <div class="sv-kpi sv-kpi--hl">
+                  <div class="sv-kpi__label">💰 총 매출</div>
+                  <div class="sv-kpi__value">12,400,000<span>원</span></div>
+                </div>
+                <div class="sv-kpi">
+                  <div class="sv-kpi__label">↩ 환불 총액</div>
+                  <div class="sv-kpi__value">340,000<span>원</span></div>
+                </div>
+                <div class="sv-kpi">
+                  <div class="sv-kpi__label">📈 순매출 (환불 차감)</div>
+                  <div class="sv-kpi__value">12,060,000<span>원</span></div>
+                </div>
+                <div class="sv-kpi">
+                  <div class="sv-kpi__label">↩ 환불율</div>
+                  <div class="sv-kpi__value">2.7<span>%</span></div>
+                </div>
+              </div>
+
+              <!-- 월별 매출 추이 막대 -->
+              <div class="sv-chart-title">6개월 매출 추이</div>
+              <div class="sv-bars">
+                <div class="sv-bar-col"><span class="sv-bar-val">120만</span><div class="sv-bar" style="height: 45%"></div><span class="sv-bar-label">1월</span></div>
+                <div class="sv-bar-col"><span class="sv-bar-val">165만</span><div class="sv-bar" style="height: 62%"></div><span class="sv-bar-label">2월</span></div>
+                <div class="sv-bar-col"><span class="sv-bar-val">101만</span><div class="sv-bar" style="height: 38%"></div><span class="sv-bar-label">3월</span></div>
+                <div class="sv-bar-col"><span class="sv-bar-val">208만</span><div class="sv-bar" style="height: 78%"></div><span class="sv-bar-label">4월</span></div>
+                <div class="sv-bar-col"><span class="sv-bar-val">240만</span><div class="sv-bar" style="height: 90%"></div><span class="sv-bar-label">5월</span></div>
+                <div class="sv-bar-col"><span class="sv-bar-val">266만</span><div class="sv-bar sv-bar--on" style="height: 100%"></div><span class="sv-bar-label">6월</span></div>
+              </div>
+
+              <!-- 월·매출 표 -->
+              <div class="sv-table">
+                <div class="sv-trow"><div>월</div><div class="sv-num">매출</div></div>
+                <div class="sv-trow"><div>4월</div><div class="sv-num">2,080,000원</div></div>
+                <div class="sv-trow"><div>5월</div><div class="sv-num">2,400,000원</div></div>
+                <div class="sv-trow"><div>6월</div><div class="sv-num">2,660,000원</div></div>
+              </div>
+            </div>
+
+            <!-- ===== 오른쪽: 기능 목록 (아코디언, 기본 전부 닫힘) ===== -->
+            <div class="pay2__right">
+              <!-- 일자별 통계 적재 → StatsService.loadDailyStats -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">일자별 통계 적재 (사전집계 upsert)</span>
+                    <span class="func__desc">조회마다 결제 원장을 집계하면 비싸서, 하루치 결제·환불 통계를 미리 적재합니다. 같은 행이 있으면 update·없으면 insert라 재적재돼도 멱등합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">일자별 통계 적재</span>
+                    <span class="func__bar-file">StatsService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 일자별 통계를 하루치를 미리 적재(스케줄러)
+    @Transactional
+    public void loadDailyStats(LocalDate targetDate) {
+        LocalDateTime startTime = targetDate.atStartOfDay();
+        LocalDateTime endTime = targetDate.atTime(23, 59, 59);
+        List&lt;Tuple&gt; list = payRepository.sumByMethodBetween(startTime, endTime);
+        for (Tuple tuple : list) {
+            PayMethod payMethod = tuple.get(0, PayMethod.class);
+            Long count = tuple.get(1, Long.class);
+            Long sum = tuple.get(2, Long.class);
+            // 같은 행이 있으면 update, 없으면 insert → 재적재돼도 멱등
+            dailyPayStatsRepository
+                    .findByStatDateAndPayMethod(targetDate,
+                            payMethod)
+                    .ifPresentOrElse(
+                            entity -&gt;
+                                    entity.updateStats(count.intValue(), sum),
+                            () -&gt; dailyPayStatsRepository.save(
+                                    DailyPayStatsEntity.builder()
+                                            .statDate(targetDate)
+                                            .payMethod(payMethod)
+                                            .payCount(count.intValue())
+                                            .totalAmt(sum)
+                                            .build()
+                            )
+                    );
+        }
+        Tuple refundTuple = refundRepository.sumBetween(startTime,
+                endTime);
+        Long refundCount = refundTuple.get(0, Long.class);
+        BigDecimal refundAmt = refundTuple.get(1, BigDecimal.class);
+        dailyRefundStatsRepository.findByStatDate(targetDate)
+                .ifPresentOrElse(
+                        entity -&gt;
+                                entity.updateStats(refundCount.intValue(), refundAmt),
+                        () -&gt; dailyRefundStatsRepository.save(
+                                DailyRefundStatsEntity.builder()
+                                        .statDate(targetDate)
+
+                                        .refundCount(refundCount.intValue())
+                                        .refundAmt(refundAmt)
+                                        .build()
+                        )
+                );
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 호스트 매출 통계 → StatsService.findHostSalesStats -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">호스트 매출 통계 (단일 GROUP BY 집계)</span>
+                    <span class="func__desc">호스트의 승인 공간을 타입별로 분류해 기간 매출·환불·건수를 합산하고, 월별 추이는 GROUP BY 한 쿼리로 한 번에 집계합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">호스트 매출 통계</span>
+                    <span class="func__bar-file">StatsService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    public HostSalesStatsResDto findHostSalesStats(Long memberNo, int year, int month, int months) {
+
+        HostEntity hostEntity = hostRepository.findByMemberNo(memberNo)
+                .orElseThrow(() -&gt; new CustomException(HostErrorCode.HOST_NOT_FOUND));
+
+        List&lt;HostPlaceEntity&gt; hostPlaces =
+                hostPlaceRepository.findByHostEntityNoAndStatus(hostEntity.getNo(), ApprovalStatus.A);
+
+        List&lt;Long&gt; officeNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getOfficeEntity() != null)
+                .map(hp -&gt; hp.getOfficeEntity().getNo())
+                .distinct()
+                .toList();
+
+        List&lt;Long&gt; stationNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getStationEntity() != null)
+                .map(hp -&gt; hp.getStationEntity().getNo())
+                .distinct()
+                .toList();
+
+        List&lt;Long&gt; workStayNos = hostPlaces.stream()
+                .filter(hp -&gt; hp.getWorkStayEntity() != null)
+                .map(hp -&gt; hp.getWorkStayEntity().getNo())
+                .distinct()
+                .toList();
+
+        YearMonth ym = YearMonth.of(year, month);
+        LocalDateTime start = ym.minusMonths(months - 1).atDay(1).atStartOfDay();
+        LocalDateTime end = ym.atEndOfMonth().atTime(23, 59, 59);
+
+        long officeAmt = payRepository.sumByOfficeIn(officeNos, start, end);
+        long stationAmt = payRepository.sumByStationIn(stationNos, start, end);
+        long workStayAmt = payRepository.sumByWorkStayIn(workStayNos, start, end);
+        long totalAmt = officeAmt + stationAmt + workStayAmt;
+
+        long refundAmt = refundRepository.sumByOfficeIn(officeNos, start, end)
+                .add(refundRepository.sumByStationIn(stationNos, start, end))
+                .add(refundRepository.sumByWorkStayIn(workStayNos, start, end))
+                .longValue();
+
+        Long payCount = payRepository.sumSalesStatsByOfficeIn(officeNos, start, end)
+                + payRepository.sumSalesStatsByStationIn(stationNos, start, end)
+                + payRepository.sumSalesStatsByWorkStayIn(workStayNos, start, end);
+
+        Map&lt;String, Long&gt; monthlySales = payRepository
+                .sumByMonthBetween(officeNos, stationNos, workStayNos, start, end)
+                .stream()
+                .collect(Collectors.toMap(
+                        m -&gt; m.getMonth(),
+                        m -&gt; {
+                            Long v = m.getSum();
+                            return v == null ? 0L : v;
+                        }));
+        List&lt;MonthlyTrendResDto&gt; trend = buildTrend(ym, months,
+                (s, e) -&gt; monthlySales.getOrDefault(YearMonth.from(s).toString(), 0L));
+
+        return HostSalesStatsResDto.of(totalAmt, payCount, refundAmt, trend);
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 응답 DTO 변환 → HostSalesStatsResDto.of -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">응답 DTO 변환 (금액 Long·0 나누기 가드)</span>
+                    <span class="func__desc">매출 금액을 Long으로 다뤄 int 오버플로(약 21억)를 막고, 결제 0건일 때 평균 계산의 0 나누기를 가드합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">응답 DTO 변환</span>
+                    <span class="func__bar-file">HostSalesStatsResDto.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 금액 필드 Long — 공간별 월 매출이 int(약 21억)를 넘겨 음수 되는 것 방지
+    public static HostSalesStatsResDto of(Long totalAmt, Long payCount, Long refundAmt, List&lt;MonthlyTrendResDto&gt; trend) {
+        long avgAmt = payCount == 0 ? 0 : totalAmt / payCount;   // 결제 0건일 때 0으로 나누기(ArithmeticException) 방지
+        return HostSalesStatsResDto.builder()
+                .totalAmt(totalAmt)
+                .payCount(payCount)
+                .avgAmt(avgAmt)
+                .refundAmt(refundAmt)
+                .trend(trend)
+                .build();
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 도메인형 페이지: 쿠폰·포인트 ========== -->
+        <section class="page" id="coupon-point" hidden>
+          <header class="page__head">
+            <h1 class="page__title">쿠폰·포인트</h1>
+            <p class="page__desc">쿠폰 이벤트 발급/다운로드 + 결제액 1% 적립 + 7일 후 확정.</p>
+          </header>
+          <!-- 좌: 쿠폰함 + 포인트 화면 재현 / 우: 기능 토글 + 코드 -->
+          <div class="pay2">
+            <!-- ===== 왼쪽: 쿠폰·포인트 본문 (MyCoupons + PointHistory 재현) ===== -->
+            <div class="cp-app">
+              <!-- 탭 -->
+              <div class="cp-tabs">
+                <span class="cp-tab cp-tab--on">쿠폰함</span>
+                <span class="cp-tab">포인트</span>
+              </div>
+
+              <!-- 보유 쿠폰 -->
+              <div class="cp-subhead">보유 쿠폰 (2)</div>
+              <div class="cp-grid">
+                <div class="cp-card">
+                  <div class="cp-card__head">
+                    <span class="cp-card__title">여름맞이 15% 할인</span>
+                    <span class="cp-badge cp-badge--on">사용 가능</span>
+                  </div>
+                  <div class="cp-dc">15%</div>
+                  <div class="cp-dc-label">할인</div>
+                  <div class="cp-card__body"><span>유효기간</span><span>2026.06.28까지</span></div>
+                  <span class="cp-dday">⏰ D-7 만료 임박</span>
+                </div>
+                <div class="cp-card">
+                  <div class="cp-card__head">
+                    <span class="cp-card__title">첫 결제 감사 쿠폰</span>
+                    <span class="cp-badge cp-badge--on">사용 가능</span>
+                  </div>
+                  <div class="cp-dc">5,000원</div>
+                  <div class="cp-dc-label">즉시 할인</div>
+                  <div class="cp-card__body"><span>유효기간</span><span>2026.07.15까지</span></div>
+                </div>
+              </div>
+
+              <!-- 포인트 잔액 -->
+              <div class="cp-balance">
+                <div class="cp-balance__label">보유 포인트</div>
+                <div class="cp-balance__amount">5,000P</div>
+                <div class="cp-balance__hint">1P = 1원으로 결제 시 사용할 수 있어요</div>
+              </div>
+
+              <!-- 적립·사용 내역 -->
+              <div class="cp-subhead">적립·사용 내역</div>
+              <div class="cp-hist">
+                <div class="cp-hrow">
+                  <div class="cp-hleft">
+                    <span class="cp-hbadge cp-hbadge--earn">적립</span>
+                    <div class="cp-hmeta">
+                      <span class="cp-hstatus">적립 예정</span>
+                      <span class="cp-hdate">2026.06.14</span>
+                    </div>
+                  </div>
+                  <span class="cp-hamt cp-hamt--plus">+2,450P</span>
+                </div>
+                <div class="cp-hrow">
+                  <div class="cp-hleft">
+                    <span class="cp-hbadge cp-hbadge--use">사용</span>
+                    <div class="cp-hmeta">
+                      <span class="cp-hstatus">사용 완료</span>
+                      <span class="cp-hdate">2026.06.14</span>
+                    </div>
+                  </div>
+                  <span class="cp-hamt cp-hamt--minus">-5,000P</span>
+                </div>
+                <div class="cp-hrow">
+                  <div class="cp-hleft">
+                    <span class="cp-hbadge cp-hbadge--earn">적립</span>
+                    <div class="cp-hmeta">
+                      <span class="cp-hstatus">적립 완료</span>
+                      <span class="cp-hdate">2026.05.30</span>
+                    </div>
+                  </div>
+                  <span class="cp-hamt cp-hamt--plus">+5,000P</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== 오른쪽: 기능 목록 (아코디언, 기본 전부 닫힘) ===== -->
+            <div class="pay2__right">
+              <!-- 환불 시 쿠폰 회수 → CouponEntity.returnCoupon -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">환불 시 쿠폰 회수 (만료 분기)</span>
+                    <span class="func__desc">환불 시 사용된 쿠폰의 결제 연결을 끊고 상태를 되돌립니다. 회수 시점에 이미 유효기간이 지났으면 되살리지 않고 EXPIRED로 두어 만료 쿠폰의 부활을 막습니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">환불 시 쿠폰 회수</span>
+                    <span class="func__bar-file">CouponEntity.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 환불 시 사용한 쿠폰을 회수 — 결제 연결을 끊고 상태를 되돌림
+    public void returnCoupon() {
+        if (this.status != CouponStatus.USED) {
+            throw new CustomException(CouponErrorCode.COUPON_NOT_USED);
+        }
+        this.payNo = null;
+        this.usedAt = null;
+        // 환불 시점에 이미 만료됐으면 되살리지 않고 EXPIRED — 만료된 쿠폰이 부활하는 것 방지
+        if (this.expiredAt != null &amp;&amp; this.expiredAt.isBefore(LocalDateTime.now())) {
+            this.status = CouponStatus.EXPIRED;
+        } else {
+            this.status = CouponStatus.AVAILABLE;
+        }
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 포인트 잔액 계산 → PointService.calcBalance -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">포인트 잔액 계산</span>
+                    <span class="func__desc">사용 내역(USED)을 음수로 저장해 두어, 적립(SAVE)과 단순히 더하기만 하면 차감 효과가 나도록 설계했습니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">포인트 잔액 계산</span>
+                    <span class="func__bar-file">PointService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 포인트 잔액 = 적립 + 사용 합산
+    private int calcBalance(Long memberNo) {
+        int saveSum = pointRepository.sumByMemberAndStatus(memberNo, PointStatus.SAVE);
+        int usedSum = pointRepository.sumByMemberAndStatus(memberNo, PointStatus.USED);
+        return saveSum + usedSum;
+    }</code></pre>
+                </div>
+              </div>
+
+              <!-- 환불 시 포인트 복원·취소 → PointService -->
+              <div class="func">
+                <button class="func__head func__head--rich">
+                  <span class="func__head-main">
+                    <span class="func__name">환불 시 포인트 복원·취소</span>
+                    <span class="func__desc">환불 시 사용한 포인트는 새 SAVE row로 복원하고, 이 결제로 적립됐던 포인트는 취소합니다. 둘은 같은 EARN을 건드려 호출 순서에 의존합니다.</span>
+                  </span>
+                  <span class="func__arrow">▾</span>
+                </button>
+                <div class="func__body" hidden>
+                  <div class="func__bar">
+                    <span class="func__bar-name">환불 시 포인트 복원·취소</span>
+                    <span class="func__bar-file">PointService.java</span>
+                  </div>
+                  <pre class="func__code"><code class="language-java">    // 환불 시 사용했던 포인트를 되돌림
+    @Transactional
+    public void refundUsedPoint(PayEntity payEntity) {
+        MemberEntity member = findMember(payEntity.getRsvnNo().getMemberNo().getNo());
+        List&lt;PointEntity&gt; pointList = pointRepository.findByPayAndDealType(payEntity.getNo(), PointDealType.USE);
+        int sumPoint = pointList.stream().mapToInt(PointEntity::getAmount).sum();
+        int returnPoint = Math.abs(sumPoint);
+        if (returnPoint == 0) return;
+        PointEntity entity = PointEntity.builder()
+                .memberNo(member)
+                .payNo(payEntity)
+                .amount(returnPoint)
+                .dealType(PointDealType.EARN)
+                .status(PointStatus.SAVE)
+                .expiredAt(LocalDateTime.now().plusYears(1))
+                .build();
+        pointRepository.save(entity);
+    }
+
+    // 환불 시 그 결제로 적립됐던 포인트를 취소
+    @Transactional
+    public void cancelEarnedPoint(PayEntity payEntity) {
+        List&lt;PointEntity&gt; pointList = pointRepository.findByPayAndDealType(payEntity.getNo(), PointDealType.EARN);
+        pointList.stream()
+                .filter(p -&gt; p.getStatus() == PointStatus.WAIT || p.getStatus() == PointStatus.SAVE)
+                .forEach(PointEntity::cancel);
+    }</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 트러블슈팅 ========== -->
+        <section class="page" id="troubleshooting" hidden>
+          <header class="page__head">
+            <h1 class="page__title">트러블슈팅</h1>
+            <p class="page__desc">개발 중 마주친 문제와 해결 과정.</p>
+          </header>
+          <div class="doc-block doc-block--flush">
+            <article class="ts-card">
+              <h2 class="ts-card__title">① 환불 시 포인트가 사라지던 문제</h2>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--symptom">증상</span>
+                <p>환불 시 사용했던 포인트를 복원했는데, 복원되자마자 다시 사라졌다. 에러는 발생하지 않아 원인이 보이지 않았다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--cause">원인</span>
+                <p>환불 처리에서 두 작업이 같은 종류의 포인트(EARN/SAVE)를 건드렸다. refundUsedPoint는 사용 포인트를 새 적립(EARN)으로 복원하고, cancelEarnedPoint는 이 결제의 적립(EARN) 포인트를 전부 취소한다. 복원을 먼저 하면 뒤이은 적립 취소가 방금 복원한 포인트까지 같이 지웠다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--fix">해결</span>
+                <p>실행 순서를 "적립 취소 → 사용 복원"으로 고정. 취소가 먼저 끝난 뒤 복원하므로 복원분이 취소 대상에서 빠진다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--learn">배운 점</span>
+                <p>에러가 없어도 결과가 틀릴 수 있다. 증상이 아니라 전체 흐름을 끝까지 따라가야 진짜 원인이 잡힌다.</p>
+              </div>
+            </article>
+
+            <article class="ts-card">
+              <h2 class="ts-card__title">② 매출 통계 값이 음수로 뒤집히던 문제</h2>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--symptom">증상</span>
+                <p>대량 더미 데이터로 테스트하던 중 일 매출 합계가 음수로 표시됐다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--cause">원인</span>
+                <p>매출 합계가 int 한계(약 21억)를 초과하면서 값이 음수로 오버플로됐다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--fix">해결</span>
+                <p>금액 필드를 Long으로 변경. 문제가 된 필드만이 아니라 같은 금액을 다루는 다른 필드까지 일관되게 맞춰 재발을 방지했다.</p>
+              </div>
+              <div class="ts-step">
+                <span class="ts-step__label ts-step__label--learn">배운 점</span>
+                <p>평소 데이터로는 안 보이는 문제가 한계 상황에서 드러난다. 기능 완성 후 일부러 과부하를 만들어 약점을 미리 찾는 습관이 생겼다.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 성능 개선 ========== -->
+        <section class="page" id="performance" hidden>
+          <header class="page__head">
+            <h1 class="page__title">성능 개선</h1>
+            <p class="page__desc">쿼리 최적화 전/후 측정 (18쿼리 → 1쿼리, 8.9배).</p>
+          </header>
+          <div class="doc-block">
+            <h2 class="perf-title">호스트 매출 추이 쿼리 최적화</h2>
+            <div class="def-list">
+              <div class="def-list__row">
+                <dt>문제</dt>
+                <dd>호스트 매출 추이를 월별로 보여주는데, 각 월마다 쿼리를 따로 날려 1회 조회에 18개 쿼리가 실행됐다.</dd>
+              </div>
+              <div class="def-list__row">
+                <dt>개선</dt>
+                <dd>월별 집계를 GROUP BY 한 쿼리로 묶어, 1회 조회당 쿼리를 18개 → 1개로 축소.</dd>
+              </div>
+            </div>
+
+            <h3 class="perf-subtitle">측정 결과 <span>(100회 반복)</span></h3>
+            <table class="metric-table">
+              <thead>
+                <tr>
+                  <th>구분</th>
+                  <th>총 시간</th>
+                  <th>평균 / 회</th>
+                  <th>누적 쿼리</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>개선 전 <small>(18쿼리/회)</small></td>
+                  <td>299,994 ms</td>
+                  <td>2,999 ms</td>
+                  <td>1,800개</td>
+                </tr>
+                <tr class="metric-table__after">
+                  <td>개선 후 <small>(1쿼리/회)</small></td>
+                  <td>33,805 ms</td>
+                  <td>338 ms</td>
+                  <td>100개</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="metric-highlight">
+              <strong class="metric-highlight__num">약 8.9배</strong>
+              <span class="metric-highlight__sub">빠름 · 88.7% 단축</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== 문서형 페이지: 회고 ========== -->
+        <section class="page" id="retrospective" hidden>
+          <header class="page__head">
+            <h1 class="page__title">회고</h1>
+            <p class="page__desc">프로젝트를 통해 배운 점과 아쉬운 점.</p>
+          </header>
+          <div class="doc-block doc-block--flush">
+            <div class="retro-grid">
+              <article class="retro-card">
+                <h3 class="retro-card__title">잘한 점</h3>
+                <p>결제부터 정산까지 거래 흐름 전체를 단독 구현. PG 연동 전 가짜 결제로 흐름을 먼저 검증한 뒤 붙여 문제 추적을 쉽게 했다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">어려웠던 점</h3>
+                <p>정산은 결제·환불·세금계산서가 얽혀 흐름이 복잡했다. 여러 번 다시 그려보며 끝까지 잡아냈다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">아쉬운 점</h3>
+                <p>일정상 리팩토링을 충분히 못 했다. 다음엔 처음부터 구조와 가독성을 염두에 두고 개발하려 한다.</p>
+              </article>
+              <article class="retro-card">
+                <h3 class="retro-card__title">배운 점</h3>
+                <p>거래 흐름 전체를 다뤄보며 시스템이 어떻게 맞물려 도는지 보는 눈이 생겼다.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- 코드 이미지 모달 (공용 1개) -->
+    <div class="code-modal" id="codeModal" hidden>
+      <div class="code-modal__panel">
+        <div class="code-modal__bar">
+          <span class="code-modal__label" id="codeModalLabel">코드</span>
+          <button class="code-modal__close" id="codeModalClose" aria-label="닫기">✕</button>
+        </div>
+        <div class="code-modal__body">
+          <img class="code-modal__img" id="codeModalImg" src="" alt="코드 캡처" />
+          <div class="code-modal__hint">실제 IDE 코드 캡처가 들어갈 자리입니다.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 분리된 스크립트: SPA 네비/아코디언/모달 -->
+    <script src="app.js"></script>
+  </body>
+</html>
