@@ -18,7 +18,7 @@ export default function Sidebar({ page, onNavigate }) {
 	return (
 		<aside className="sidebar">
 			<div className="sidebar__logo">
-				<span className="sidebar__logo-title">전포트폴리오</span>
+				<span className="sidebar__logo-title">포트폴리오</span>
 				<span className="sidebar__logo-name">김우영</span>
 			</div>
 
