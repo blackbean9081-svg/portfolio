@@ -101,7 +101,7 @@ class AdminListFetchJoinPerfTest {
 
 const CASES = [
 	{
-		headline: "8.9배 빨라진 매출 통계 조회",
+		headline: "88.7% 빨라진 매출 통계 조회",
 		title: "호스트 매출 추이 통계",
 		tag: "GROUP BY",
 		measure:
