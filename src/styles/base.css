@@ -641,7 +641,8 @@
         padding: 3px 10px;
       }
       /* 카드 안 세부 항목(결제·환불처럼 여러 개면 위아래로) */
-      .perf-case__item + .perf-case__item {
+      .perf-case__item + .perf-case__item,
+      .perf-code + .perf-case__item {
         margin-top: var(--space-5);
         padding-top: var(--space-5);
         border-top: 1px solid var(--line);

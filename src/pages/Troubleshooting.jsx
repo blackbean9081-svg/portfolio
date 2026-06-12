@@ -42,7 +42,43 @@ export default function Troubleshooting({ active }) {
         </article>
 
         <article className="ts-card">
-          <h2 className="ts-card__title">② 매출 통계 값이 음수로 뒤집히던 문제</h2>
+          <h2 className="ts-card__title">② 환불 시 만료된 쿠폰이 되살아나던 문제</h2>
+          <div className="ts-step">
+            <span className="ts-step__label ts-step__label--symptom">증상</span>
+            <p>
+              환불할 때 사용했던 쿠폰을 되돌려주는데, 이미 유효기간이 지난
+              쿠폰까지 "사용 가능" 상태로 복원돼, 만료된 쿠폰을 다시 쓸 수 있는
+              상황이 생겼다.
+            </p>
+          </div>
+          <div className="ts-step">
+            <span className="ts-step__label ts-step__label--cause">원인</span>
+            <p>
+              환불 시 쿠폰을 무조건 "사용 가능" 상태로 되돌리고 있었다. 결제 직후
+              바로 환불하면 문제없지만, 환불이 한참 뒤에 일어나면 그 사이 만료된
+              쿠폰까지 되살아났다.
+            </p>
+          </div>
+          <div className="ts-step">
+            <span className="ts-step__label ts-step__label--fix">해결</span>
+            <p>
+              쿠폰을 되돌릴 때 환불 시점의 유효기간을 확인해, 만료됐으면 EXPIRED,
+              아직 유효하면 AVAILABLE로 분기 처리했다. (returnCoupon 메서드)
+              만료된 쿠폰은 부활하지 않도록 막았다.
+            </p>
+          </div>
+          <div className="ts-step">
+            <span className="ts-step__label ts-step__label--learn">배운 점</span>
+            <p>
+              "지금 당장은 괜찮은" 처리가 시간이 지나면 문제가 될 수 있다는 걸
+              배웠다. 기능을 만들 때 "환불이 늦게 일어나면?" 같은 시간차 상황까지
+              고려해야 한다는 걸 알게 됐다.
+            </p>
+          </div>
+        </article>
+
+        <article className="ts-card">
+          <h2 className="ts-card__title">③ 매출 통계 값이 음수로 뒤집히던 문제</h2>
           <div className="ts-step">
             <span className="ts-step__label ts-step__label--symptom">증상</span>
             <p>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import CodeBlock from '../components/CodeBlock.jsx';
 
 // ── 측정 테스트 코드 (실제 파일에서 핵심부 발췌 — 워밍업 → 반복 측정 루프 → 결과 출력) ──
@@ -200,53 +200,57 @@ export default function Performance({ active }) {
               <span className="perf-case__tag">{c.tag}</span>
             </div>
 
-            {c.items.map((it) => (
-              <div className="perf-case__item" key={it.file}>
-                {it.subtitle && (
-                  <div className="perf-case__item-title">{it.subtitle}</div>
+            {c.items.map((it, idx) => (
+              <Fragment key={it.file}>
+                <div className="perf-case__item">
+                  {it.subtitle && (
+                    <div className="perf-case__item-title">{it.subtitle}</div>
+                  )}
+                  <code className="perf-case__file">{it.file}</code>
+
+                  <div className="perf-case__body">
+                    <div className="perf-case__row">
+                      <span className="perf-case__label perf-case__label--problem">
+                        문제
+                      </span>
+                      <p>{it.problem}</p>
+                    </div>
+                    <div className="perf-case__row">
+                      <span className="perf-case__label perf-case__label--solve">
+                        개선
+                      </span>
+                      <p>{it.solve}</p>
+                    </div>
+                  </div>
+
+                  <div className="perf-metric">
+                    <div className="perf-metric__ba">
+                      <div className="perf-metric__before">
+                        <span>개선 전</span>
+                        <strong>{it.before}</strong>
+                      </div>
+                      <span className="perf-metric__arrow">→</span>
+                      <div className="perf-metric__after">
+                        <span>개선 후</span>
+                        <strong>{it.after}</strong>
+                      </div>
+                    </div>
+                    <div className="perf-metric__note">{it.note}</div>
+                  </div>
+                </div>
+
+                {/* 측정 방법(증빙) + 측정 코드 — 첫 항목 바로 뒤에 배치 */}
+                {idx === 0 && (
+                  <>
+                    <div className="perf-measure">
+                      <span className="perf-measure__label">측정 방법</span>
+                      <p className="perf-measure__text">{c.measure}</p>
+                    </div>
+                    <PerfCode file={c.testFile} code={c.code} />
+                  </>
                 )}
-                <code className="perf-case__file">{it.file}</code>
-
-                <div className="perf-case__body">
-                  <div className="perf-case__row">
-                    <span className="perf-case__label perf-case__label--problem">
-                      문제
-                    </span>
-                    <p>{it.problem}</p>
-                  </div>
-                  <div className="perf-case__row">
-                    <span className="perf-case__label perf-case__label--solve">
-                      개선
-                    </span>
-                    <p>{it.solve}</p>
-                  </div>
-                </div>
-
-                <div className="perf-metric">
-                  <div className="perf-metric__ba">
-                    <div className="perf-metric__before">
-                      <span>개선 전</span>
-                      <strong>{it.before}</strong>
-                    </div>
-                    <span className="perf-metric__arrow">→</span>
-                    <div className="perf-metric__after">
-                      <span>개선 후</span>
-                      <strong>{it.after}</strong>
-                    </div>
-                  </div>
-                  <div className="perf-metric__note">{it.note}</div>
-                </div>
-              </div>
+              </Fragment>
             ))}
-
-            {/* 측정 방법(증빙) 한 줄 — 측정 박스 아래 작게 */}
-            <div className="perf-measure">
-              <span className="perf-measure__label">측정 방법</span>
-              <p className="perf-measure__text">{c.measure}</p>
-            </div>
-
-            {/* 측정 코드 보기 — 실제 테스트 파일 발췌 */}
-            <PerfCode file={c.testFile} code={c.code} />
           </article>
         ))}
       </div>
