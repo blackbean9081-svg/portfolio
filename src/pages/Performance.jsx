@@ -206,7 +206,6 @@ export default function Performance({ active }) {
                   {it.subtitle && (
                     <div className="perf-case__item-title">{it.subtitle}</div>
                   )}
-                  <code className="perf-case__file">{it.file}</code>
 
                   <div className="perf-case__body">
                     <div className="perf-case__row">
