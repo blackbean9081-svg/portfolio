@@ -38,7 +38,6 @@ export default function Sidebar({ page, onNavigate }) {
 							</button>
 						);
 					}
-					// group (아코디언)
 					const isOpen = !!openGroups[node.id];
 					return (
 						<div className="nav__accordion" key={node.id}>

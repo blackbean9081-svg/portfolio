@@ -4,15 +4,6 @@ export const NAV = [
 	{ type: "divider" },
 	{
 		type: "group",
-		id: "semi",
-		label: "세미 프로젝트 (TaskFlow)",
-		children: [
-			{ id: "semi-project", label: "프로젝트 관리" },
-			{ id: "semi-checklist", label: "체크리스트" },
-		],
-	},
-	{
-		type: "group",
 		id: "final",
 		label: "파이널 프로젝트 (Sloway)",
 		children: [
@@ -21,6 +12,15 @@ export const NAV = [
 			{ id: "settlement", label: "정산" },
 			{ id: "stats", label: "통계" },
 			{ id: "coupon-point", label: "쿠폰·포인트" },
+		],
+	},
+	{
+		type: "group",
+		id: "semi",
+		label: "세미 프로젝트 (TaskFlow)",
+		children: [
+			{ id: "semi-project", label: "프로젝트 관리" },
+			{ id: "semi-checklist", label: "체크리스트" },
 		],
 	},
 	{ type: "divider" },
@@ -32,13 +32,13 @@ export const NAV = [
 export const PAGE_IDS = [
 	"overview",
 	"tech",
-	"semi-project",
-	"semi-checklist",
 	"payment",
 	"refund",
 	"settlement",
 	"stats",
 	"coupon-point",
+	"semi-project",
+	"semi-checklist",
 	"troubleshooting",
 	"performance",
 	"retrospective",
