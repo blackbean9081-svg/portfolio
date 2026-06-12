@@ -1,4 +1,5 @@
 import Func from "../components/Func.jsx";
+import SemiChecklistScreen from "../components/screens/SemiChecklistScreen.jsx";
 
 // ── 백엔드 원본 코드 (CheckService.java) — 있는 그대로 ──
 const CODE_INSERT = `    // 단건 등록 — INSERT 후 채번한 PK 를 VO 에 되돌려 담아 프론트 즉시 렌더에 사용
@@ -57,60 +58,7 @@ export default function SemiChecklist({ active }) {
 
 			<div className="pay2">
 				{/* ===== 왼쪽: 마일스톤 패널 + 체크리스트 재현 (mile/list.jsp 내장) ===== */}
-				<div className="sck">
-					{/* 마일스톤 헤더 — 체크리스트는 마일스톤에 종속 */}
-					<div className="sck__mile">
-						<span className="sck__mile-bar"></span>
-						<div className="sck__mile-info">
-							<span className="sck__mile-title">
-								프로젝트 · 체크리스트 기능
-							</span>
-							<span className="sck__mile-date">2026.02.10 ~ 2026.02.14</span>
-						</div>
-					</div>
-
-					{/* 체크리스트 */}
-					<div className="sck__head">
-						<span className="sck__head-label">체크리스트</span>
-						<span className="sck__add-btn">+</span>
-					</div>
-					<div className="sck__list">
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">
-								프로젝트 생성 4테이블 트랜잭션 처리
-							</span>
-							<span className="sck__x">✕</span>
-						</div>
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">단계별 INSERT 후 외래키 연결</span>
-							<span className="sck__x">✕</span>
-						</div>
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">실패 시 전체 롤백</span>
-							<span className="sck__x">✕</span>
-						</div>
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">PM 권한 체크 · 유효성 검사</span>
-							<span className="sck__x">✕</span>
-						</div>
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">
-								체크리스트 CRUD (단건·다건 등록)
-							</span>
-							<span className="sck__x">✕</span>
-						</div>
-						<div className="sck__item sck__item--done">
-							<span className="sck__box">✓</span>
-							<span className="sck__text">완료 여부 즉시 반영</span>
-							<span className="sck__x">✕</span>
-						</div>
-					</div>
-				</div>
+				<SemiChecklistScreen />
 
 				{/* ===== 오른쪽: 기능 목록 (아코디언) ===== */}
 				<div className="pay2__right">
