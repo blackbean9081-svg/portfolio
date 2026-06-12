@@ -57,7 +57,7 @@ export default function Overview({ active }) {
 								</span>
 							</div>
 							<div className="impl__row impl__row--mine">
-								<span className="impl__dom">프로젝트 관리 👤</span>
+								<span className="impl__dom">프로젝트 관리</span>
 								<span className="impl__feat">
 									프로젝트 생성·수정·삭제(4테이블 트랜잭션), 마일스톤,
 									체크리스트
@@ -81,7 +81,7 @@ export default function Overview({ active }) {
 							</div>
 						</div>
 						<div className="impl__mine">
-							<div className="impl__mine-head">👤 본인 담당</div>
+							<div className="impl__mine-head">본인 담당</div>
 							<div className="impl__mine-body">
 								프로젝트 관리(생성·수정·삭제 트랜잭션) + 체크리스트 +
 								형상관리자(Git Flow)
@@ -120,9 +120,9 @@ export default function Overview({ active }) {
 							<dt>핵심 경험</dt>
 							<dd>
 								결제부터 환불·정산까지 이어지는 거래 흐름 전체를 단독으로
-								구현하며, 시스템이 어떻게 맞물려 도는지 보는 눈을 길렀습니다. 외부
-								PG는 모의 결제로 흐름을 먼저 검증한 뒤 실제 연동에 들어가, 문제
-								추적을 쉽게 했습니다.
+								구현하며, 시스템이 어떻게 맞물려 도는지 보는 눈을 길렀습니다.
+								외부 PG는 모의 결제로 흐름을 먼저 검증한 뒤 실제 연동에 들어가,
+								문제 추적을 쉽게 했습니다.
 							</dd>
 						</div>
 					</dl>
@@ -136,7 +136,7 @@ export default function Overview({ active }) {
 								<span>주요 기능</span>
 							</div>
 							<div className="impl__row">
-								<span className="impl__dom">회원·인증·호스트·관리자</span>
+								<span className="impl__dom">회원·인증</span>
 								<span className="impl__feat">회원/호스트/관리자 인증·관리</span>
 							</div>
 							<div className="impl__row">
@@ -163,7 +163,7 @@ export default function Overview({ active }) {
 							</div>
 						</div>
 						<div className="impl__mine">
-							<div className="impl__mine-head">👤 본인 담당</div>
+							<div className="impl__mine-head">본인 담당</div>
 							<ul className="impl__mine-list">
 								<li>
 									<strong>결제</strong> 카카오·토스 PG 연동, 쿠폰·포인트 통합
