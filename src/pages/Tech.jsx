@@ -1,7 +1,6 @@
 // 기술 스택 — devicon 컬러 로고(icon 슬러그) + 공식 로고 없는 건 텍스트 칩.
 // icon 이 있으면 devicon SVG, 없으면 이름 칩으로 렌더.
-const ICON_BASE =
-	"https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
+const ICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 
 const SECTIONS = [
 	{
@@ -15,6 +14,14 @@ const SECTIONS = [
 		],
 	},
 	{
+		label: "Frontend",
+		items: [{ name: "React", icon: "react" }],
+	},
+	{
+		label: "Build Tool",
+		items: [{ name: "Gradle" }], // devicon original 변형 불확실 → 칩
+	},
+	{
 		label: "DB",
 		items: [{ name: "PostgreSQL", icon: "postgresql" }],
 	},
@@ -24,6 +31,18 @@ const SECTIONS = [
 			{ name: "KakaoPay" }, // 공식 로고 없음 → 칩
 			{ name: "TossPay" }, // 공식 로고 없음 → 칩
 		],
+	},
+	{
+		label: "Cloud",
+		items: [
+			{ name: "AWS EC2" }, // 개별 서비스 devicon 없음 → 칩
+			{ name: "AWS RDS" }, // 개별 서비스 devicon 없음 → 칩
+			{ name: "AWS S3" }, // 개별 서비스 devicon 없음 → 칩
+		],
+	},
+	{
+		label: "DevOps",
+		items: [{ name: "GitHub Actions" }], // devicon original 변형 불확실 → 칩
 	},
 	{
 		label: "협업",
@@ -37,7 +56,10 @@ const SECTIONS = [
 	},
 	{
 		label: "기타",
-		items: [{ name: "KakaoTalk" }], // devicon 미보유 → 칩
+		items: [
+			{ name: "KakaoTalk" }, // devicon 미보유 → 칩
+			{ name: "JWT" }, // 칩
+		],
 	},
 ];
 
