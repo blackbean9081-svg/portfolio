@@ -740,6 +740,83 @@
         font-size: 0.8rem;
         color: var(--ink-soft);
       }
+      /* 측정 방법 한 줄 — 측정 박스 아래, 증빙(측정 방법)임이 드러나게 */
+      .perf-measure {
+        margin-top: var(--space-4);
+        display: flex;
+        align-items: baseline;
+        gap: var(--space-3);
+      }
+      .perf-measure__label {
+        flex-shrink: 0;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--sage-dark);
+        background: var(--sage-soft);
+        border-radius: 6px;
+        padding: 2px 8px;
+      }
+      .perf-measure__text {
+        margin: 0;
+        font-size: 0.8rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+      }
+      /* 측정 코드 보기 토글 + 코드 패널 */
+      .perf-code {
+        margin-top: var(--space-4);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+      }
+      .perf-code__toggle {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-family: inherit;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--sage-dark);
+        background: var(--sage-soft);
+        border: none;
+        padding: var(--space-3) var(--space-4);
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .perf-code__toggle:hover,
+      .perf-code__toggle.is-open {
+        background: var(--sage);
+        color: #fff;
+      }
+      .perf-code__arrow {
+        flex-shrink: 0;
+        font-size: 0.7rem;
+        transition: transform 0.2s ease;
+      }
+      .perf-code__toggle.is-open .perf-code__arrow {
+        transform: rotate(180deg);
+      }
+      .perf-code__body[hidden] {
+        display: none;
+      }
+      .perf-code__bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: var(--code-bar);
+        padding: var(--space-4);
+      }
+      .perf-code__bar-name {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--code-accent);
+      }
+      .perf-code__bar-file {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.8rem;
+        color: var(--ink-soft);
+      }
 
       /* ---------- 회고 ---------- */
       /* ===================== 회고 (위에서 아래로 읽히는 문서 형식) ===================== */
