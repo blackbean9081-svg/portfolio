@@ -144,6 +144,10 @@
       .main:has(#semi-checklist:not([hidden])) {
         max-width: none;
       }
+      /* 개요는 본문 폭을 조금 더 넓혀 영역으로 인한 줄바꿈을 줄임 */
+      .main:has(#overview:not([hidden])) {
+        max-width: 1280px;
+      }
 
       .page__head {
         margin-bottom: var(--space-5);
@@ -377,6 +381,7 @@
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
         overflow: hidden;
+        max-width: 720px;
       }
       .impl__row {
         display: grid;
@@ -822,7 +827,7 @@
       /* ---------- 회고 ---------- */
       /* ===================== 회고 (위에서 아래로 읽히는 문서 형식) ===================== */
       .retro {
-        max-width: 760px;
+        max-width: 920px;
       }
       .retro-block {
         margin-bottom: var(--space-8);
