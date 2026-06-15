@@ -1,4 +1,4 @@
-// 기술 스택 — devicon 컬러 로고 + 공식 로고 없는 건 텍스트 칩.
+// 세미(TaskFlow) 기술 스택 — Tech.jsx 와 동일한 뱃지/태그 구조.
 const ICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
 
 const SECTIONS = [
@@ -11,21 +11,19 @@ const SECTIONS = [
 	},
 	{
 		label: "Backend",
-		items: [
-			{ name: "Spring Boot", icon: "spring" },
-			{ name: "Spring Data JPA" },
-			{ name: "QueryDSL" },
-			{ name: "Spring Scheduler" },
-			{ name: "JWT" },
-		],
+		items: [{ name: "Spring Boot", icon: "spring" }, { name: "MyBatis" }],
 	},
 	{
 		label: "Frontend",
-		items: [{ name: "React", icon: "react" }],
+		items: [
+			{ name: "JSP" },
+			{ name: "HTML", icon: "html5" },
+			{ name: "CSS", icon: "css3" },
+		],
 	},
 	{
 		label: "DB",
-		items: [{ name: "PostgreSQL", icon: "postgresql" }],
+		items: [{ name: "Oracle", icon: "oracle" }],
 	},
 	{
 		label: "Build Tool",
@@ -34,18 +32,6 @@ const SECTIONS = [
 	{
 		label: "IDE / Tool",
 		items: [{ name: "IntelliJ", icon: "intellij" }],
-	},
-	{
-		label: "외부 연동",
-		items: [{ name: "KakaoPay" }, { name: "TossPay" }],
-	},
-	{
-		label: "Cloud",
-		items: [{ name: "AWS EC2" }, { name: "AWS RDS" }, { name: "AWS S3" }],
-	},
-	{
-		label: "DevOps",
-		items: [{ name: "GitHub Actions" }],
 	},
 	{
 		label: "협업",
@@ -64,12 +50,12 @@ const SECTIONS = [
 	},
 ];
 
-export default function Tech({ active }) {
+export default function SemiTech({ active }) {
 	return (
-		<section className="page" id="final-tech" hidden={!active}>
+		<section className="page" id="semi-tech" hidden={!active}>
 			<header className="page__head">
 				<h1 className="page__title">기술 스택</h1>
-				<p className="page__desc">백엔드, 프론트엔드, 인프라 사용 기술.</p>
+				<p className="page__desc">세미 프로젝트(TaskFlow) 사용 기술.</p>
 			</header>
 			<div className="doc-block">
 				{SECTIONS.map((sec) => (

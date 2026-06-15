@@ -1,17 +1,16 @@
 export const NAV = [
-	{ type: "item", id: "overview", label: "프로젝트 개요" },
-	{ type: "item", id: "tech", label: "기술 스택" },
-	{ type: "divider" },
 	{
 		type: "group",
 		id: "final",
 		label: "파이널 프로젝트 (Sloway)",
 		children: [
+			{ id: "final-overview", label: "개요" },
+			{ id: "final-tech", label: "기술 스택" },
 			{ id: "payment", label: "결제" },
 			{ id: "refund", label: "환불" },
 			{ id: "settlement", label: "정산" },
 			{ id: "stats", label: "통계" },
-			{ id: "coupon-point", label: "쿠폰·포인트" },
+			{ id: "coupon-point", label: "쿠폰, 포인트" },
 		],
 	},
 	{
@@ -19,6 +18,8 @@ export const NAV = [
 		id: "semi",
 		label: "세미 프로젝트 (TaskFlow)",
 		children: [
+			{ id: "semi-overview", label: "개요" },
+			{ id: "semi-tech", label: "기술 스택" },
 			{ id: "semi-project", label: "프로젝트 관리" },
 			{ id: "semi-checklist", label: "체크리스트" },
 		],
@@ -30,13 +31,16 @@ export const NAV = [
 ];
 
 export const PAGE_IDS = [
-	"overview",
-	"tech",
+	"final-overview",
+	"profile",
+	"final-tech",
 	"payment",
 	"refund",
 	"settlement",
 	"stats",
 	"coupon-point",
+	"semi-overview",
+	"semi-tech",
 	"semi-project",
 	"semi-checklist",
 	"troubleshooting",

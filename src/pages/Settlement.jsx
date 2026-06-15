@@ -1,4 +1,5 @@
 import Func from "../components/Func.jsx";
+import PaneHead from "../components/PaneHead.jsx";
 import SettlementScreen from "../components/screens/SettlementScreen.jsx";
 const CODE_CREATE = `// 정산 생성
 @Transactional
@@ -101,34 +102,33 @@ public void settleBatch() {
 export default function Settlement({ active }) {
 	return (
 		<section className="page" id="settlement" hidden={!active}>
-			<header className="page__head">
-				<h1 className="page__title">정산</h1>
-				<p className="page__desc">
-					4일 단위 자동 정산 + carry-over 이월 + 세금계산서 PDF 발행.
-				</p>
-			</header>
-
 			<div className="pay2">
-				{/* ===== 왼쪽: 호스트 정산 대시보드 (SettlementDashboard 재현) ===== */}
-				<SettlementScreen />
+				{/* ===== 왼쪽: 실제 서비스 화면 (SettlementDashboard 재현) ===== */}
+				<div className="pay2__left">
+					<PaneHead
+						title="정산 화면"
+						sub="실제 서비스 화면 (페이지 컴포넌트 재현)"
+					/>
+					<SettlementScreen />
+				</div>
 
-				{/* ===== 오른쪽: 기능 목록 (아코디언, 비-rich 헤더) ===== */}
+				{/* ===== 오른쪽: 구현 코드 (아코디언, 비-rich 헤더) ===== */}
 				<div className="pay2__right">
+					<PaneHead title="구현 코드" sub="기능별 백엔드 코드" />
 					<Func
 						rich
-						name="정산 생성 (타입별 합산·실지급액 산정)"
+						name="정산 생성 (타입별 합산, 실지급액 산정)"
 						barName="정산 생성"
-						desc="이용 완료된 결제를 공간 타입(숙소·워크앤스테이·코워킹오피스)별로 합산해 호스트 정산액을 산정합니다.
-						결제액에서 수수료와 환불액을 빼 실지급액을 계산하고, 지급 기준에 미달하면 다음 회차로 이월합니다."
+						desc={"이용 완료된 결제를 공간 타입(숙소, 워크앤스테이, 코워킹오피스)별로 합산해 호스트 정산액을 산정합니다.\n결제액에서 수수료와 환불액을 빼 실지급액을 계산하고, 지급 기준에 미달하면 다음 회차로 이월합니다."}
 						file="SettleService.java"
 						code={CODE_CREATE}
+						retro={"공간 타입마다 수수료율이 다르고 환불 건도 반영해야 하기 때문에, 타입별로 매출을 합산한 뒤 수수료와 환불을 차감해 지급액을 계산했습니다."}
 					/>
 					<Func
 						rich
 						name="공간 타입별 수수료 계산"
 						barName="수수료 계산"
-						desc="공간 타입별 수수료율을 정책 테이블에서 조회해 적용합니다.
-						정책 테이블을 참조하므로, 수수료율이 바뀌어도 코드 수정 없이 대응할 수 있습니다."
+						desc={"공간 타입별 수수료율을 정책 테이블에서 조회해 적용합니다.\n정책 테이블을 참조하므로, 수수료율이 바뀌어도 코드 수정 없이 대응할 수 있습니다."}
 						file="SettleService.java"
 						code={CODE_FEE}
 					/>
@@ -136,10 +136,10 @@ export default function Settlement({ active }) {
 						rich
 						name="자동 정산 배치 (4일 주기)"
 						barName="자동 정산 배치"
-						desc="4일 주기로 이용 완료된 결제를 일괄 정산하고 세금계산서를 발행합니다.
-						호스트별로 개별 처리해, 한 건이 실패해도 나머지 정산은 계속 진행됩니다."
+						desc={"4일 주기로 이용 완료된 결제를 일괄 정산하고 세금계산서를 발행합니다.\n호스트별로 개별 처리해, 한 건이 실패해도 나머지 정산은 계속 진행됩니다."}
 						file="SettleScheduler.java"
 						code={CODE_BATCH}
+						retro={"일정 주기로 모든 호스트의 정산을 자동으로 처리합니다. 호스트별로 나눠 처리해, 한 건이 실패해도 나머지 정산은 멈추지 않도록 했습니다."}
 					/>
 				</div>
 			</div>

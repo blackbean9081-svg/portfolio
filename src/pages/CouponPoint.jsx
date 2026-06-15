@@ -1,4 +1,5 @@
 import Func from "../components/Func.jsx";
+import PaneHead from "../components/PaneHead.jsx";
 import CouponPointScreen from "../components/screens/CouponPointScreen.jsx";
 
 const CODE_RETURN = `    // 환불 시 사용한 쿠폰을 회수
@@ -54,38 +55,41 @@ const CODE_POINT = `    // 환불 시 사용했던 포인트 복원
 export default function CouponPoint({ active }) {
 	return (
 		<section className="page" id="coupon-point" hidden={!active}>
-			<header className="page__head">
-				<h1 className="page__title">쿠폰·포인트</h1>
-				<p className="page__desc">
-					쿠폰 이벤트 발급/다운로드 + 결제액 1% 적립 + 7일 후 확정.
-				</p>
-			</header>
-
 			<div className="pay2">
-				<CouponPointScreen />
+				{/* ===== 왼쪽: 실제 서비스 화면 (MyCoupons + PointHistory 재현) ===== */}
+				<div className="pay2__left">
+					<PaneHead
+						title="쿠폰, 포인트 화면"
+						sub="실제 서비스 화면 (페이지 컴포넌트 재현)"
+					/>
+					<CouponPointScreen />
+				</div>
 
-				{/* ===== 오른쪽: 기능 목록 (아코디언) ===== */}
+				{/* ===== 오른쪽: 구현 코드 (아코디언) ===== */}
 				<div className="pay2__right">
+					<PaneHead title="구현 코드" sub="기능별 백엔드 코드" />
 					<Func
 						rich
 						name="환불 시 쿠폰 회수 (만료 분기)"
-						desc="환불 시 사용된 쿠폰의 결제 연결을 끊고 상태를 되돌립니다. 회수 시점에 이미 유효기간이 지났으면 되살리지 않고 EXPIRED로 두어 만료 쿠폰의 부활을 막습니다."
+						desc={"환불 시 사용된 쿠폰의 결제 연결을 끊고 상태를 되돌립니다.\n회수 시점에 이미 유효기간이 지났으면 되살리지 않고 EXPIRED로 두어 만료 쿠폰의 부활을 막습니다."}
 						file="CouponEntity.java"
 						code={CODE_RETURN}
+						retro={"환불로 쿠폰을 되돌릴 때, 그 사이 만료된 쿠폰이 다시 살아나지 않도록 만료 여부를 확인해 처리했습니다."}
 					/>
 					<Func
 						rich
 						name="포인트 잔액 계산"
-						desc="사용 내역(USED)을 음수로 저장해 두어, 적립(SAVE)과 단순히 더하기만 하면 차감 효과가 나도록 설계했습니다."
+						desc={"사용 내역(USED)을 음수로 저장해 두어,\n적립(SAVE)과 단순히 더하기만 하면 차감 효과가 나도록 설계했습니다."}
 						file="PointService.java"
 						code={CODE_BALANCE}
 					/>
 					<Func
 						rich
-						name="환불 시 포인트 복원·취소"
-						desc="환불 시 사용한 포인트는 새 SAVE row로 복원하고, 이 결제로 적립됐던 포인트는 취소합니다. 둘은 같은 EARN을 건드려 호출 순서에 의존합니다."
+						name="환불 시 포인트 복원, 취소"
+						desc={"환불 시 사용한 포인트는 새 SAVE row로 복원하고, 이 결제로 적립됐던 포인트는 취소합니다.\n둘은 같은 EARN을 건드려 호출 순서에 의존합니다."}
 						file="PointService.java"
 						code={CODE_POINT}
+						retro={"환불 시 사용한 포인트는 복원하고 적립된 포인트는 취소하는데, 두 작업의 순서에 따라 결과가 달라지기 때문에 순서를 고정해 처리했습니다."}
 					/>
 				</div>
 			</div>

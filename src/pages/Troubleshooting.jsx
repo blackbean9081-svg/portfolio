@@ -57,7 +57,8 @@ export default function Troubleshooting({ active }) {
 					<div className="ts-step">
 						<span className="ts-step__label ts-step__label--cause">원인</span>
 						<p>
-							환불 시 쿠폰을 무조건 "사용 가능" 상태로 되돌리고 있었습니다. 결제
+							환불 시 쿠폰의 만료 여부를 확인하지 않고, 무조건 "사용 가능" 상태로
+							되돌리고 있었습니다. 결제
 							직후 바로 환불하면 문제없지만, 환불이 한참 뒤에 일어나면 그 사이
 							만료된 쿠폰까지 되살아났습니다.
 						</p>

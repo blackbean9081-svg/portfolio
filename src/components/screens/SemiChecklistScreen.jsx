@@ -8,7 +8,7 @@ export default function SemiChecklistScreen() {
 				<span className="sck__mile-bar"></span>
 				<div className="sck__mile-info">
 					<span className="sck__mile-title">
-						프로젝트 · 체크리스트 기능
+						프로젝트, 체크리스트 기능
 					</span>
 					<span className="sck__mile-date">2026.02.10 ~ 2026.02.14</span>
 				</div>
@@ -39,13 +39,13 @@ export default function SemiChecklistScreen() {
 				</div>
 				<div className="sck__item sck__item--done">
 					<span className="sck__box">✓</span>
-					<span className="sck__text">PM 권한 체크 · 유효성 검사</span>
+					<span className="sck__text">PM 권한 체크, 유효성 검사</span>
 					<span className="sck__x">✕</span>
 				</div>
 				<div className="sck__item sck__item--done">
 					<span className="sck__box">✓</span>
 					<span className="sck__text">
-						체크리스트 CRUD (단건·다건 등록)
+						체크리스트 CRUD (단건, 다건 등록)
 					</span>
 					<span className="sck__x">✕</span>
 				</div>

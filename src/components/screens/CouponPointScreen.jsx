@@ -52,7 +52,7 @@ export default function CouponPointScreen() {
 			</div>
 
 			{/* 적립·사용 내역 */}
-			<div className="cp-subhead">적립·사용 내역</div>
+			<div className="cp-subhead">적립, 사용 내역</div>
 			<div className="cp-hist">
 				<div className="cp-hrow">
 					<div className="cp-hleft">

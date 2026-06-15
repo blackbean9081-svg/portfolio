@@ -17,10 +17,16 @@ export default function Sidebar({ page, onNavigate }) {
 
 	return (
 		<aside className="sidebar">
-			<div className="sidebar__logo">
+			<button
+				type="button"
+				className={
+					"sidebar__logo" + (page === "profile" ? " is-active" : "")
+				}
+				onClick={() => onNavigate("profile")}
+			>
 				<span className="sidebar__logo-title">포트폴리오</span>
 				<span className="sidebar__logo-name">김우영</span>
-			</div>
+			</button>
 
 			<nav className="nav" id="nav">
 				{NAV.map((node, i) => {

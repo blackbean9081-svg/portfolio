@@ -1,4 +1,5 @@
 import Func from "../components/Func.jsx";
+import PaneHead from "../components/PaneHead.jsx";
 import StatsScreen from "../components/screens/StatsScreen.jsx";
 
 const CODE_LOAD = `// 하루치 통계를 미리 적재
@@ -134,37 +135,39 @@ const CODE_DTO = `    // 금액 필드 Long — 공간별 월 매출이 약 21�
 export default function Stats({ active }) {
 	return (
 		<section className="page" id="stats" hidden={!active}>
-			<header className="page__head">
-				<h1 className="page__title">통계</h1>
-				<p className="page__desc">
-					사전집계 파이프라인 + 매출·예약·회원·공간 통계 조회 API.
-				</p>
-			</header>
-
 			<div className="pay2">
-				{/* ===== 왼쪽: 통계 대시보드 (StatsOverview 재현) ===== */}
-				<StatsScreen />
+				{/* ===== 왼쪽: 실제 서비스 화면 (StatsOverview 재현) ===== */}
+				<div className="pay2__left">
+					<PaneHead
+						title="통계 화면"
+						sub="실제 서비스 화면 (페이지 컴포넌트 재현)"
+					/>
+					<StatsScreen />
+				</div>
 
-				{/* ===== 오른쪽: 기능 목록 (아코디언) ===== */}
+				{/* ===== 오른쪽: 구현 코드 (아코디언) ===== */}
 				<div className="pay2__right">
+					<PaneHead title="구현 코드" sub="기능별 백엔드 코드" />
 					<Func
 						rich
 						name="일자별 통계 적재"
-						desc="조회마다 결제 원장을 집계하면 비싸서, 하루치 결제·환불 통계를 미리 적재합니다. 같은 행이 있으면 update·없으면 insert라 재적재돼도 멱등합니다."
+						desc={"조회마다 결제 원장을 집계하면 비싸서, 하루치 결제, 환불 통계를 미리 적재합니다.\n같은 행이 있으면 update, 없으면 insert라 재적재돼도 멱등합니다."}
 						file="StatsService.java"
 						code={CODE_LOAD}
+						retro={"통계를 조회할 때마다 계산하면 부담이 크기 때문에, 미리 집계해 별도 테이블에 쌓아두었습니다. 같은 날짜를 다시 집계해도 중복이 쌓이지 않도록 처리했습니다."}
 					/>
 					<Func
 						rich
 						name="호스트 매출 통계  "
-						desc="호스트의 승인 공간을 타입별로 분류해 기간 매출·환불·건수를 합산하고, 월별 추이는 GROUP BY 한 쿼리로 한 번에 집계합니다."
+						desc={"호스트의 승인 공간을 타입별로 분류해 기간 매출, 환불, 건수를 합산하고,\n월별 추이는 GROUP BY 한 쿼리로 한 번에 집계합니다."}
 						file="StatsService.java"
 						code={CODE_HOST}
+						retro={"월별 매출을 매달 따로 조회하면 쿼리가 많아지기 때문에, 한 번의 쿼리로 모아서 집계하도록 했습니다."}
 					/>
 					<Func
 						rich
 						name="응답 DTO 변환"
-						desc="매출 금액을 Long으로 다뤄 int 오버플로(약 21억)를 막고, 결제 0건일 때 평균 계산의 0 나누기를 가드합니다."
+						desc={"매출 금액을 Long으로 다뤄 int 오버플로(약 21억)를 막고,\n결제 0건일 때 평균 계산의 0 나누기를 가드합니다."}
 						file="HostSalesStatsResDto.java"
 						code={CODE_DTO}
 					/>

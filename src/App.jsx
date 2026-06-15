@@ -3,8 +3,11 @@ import Sidebar from "./components/Sidebar.jsx";
 import { useHashRoute } from "./router.js";
 import { PAGE_IDS, DEFAULT_PAGE } from "./nav.js";
 
-import Overview from "./pages/Overview.jsx";
+import FinalOverview from "./pages/FinalOverview.jsx";
+import Profile from "./pages/Profile.jsx";
 import Tech from "./pages/Tech.jsx";
+import SemiOverview from "./pages/SemiOverview.jsx";
+import SemiTech from "./pages/SemiTech.jsx";
 import SemiProject from "./pages/SemiProject.jsx";
 import SemiChecklist from "./pages/SemiChecklist.jsx";
 import Payment from "./pages/Payment.jsx";
@@ -17,8 +20,11 @@ import Performance from "./pages/Performance.jsx";
 import Retrospective from "./pages/Retrospective.jsx";
 
 const PAGES = [
-	{ id: "overview", Comp: Overview },
-	{ id: "tech", Comp: Tech },
+	{ id: "final-overview", Comp: FinalOverview },
+	{ id: "profile", Comp: Profile },
+	{ id: "final-tech", Comp: Tech },
+	{ id: "semi-overview", Comp: SemiOverview },
+	{ id: "semi-tech", Comp: SemiTech },
 	{ id: "semi-project", Comp: SemiProject },
 	{ id: "semi-checklist", Comp: SemiChecklist },
 	{ id: "payment", Comp: Payment },

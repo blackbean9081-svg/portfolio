@@ -80,6 +80,27 @@
         margin-bottom: var(--space-4);
       }
 
+      /* 이름 클릭 → 인적사항 페이지 (버튼 리셋) */
+      button.sidebar__logo {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        border-bottom: 1px solid var(--line);
+        cursor: pointer;
+        font: inherit;
+        transition: opacity 0.15s ease;
+      }
+
+      button.sidebar__logo:hover .sidebar__logo-name {
+        color: var(--sage-dark);
+      }
+
+      button.sidebar__logo.is-active .sidebar__logo-name {
+        color: var(--sage-dark);
+        font-weight: 700;
+      }
+
       .sidebar__logo-title {
         font-weight: 700;
         font-size: 1.05rem;
@@ -145,7 +166,8 @@
         max-width: none;
       }
       /* 개요는 본문 폭을 조금 더 넓혀 영역으로 인한 줄바꿈을 줄임 */
-      .main:has(#overview:not([hidden])) {
+      .main:has(#final-overview:not([hidden])),
+      .main:has(#semi-overview:not([hidden])) {
         max-width: 1280px;
       }
 
@@ -178,6 +200,25 @@
         color: var(--ink-soft);
         font-family: 'JetBrains Mono', monospace;
         font-size: 0.9rem;
+      }
+
+      /* ===================== 인적사항 — 한 줄 자기소개 ===================== */
+      /* 인적사항 — 이름 + 한 줄 소개 히어로 */
+      .profile-hero {
+        padding-bottom: var(--space-5);
+        margin-bottom: var(--space-6);
+        border-bottom: 1px solid var(--line);
+      }
+      .profile-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .profile-tagline {
+        margin-top: var(--space-2);
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--sage-dark);
       }
 
       /* ===================== 화면 재현 영역 ===================== */
@@ -892,6 +933,19 @@
         background: var(--sage);
         opacity: 0.6;
       }
+      /* 항목 내부: 결론(두괄식) + 부연 설명 분리 */
+      .retro-list__lead {
+        display: block;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .retro-list__detail {
+        display: block;
+        margin-top: 3px;
+        font-weight: 400;
+        font-size: 0.88rem;
+        color: var(--ink-soft);
+      }
       /* 느낀 점 — 글 형식 */
       .retro-feel {
         margin-bottom: var(--space-6);
@@ -905,15 +959,12 @@
         color: var(--ink);
         margin: 0 0 var(--space-2);
       }
-      .retro-feel__title::before {
-        content: '— ';
-        color: var(--sage);
-      }
       .retro-feel__body {
         font-size: 0.95rem;
         line-height: 1.9;
         color: var(--ink-soft);
         margin: 0;
+        white-space: pre-line; /* 문자열의 \n 줄바꿈을 그대로 표시 */
       }
 
 

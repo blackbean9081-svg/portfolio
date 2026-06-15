@@ -112,12 +112,12 @@ const CASES = [
 			{
 				file: "StatsService.findHostSalesStats",
 				problem:
-					"6개월 매출 추이를 월·공간 타입마다 쿼리를 따로 날려, 1회 조회에 18개 쿼리가 실행됐습니다.",
+					"6개월 매출 추이를 월, 공간 타입마다 쿼리를 따로 날려, 1회 조회에 18개 쿼리가 실행됐습니다.",
 				solve:
 					"월별 집계를 to_char + GROUP BY 한 쿼리로 묶어, 1회 조회당 쿼리를 18 → 1개로 축소했습니다.",
-				before: "2,999 ms / 회 · 18쿼리",
-				after: "338 ms / 회 · 1쿼리",
-				note: "100회 반복 · 10만 건 기준",
+				before: "2,999 ms / 회, 18쿼리",
+				after: "338 ms / 회, 1쿼리",
+				note: "100회 반복, 10만 건 기준",
 			},
 		],
 	},
@@ -137,19 +137,19 @@ const CASES = [
 					"환불 목록도 같은 N+1 구조에 서버 페이징조차 없어, 전체를 한 번에 조회했습니다.",
 				solve:
 					"fetch join으로 N+1을 없애고, 빠져 있던 서버 페이징까지 더해 전체 로딩 문제도 함께 해소했습니다.",
-				before: "약 301쿼리 · 전체 조회",
-				after: "2쿼리 · 페이징 적용",
+				before: "약 301쿼리, 전체 조회",
+				after: "2쿼리, 페이징 적용",
 				note: "결제 목록과 동일한 fetch join 기법",
 			},
 			{
 				subtitle: "결제 목록",
 				file: "PayService.findPayAll",
 				problem:
-					"결제마다 예약·회원·공간을 LAZY로 따로 조회해, 목록 한 페이지에 N+1 쿼리가 터졌습니다.",
+					"결제마다 예약, 회원, 공간을 LAZY로 따로 조회해, 목록 한 페이지에 N+1 쿼리가 터졌습니다.",
 				solve:
-					"예약·회원·공간을 fetch join으로 한 번에 가져와, 목록·count 2쿼리로 축소했습니다.",
-				before: "32쿼리 · 8.696 ms",
-				after: "2쿼리 · 5.408 ms",
+					"예약, 회원, 공간을 fetch join으로 한 번에 가져와, 목록, count 2쿼리로 축소했습니다.",
+				before: "32쿼리, 8.696 ms",
+				after: "2쿼리, 5.408 ms",
 				note: "페이지 10건 기준 (100건 시 202→2쿼리)",
 			},
 		],
@@ -186,7 +186,7 @@ export default function Performance({ active }) {
 			<header className="page__head">
 				<h1 className="page__title">성능 개선</h1>
 				<p className="page__desc">
-					쿼리 최적화 — 측정 전/후 (GROUP BY · fetch join).
+					쿼리 최적화 — 측정 전/후 (GROUP BY, fetch join).
 				</p>
 			</header>
 

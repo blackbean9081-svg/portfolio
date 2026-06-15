@@ -14,7 +14,7 @@ export default function StatsScreen() {
 		<div className="so-app">
 			<div className="so-head">
 				<div className="so-head__title">통계 대시보드</div>
-				<div className="so-head__desc">이번 달 결제·환불 통계 요약</div>
+				<div className="so-head__desc">이번 달 결제, 환불 통계 요약</div>
 			</div>
 
 			{/* 기간 탭 (StatsRangeTabs) */}
