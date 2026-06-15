@@ -11,6 +11,7 @@ const SECTIONS = [
 			{ name: "Spring Data JPA" }, // 스프링 아이콘 중복 방지 → 이름만
 			{ name: "QueryDSL" },
 			{ name: "Spring Scheduler" },
+			{ name: "JWT" }, // 칩
 		],
 	},
 	{
@@ -58,7 +59,6 @@ const SECTIONS = [
 		label: "기타",
 		items: [
 			{ name: "KakaoTalk" }, // devicon 미보유 → 칩
-			{ name: "JWT" }, // 칩
 		],
 	},
 ];
