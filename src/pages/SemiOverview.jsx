@@ -31,7 +31,7 @@ export default function SemiOverview({ active }) {
 						</div>
 						<div className="def-list__row">
 							<dt>팀 구성 / 역할</dt>
-							<dd>형상관리자 + 프로젝트 기능 담당</dd>
+							<dd>5인 / 형상관리자 / 프로젝트 기능 담당</dd>
 						</div>
 						<div className="def-list__row">
 							<dt>핵심 경험</dt>
