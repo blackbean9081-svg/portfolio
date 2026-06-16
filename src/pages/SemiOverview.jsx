@@ -13,15 +13,16 @@ export default function SemiOverview({ active }) {
 						<h2 className="proj__name">TaskFlow</h2>
 					</div>
 					<p className="proj__subtitle">
-						5계층 일관 구조(Vo/Mapper/Service/REST/View)로 만든 기업 협업
-						도구로, 임직원과 고객 2종 인증을 지원합니다.
+						5인팀으로 개발한 칸반 기반의 기업용 협업 도구로, 프로젝트와 일정,
+						인원을 한곳에서 관리합니다.
 					</p>
 
 					<dl className="def-list">
 						<div className="def-list__row">
 							<dt>기획의도</dt>
 							<dd>
-								프로젝트, 마일스톤, 일정, 인원을 한곳에서 관리하는 기업 협업 도구
+								프로젝트, 마일스톤, 일정, 인원을 한곳에서 관리하는 기업 협업
+								도구
 							</dd>
 						</div>
 						<div className="def-list__row">
@@ -36,8 +37,8 @@ export default function SemiOverview({ active }) {
 							<dt>핵심 경험</dt>
 							<dd>
 								여러 테이블이 순서대로 엮인 기능을 맡으며 데이터 흐름을 설계하는
-								감각을 익혔고, 형상관리자로서 팀 전체의 협업 흐름을
-								설계, 관리했습니다.
+								감각을 익혔고, 형상관리자로서 팀 전체의 협업 흐름을 설계,
+								관리했습니다.
 							</dd>
 						</div>
 					</dl>
