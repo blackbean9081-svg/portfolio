@@ -52,7 +52,9 @@ export default function FinalOverview({ active }) {
 							</div>
 							<div className="impl__row">
 								<span className="impl__dom">회원, 인증</span>
-								<span className="impl__feat">회원/호스트/관리자 인증, 관리</span>
+								<span className="impl__feat">
+									회원/호스트/관리자 인증, 관리
+								</span>
 							</div>
 							<div className="impl__row">
 								<span className="impl__dom">공간</span>
@@ -69,7 +71,7 @@ export default function FinalOverview({ active }) {
 							<div className="impl__row impl__row--mine">
 								<span className="impl__dom">결제, 환불, 정산, 통계</span>
 								<span className="impl__feat">
-									PG 결제, 환불, 자동 정산, 통계, 쿠폰, 포인트
+									결제, 환불, 자동 정산, 통계, 쿠폰, 포인트
 								</span>
 							</div>
 							<div className="impl__row">
