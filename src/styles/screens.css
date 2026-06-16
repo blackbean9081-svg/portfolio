@@ -779,38 +779,31 @@
 	background: transparent;
 	border: none;
 	padding: var(--space-4) var(--space-5);
-	cursor: pointer;
-	transition: background 0.15s;
 }
-.func__head:hover {
-	background: var(--sage-soft);
-}
-.func__head.is-open {
-	background: var(--sage-soft);
-}
-/* 코드 보기/접기 토글 — 클릭 가능 단서 강화 */
+/* 헤더(기능명+설명)는 정적 — 클릭 단서(hover/is-open 배경) 없음 */
+/* 코드 보기/접기 토글 버튼 — 헤더 또는 구현 포인트 줄 오른쪽에 배치 */
 .func__toggle {
 	flex-shrink: 0;
 	margin-left: var(--space-3);
-	/* head-main padding(15px) 때문에 내려간 기능명 줄에 맞춰 정렬 */
-	margin-top: 13px;
 	display: inline-flex;
 	align-items: center;
 	gap: 5px;
 	padding: 5px 10px;
 	border-radius: 999px;
-	background: #fff;
-	color: var(--sage-dark);
+	/* 기본 배경 세이지 그린 — 흰색 카드 위에서 또렷하게 보이도록 */
+	background: var(--sage);
+	color: #fff;
 	font-size: 0.78rem;
 	font-weight: 600;
 	white-space: nowrap;
+	font-family: inherit;
+	border: none;
+	cursor: pointer;
+	transition: background 0.15s, color 0.15s;
 }
-.func__head:hover .func__toggle {
-	background: var(--sage);
-	color: #fff;
-}
-.func__head.is-open .func__toggle {
-	background: var(--sage);
+.func__toggle:hover,
+.func__toggle.is-open {
+	background: var(--sage-dark);
 	color: #fff;
 }
 .func__arrow {
@@ -818,8 +811,12 @@
 	font-size: 0.7rem;
 	transition: transform 0.2s ease;
 }
-.func__head.is-open .func__arrow {
+.func__toggle.is-open .func__arrow {
 	transform: rotate(180deg);
+}
+/* retro 없는 항목: 헤더 안 토글을 기능명 줄에 맞춰 내림 */
+.func__head--rich > .func__toggle {
+	margin-top: 13px;
 }
 /* 항목 라벨 + 설명 (결제 페이지에서 사용) */
 .func__head--rich {
@@ -881,7 +878,7 @@
 	tab-size: 4;
 }
 
-/* 회고(느낀 점) — 코드(다크) 아래 라이트 톤으로 구분, 토글 재사용 */
+/* 구현 포인트 — 항상 표시(토글 없음), 헤더 아래 라이트 톤으로 구분 */
 .func__retro {
 	border-top: 1px solid var(--line);
 }
@@ -891,33 +888,12 @@
 	align-items: center;
 	justify-content: space-between;
 	text-align: left;
-	font-family: inherit;
-	background: transparent;
-	border: none;
 	padding: var(--space-2) var(--space-5);
-	cursor: pointer;
 }
 .func__retro-label {
 	font-size: 0.95rem; /* 코드 제목(.func__name)과 동일하게 */
 	font-weight: 700;
 	color: var(--sage-dark);
-}
-/* 코드 보기 토글 스타일 재사용 — rich 헤더용 margin-top 만 해제 */
-.func__retro-head .func__toggle {
-	margin-top: 0;
-	background: #fff;
-	color: var(--sage-dark);
-}
-.func__retro-head:hover .func__toggle,
-.func__retro-head.is-open .func__toggle {
-	background: var(--sage-dark);
-	color: #fff;
-}
-.func__retro-head.is-open .func__arrow {
-	transform: rotate(180deg);
-}
-.func__retro-body[hidden] {
-	display: none;
 }
 .func__retro-text {
 	margin: 0;

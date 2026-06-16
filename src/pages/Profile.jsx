@@ -29,13 +29,46 @@ export default function Profile({ active }) {
 						<dd>
 							고려사이버대학교 소프트웨어공학과 (졸업예정)
 							<br />
-							KH정보교육원 AWS 클라우드 DevOps 과정
+							인천고등학교 졸업
 						</dd>
 					</div>
-					{/* <div className="def-list__row">
-						<dt>경력</dt>
-						<dd>퍼포먼스 마케팅 (2021 ~ 2025)</dd>
-					</div> */}
+					<div className="def-list__row">
+						<dt>교육 / 수료</dt>
+						<dd>KH정보교육원 AWS 클라우드 DevOps 과정 (수료)</dd>
+					</div>
+					<div className="def-list__row">
+						<dt>사회경험</dt>
+						<dd>
+							2025.05 ~ 2025.09 가연결혼정보회사 / 퍼포먼스 마케팅 / 대리
+							<br />
+							2024.10 ~ 2025.05 주식회사 온리프앤파트너스 / 퍼포먼스 마케팅 /
+							대리
+							<br />
+							2021.08 ~ 2024.10 (주)탑코 / 퍼포먼스 마케팅 / 사원
+						</dd>
+					</div>
+					<div className="def-list__row">
+						<dt>GitHub</dt>
+						<dd className="def-list__links">
+							<a
+								className="def-list__link"
+								href="https://github.com/blackbean9081-svg/TaskFlow.git"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								세미 프로젝트 (TaskFlow)
+							</a>
+							<span className="def-list__sep">/</span>
+							<a
+								className="def-list__link"
+								href="https://github.com/bobohyeon/Sloway_Project.git"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								파이널 프로젝트 (Sloway)
+							</a>
+						</dd>
+					</div>
 				</dl>
 			</div>
 		</section>

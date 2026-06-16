@@ -27,7 +27,7 @@ const SECTIONS = [
 	},
 	{
 		label: "Build Tool",
-		items: [{ name: "Gradle" }],
+		items: [{ name: "Gradle", icon: "gradle" }],
 	},
 	{
 		label: "IDE / Tool",
@@ -62,18 +62,22 @@ export default function SemiTech({ active }) {
 					<div className="tag-section" key={sec.label}>
 						<span className="tag-section__label">{sec.label}</span>
 						<div className="tag-group">
-							{sec.items.map((it) => (
-								<span className="tech-item" key={it.name}>
-									{it.icon && (
-										<img
-											className="tech-icon"
-											alt=""
-											src={`${ICON_BASE}/${it.icon}/${it.icon}-original.svg`}
-										/>
-									)}
-									<span className="tech-name">{it.name}</span>
-								</span>
-							))}
+							{sec.items.map((it) => {
+								const src =
+									it.iconUrl ||
+									(it.icon &&
+										`${ICON_BASE}/${it.icon}/${it.icon}-${
+											it.variant || "original"
+										}.svg`);
+								return (
+									<span className="tech-item" key={it.name}>
+										{src && (
+											<img className="tech-icon" alt="" src={src} />
+										)}
+										<span className="tech-name">{it.name}</span>
+									</span>
+								);
+							})}
 						</div>
 					</div>
 				))}

@@ -1,5 +1,7 @@
 // 기술 스택 — devicon 컬러 로고 + 공식 로고 없는 건 텍스트 칩.
 const ICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";
+// devicon에 없는 AWS 서비스별 아이콘(EC2/RDS/S3 등)은 gilbarbara/logos에서 가져온다.
+const AWS_ICON_BASE = "https://cdn.jsdelivr.net/gh/gilbarbara/logos/logos";
 
 const SECTIONS = [
 	{
@@ -29,7 +31,7 @@ const SECTIONS = [
 	},
 	{
 		label: "Build Tool",
-		items: [{ name: "Gradle" }],
+		items: [{ name: "Gradle", icon: "gradle" }],
 	},
 	{
 		label: "IDE / Tool",
@@ -41,7 +43,11 @@ const SECTIONS = [
 	},
 	{
 		label: "Cloud",
-		items: [{ name: "AWS EC2" }, { name: "AWS RDS" }, { name: "AWS S3" }],
+		items: [
+			{ name: "AWS EC2", iconUrl: `${AWS_ICON_BASE}/aws-ec2.svg` },
+			{ name: "AWS RDS", iconUrl: `${AWS_ICON_BASE}/aws-rds.svg` },
+			{ name: "AWS S3", iconUrl: `${AWS_ICON_BASE}/aws-s3.svg` },
+		],
 	},
 	{
 		label: "DevOps",
@@ -76,18 +82,22 @@ export default function Tech({ active }) {
 					<div className="tag-section" key={sec.label}>
 						<span className="tag-section__label">{sec.label}</span>
 						<div className="tag-group">
-							{sec.items.map((it) => (
-								<span className="tech-item" key={it.name}>
-									{it.icon && (
-										<img
-											className="tech-icon"
-											alt=""
-											src={`${ICON_BASE}/${it.icon}/${it.icon}-original.svg`}
-										/>
-									)}
-									<span className="tech-name">{it.name}</span>
-								</span>
-							))}
+							{sec.items.map((it) => {
+								const src =
+									it.iconUrl ||
+									(it.icon &&
+										`${ICON_BASE}/${it.icon}/${it.icon}-${
+											it.variant || "original"
+										}.svg`);
+								return (
+									<span className="tech-item" key={it.name}>
+										{src && (
+											<img className="tech-icon" alt="" src={src} />
+										)}
+										<span className="tech-name">{it.name}</span>
+									</span>
+								);
+							})}
 						</div>
 					</div>
 				))}

@@ -180,6 +180,9 @@ export default function Stats({ active }) {
 						}
 						file="HostSalesStatsResDto.java"
 						code={CODE_DTO}
+						retro={
+							"엔티티를 그대로 노출하지 않고, 응답에 필요한 데이터만 DTO로 담아 내보냈습니다. 엔티티 구조와 API 응답을 분리해, 한쪽이 바뀌어도 다른 쪽에 영향이 가지 않도록 했습니다."
+						}
 					/>
 				</div>
 			</div>
