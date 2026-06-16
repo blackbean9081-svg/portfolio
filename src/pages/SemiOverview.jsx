@@ -54,20 +54,19 @@ export default function SemiOverview({ active }) {
 							<div className="impl__row">
 								<span className="impl__dom">회사, 조직</span>
 								<span className="impl__feat">
-									회사, 부서, 직원, 고객, 회의실 관리, 권한(role) 체계
+									회사, 부서, 직원, 고객, 회의실 관리, 권한 체계
 								</span>
 							</div>
 							<div className="impl__row impl__row--mine">
 								<span className="impl__dom">프로젝트 관리</span>
 								<span className="impl__feat">
-									프로젝트 생성, 수정, 삭제(4테이블 트랜잭션), 마일스톤,
-									체크리스트
+									프로젝트 생성, 수정, 삭제, 마일스톤, 체크리스트
 								</span>
 							</div>
 							<div className="impl__row">
 								<span className="impl__dom">일정, 캘린더</span>
 								<span className="impl__feat">
-									개인 일정, 할 일, 회의실 예약, 통합 캘린더(FullCalendar)
+									개인 일정, 할 일, 회의실 예약, 통합 캘린더
 								</span>
 							</div>
 							<div className="impl__row">
@@ -83,10 +82,19 @@ export default function SemiOverview({ active }) {
 						</div>
 						<div className="impl__mine">
 							<div className="impl__mine-head">본인 담당</div>
-							<div className="impl__mine-body">
-								프로젝트 관리(생성, 수정, 삭제 트랜잭션) + 체크리스트 +
-								형상관리자(Git Flow)
-							</div>
+							<ul className="impl__mine-list">
+								<li>
+									<strong>프로젝트 관리</strong> 프로젝트 생성·수정·삭제
+									트랜잭션 처리
+								</li>
+								<li>
+									<strong>대시보드·통계</strong> 마일스톤 상태별 집계와 완료율
+									계산
+								</li>
+								<li>
+									<strong>체크리스트</strong> 단건·다건 등록과 완료 상태 관리
+								</li>
+							</ul>
 						</div>
 					</div>
 				</article>
