@@ -830,7 +830,8 @@
 	flex-direction: column;
 	gap: 8px; /* 기능명·설명 사이 간격 확대 */
 	text-align: left;
-	padding: 15px;
+	/* 좌측 패딩 제거 — 구현 포인트(--space-5=20px) 시작점에 맞춤 */
+	padding: 15px 15px 15px 0;
 }
 .func__name {
 	font-size: 0.95rem;
@@ -842,7 +843,7 @@
 	font-weight: 400;
 	color: var(--ink-soft);
 	line-height: 1.65;
-	max-width: 52ch;
+	max-width: 70ch;
 	white-space: pre-line; /* 문자열의 \n 줄바꿈을 그대로 표시 */
 }
 .func__body[hidden] {
@@ -897,7 +898,7 @@
 	cursor: pointer;
 }
 .func__retro-label {
-	font-size: 0.85rem;
+	font-size: 0.95rem; /* 코드 제목(.func__name)과 동일하게 */
 	font-weight: 700;
 	color: var(--sage-dark);
 }
@@ -1041,6 +1042,9 @@
 	font-weight: 600;
 	color: #fff;
 	white-space: nowrap;
+}
+.sd-row span.sd-badge {
+	color: #fff;
 }
 .sd-badge--invoice {
 	background: #0064ff;
