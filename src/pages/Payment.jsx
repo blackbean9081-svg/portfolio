@@ -42,6 +42,7 @@ const CODE_APPROVE = `
 public PayEntity approvePay(Long payNo, String pgToken) {
     PayEntity payEntity = payRepository.findById(payNo)
             .orElseThrow(() -> new CustomException(PayErrorCode.PAY_NOT_FOUND));
+    // 멱등 처리
     if (payEntity.getStatus() == PayStatus.COMPLETED) {
         return payEntity;
     }
@@ -116,7 +117,7 @@ export default function Payment({ active }) {
 						file="PayService.java"
 						code={CODE_APPROVE}
 						retro={
-							"결제 승인 콜백은 네트워크 재시도나 중복 클릭으로 여러 번 들어올 수 있습니다. \n이미 처리된 결제인지 먼저 확인해, 같은 요청이 여러 번 와도 결제가 한 번만 반영되도록 멱등하게 처리했습니다."
+							"결제 승인은 네트워크 재시도나 중복 클릭으로 여러 번 들어올 수 있습니다. \n이미 처리된 결제인지 먼저 확인해, 같은 요청이 여러 번 와도 결제가 한 번만 반영되도록 멱등하게 처리했습니다."
 						}
 					/>
 					<Func
