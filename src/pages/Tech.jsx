@@ -16,8 +16,8 @@ const SECTIONS = [
 		items: [
 			{ name: "Spring Boot", icon: "spring" },
 			{ name: "Spring Data JPA" },
-			{ name: "QueryDSL" },
 			{ name: "Spring Scheduler" },
+			{ name: "QueryDSL" },
 			{ name: "JWT" },
 		],
 	},
@@ -91,9 +91,7 @@ export default function Tech({ active }) {
 										}.svg`);
 								return (
 									<span className="tech-item" key={it.name}>
-										{src && (
-											<img className="tech-icon" alt="" src={src} />
-										)}
+										{src && <img className="tech-icon" alt="" src={src} />}
 										<span className="tech-name">{it.name}</span>
 									</span>
 								);
