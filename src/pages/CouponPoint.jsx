@@ -82,15 +82,6 @@ export default function CouponPoint({ active }) {
 					/>
 					<Func
 						rich
-						name="포인트 잔액 계산"
-						desc={
-							"사용 내역을 음수로 저장해 두어,\n적립과 단순히 더하기만 하면 차감 효과가 나도록 설계했습니다."
-						}
-						file="PointService.java"
-						code={CODE_BALANCE}
-					/>
-					<Func
-						rich
 						name="환불 시 포인트 복원, 취소"
 						desc={
 							"환불 시 사용한 포인트는 새 row로 복원하고, 이 결제로 적립됐던 포인트는 취소합니다."
@@ -100,6 +91,15 @@ export default function CouponPoint({ active }) {
 						retro={
 							"환불 시 사용한 포인트는 복원하고 적립된 포인트는 취소하는데,\n 두 작업의 순서에 따라 결과가 달라지기 때문에 순서를 고정해 처리했습니다."
 						}
+					/>
+					<Func
+						rich
+						name="포인트 잔액 계산"
+						desc={
+							"사용 내역을 음수로 저장해 두어,\n적립과 단순히 더하기만 하면 차감 효과가 나도록 설계했습니다."
+						}
+						file="PointService.java"
+						code={CODE_BALANCE}
 					/>
 				</div>
 			</div>

@@ -130,16 +130,6 @@ export default function Settlement({ active }) {
 					/>
 					<Func
 						rich
-						name="공간 타입별 수수료 계산"
-						barName="수수료 계산"
-						desc={
-							"공간 타입별 수수료율을 정책 테이블에서 조회해 적용합니다.\n정책 테이블을 참조하므로, 수수료율이 바뀌어도 코드 수정 없이 대응할 수 있습니다."
-						}
-						file="SettleService.java"
-						code={CODE_FEE}
-					/>
-					<Func
-						rich
 						name="자동 정산 배치 (4일 주기)"
 						barName="자동 정산 배치"
 						desc={
@@ -150,6 +140,16 @@ export default function Settlement({ active }) {
 						retro={
 							"일정 주기로 모든 호스트의 정산을 자동으로 처리합니다.\n 호스트별로 나눠 처리해, 한 건이 실패해도 나머지 정산은 멈추지 않도록 했습니다."
 						}
+					/>
+					<Func
+						rich
+						name="공간 타입별 수수료 계산"
+						barName="수수료 계산"
+						desc={
+							"공간 타입별 수수료율을 정책 테이블에서 조회해 적용합니다.\n정책 테이블을 참조하므로, 수수료율이 바뀌어도 코드 수정 없이 대응할 수 있습니다."
+						}
+						file="SettleService.java"
+						code={CODE_FEE}
 					/>
 				</div>
 			</div>
