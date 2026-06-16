@@ -98,7 +98,7 @@ export default function SemiProject({ active }) {
 						rich
 						name="프로젝트 삭제 (역순 4테이블)"
 						desc={
-							"삭제도 연결된 4개 테이블을 한 트랜잭션으로 함께 제거해,\n고아 데이터가 남지 않도록 처리합니다."
+							"삭제도 연결된 4개 테이블을 한 트랜잭션으로 함께 제거해,\n데이터가 남지 않도록 처리합니다."
 						}
 						file="ProjService.java"
 						code={CODE_DELETE}
