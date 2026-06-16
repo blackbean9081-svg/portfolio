@@ -620,6 +620,11 @@
         align-items: start;
       }
 
+      /* 구현 포인트처럼 문자열의 \n 줄바꿈을 그대로 표시 */
+      .ts-step p {
+        white-space: pre-line;
+      }
+
       .ts-step__label {
         display: inline-block;
         text-align: center;
