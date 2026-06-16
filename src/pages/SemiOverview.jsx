@@ -13,7 +13,7 @@ export default function SemiOverview({ active }) {
 						<h2 className="proj__name">TaskFlow</h2>
 					</div>
 					<p className="proj__subtitle">
-						5인팀으로 개발한 칸반 기반의 기업용 협업 도구로, 프로젝트와 일정,
+						5인 팀으로 개발한 칸반 기반의 기업용 협업 도구로, 프로젝트와 일정,
 						인원을 한곳에서 관리합니다.
 					</p>
 
@@ -27,18 +27,17 @@ export default function SemiOverview({ active }) {
 						</div>
 						<div className="def-list__row">
 							<dt>기간</dt>
-							<dd>2026.02.09 ~ 2026.03.24 - 7주 </dd>
+							<dd>2026.02.09 ~ 2026.03.24 (7주)</dd>
 						</div>
 						<div className="def-list__row">
 							<dt>팀 구성 / 역할</dt>
-							<dd>5인 / 형상관리자 / 프로젝트 기능 담당</dd>
+							<dd>5인 / 형상관리자 / 프로젝트 관리, 대시보드, 체크리스트 담당</dd>
 						</div>
 						<div className="def-list__row">
 							<dt>핵심 경험</dt>
 							<dd>
 								여러 테이블이 순서대로 엮인 기능을 맡으며 데이터 흐름을 설계하는
-								감각을 익혔고, 형상관리자로서 팀 전체의 협업 흐름을 설계,
-								관리했습니다.
+								감각을 익혔습니다. 형상관리자로서 팀의 협업 흐름도 관리했습니다.
 							</dd>
 						</div>
 					</dl>
@@ -60,7 +59,7 @@ export default function SemiOverview({ active }) {
 							<div className="impl__row impl__row--mine">
 								<span className="impl__dom">프로젝트 관리</span>
 								<span className="impl__feat">
-									프로젝트 생성, 수정, 삭제, 마일스톤, 체크리스트
+									프로젝트 생성·수정·삭제, 대시보드, 체크리스트
 								</span>
 							</div>
 							<div className="impl__row">

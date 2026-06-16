@@ -604,7 +604,7 @@
       }
 
       .ts-card__title {
-        font-size: 1.15rem;
+        font-size: 1.3rem; /* 회고 블록 제목(.retro-block__title)과 통일 */
         font-weight: 700;
         color: var(--ink);
         padding-bottom: var(--space-3);
@@ -623,6 +623,8 @@
       /* 구현 포인트처럼 문자열의 \n 줄바꿈을 그대로 표시 */
       .ts-step p {
         white-space: pre-line;
+        font-size: 0.9rem; /* 본문 텍스트 스케일에 맞춤 (기존엔 미지정=≈1rem) */
+        line-height: 1.7;
       }
 
       .ts-step__label {
