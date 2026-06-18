@@ -28,7 +28,7 @@ export default function Troubleshooting({ active }) {
 						<span className="ts-step__label ts-step__label--fix">해결</span>
 						<p>
 							{
-								'실행 순서를 "적립 취소 → 사용 복원"으로 바로잡았습니다.\n취소가 먼저 끝난 뒤 복원하므로, 복원한 포인트가 취소 대상에서 빠집니다.'
+								"복원은 포인트를 다시 적립 상태로 만들고, 취소는 적립 상태인 포인트를 회수하는 방식이었습니다.\n복원을 먼저 하면 방금 복원한 포인트까지 적립 상태라 취소 대상에 포함돼 사라졌습니다. 그래서 적립 취소를 먼저 한 뒤 복원하도록 순서를 고정했습니다."
 							}
 						</p>
 					</div>
@@ -68,7 +68,7 @@ export default function Troubleshooting({ active }) {
 						<span className="ts-step__label ts-step__label--fix">해결</span>
 						<p>
 							{
-								"쿠폰을 되돌릴 때 환불 시점의 유효기간을 확인해, 만료됐으면 만료 상태로,\n 아직 유효하면 사용 가능 상태로 분기 처리했습니다. ㅈ만료된 쿠폰은 부활하지 않도록 막았습니다."
+								"되돌리는 처리도 무조건 복원하면 안 되고, 현재 상태(만료 여부)를 기준으로 분기해야 한다고 판단했습니다.\n만료 여부를 확인한 뒤 만료됐으면 만료 상태로, 아직 유효하면 사용 가능 상태로 복원해 만료된 쿠폰이 부활하지 않도록 막았습니다."
 							}
 						</p>
 					</div>
@@ -106,7 +106,7 @@ export default function Troubleshooting({ active }) {
 						<span className="ts-step__label ts-step__label--fix">해결</span>
 						<p>
 							{
-								"금액 필드를 Long으로 변경했습니다.\n문제가 된 필드만이 아니라 같은 금액을 다루는 다른 필드까지 일관되게 맞춰 재발을 방지했습니다."
+								"금액 필드를 Long으로 변경했습니다.\n한 필드만 바꾸면 같은 금액을 다루는 다른 곳에서 같은 문제가 재발할 수 있어, 금액 관련 타입을 전체적으로 점검해 맞췄습니다."
 							}
 						</p>
 					</div>

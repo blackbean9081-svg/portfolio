@@ -5,7 +5,7 @@ export default function Profile({ active }) {
 				{/* 이름 + 한 줄 소개 (상단 강조) */}
 				<header className="profile-hero">
 					<h1 className="profile-name">김우영</h1>
-					<p className="profile-tagline">안정형 개발자</p>
+					<p className="profile-tagline">부드럽게 소통하고, 끝까지 점검하는 개발자</p>
 				</header>
 
 				<dl className="def-list">
