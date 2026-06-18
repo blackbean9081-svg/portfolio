@@ -44,17 +44,18 @@ private void doRefundProcess(RefundEntity refundEntity) {
     // 적립 취소 → 사용 복원 순서
     pointService.cancelEarnedPoint(payEntity);
     pointService.refundUsedPoint(payEntity);
-    // 카카오/토스 결제 취소 호출
+    // 카카오/토스 결제 취소 호출 (환불율 적용된 실제 환불액으로 취소)
+    int cancelAmount = refundEntity.getRefundAmt().intValue();
     PayMethod method = payEntity.getMethod();
     if (method == PayMethod.KAKAOPAY) {
         KakaoCancelReqDto cancelReqDto = KakaoCancelReqDto.builder()
                 .tid(payEntity.getTid())
-                .cancelAmount(payEntity.getFinalAmt())
+                .cancelAmount(cancelAmount)
                 .cancelTaxFreeAmount(0)
                 .build();
         kakaoPayClient.cancel(cancelReqDto);
     } else if (method == PayMethod.TOSSPAY) {
-        tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청");
+        tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청", cancelAmount);
     }
     payEntity.cancelPay();
     refundEntity.completeRefund();
@@ -115,12 +116,12 @@ export default function Refund({ active }) {
 						rich
 						name="환불 처리"
 						desc={
-							"적립 포인트를 먼저 취소하고 사용 포인트를 복원한 뒤,\n쿠폰 회수와 외부 API 결제 취소까지 정해진 순서로 처리합니다."
+							"적립 포인트를 먼저 취소하고 사용 포인트를 복원한 뒤,\n쿠폰 회수와 외부 API 결제 취소까지 정해진 순서로 처리하며,\n결제 취소는 환불율을 적용한 실제 환불액으로 취소합니다."
 						}
 						file="RefundService.java"
 						code={CODE_PROCESS}
 						retro={
-							"환불은 환불 승인, 쿠폰 회수, 포인트 복원, 적립 취소, 결제 취소, 예약 취소까지 여러 단계를 거칩니다.\n 단계의 순서가 바뀌면 결과가 달라지기 때문에, 정해진 순서대로 처리되도록 구현했습니다."
+							"환불은 환불 승인, 쿠폰 회수, 포인트 복원, 적립 취소, 결제 취소, 예약 취소까지 여러 단계를 거칩니다.\n 단계의 순서가 바뀌면 결과가 달라지기 때문에 정해진 순서대로 처리했고, \n PG 취소도 전액이 아니라 환불율을 적용한 금액만 취소해 정책과 실제 환불 금액이 어긋나지 않게 했습니다."
 						}
 					/>
 					<Func

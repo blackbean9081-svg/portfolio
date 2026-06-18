@@ -26,6 +26,11 @@ private PayEntity buildReadyPay(PayCreateReqDto payCreateReqDto, Long loginMembe
             ? 0 : payCreateReqDto.getUsedPoint();
     // 포인트 음수 방어
     validUsedPoint(usedPoint);
+    // 포인트 한도·잔액 사전 검증 (ready 단계)
+    if (usedPoint > 0) {
+        int basisAmt = payCreateReqDto.getBaseAmt() + payCreateReqDto.getAddAmt() - dcAmt;
+        pointService.validatePointUsage(loginMemberNo, usedPoint, basisAmt);
+    }
     // 쿠폰·포인트 차감 후 최종 결제 금액
     int finalAmt = payCreateReqDto.getBaseAmt() + payCreateReqDto.getAddAmt()
             - dcAmt - usedPoint;
@@ -54,7 +59,16 @@ public PayEntity approvePay(Long payNo, String pgToken) {
             .pgToken(pgToken)
             .build();
     // 승인 성공 후에만 예약 확정·쿠폰·포인트 처리
-    kakaoPayClient.approve(kakaoApproveReqDto);
+    // 실패 시 별도 기록 후 예외 처리
+    try {
+        kakaoPayClient.approve(kakaoApproveReqDto);
+    } catch (CustomException e) {
+        throw e;
+    } catch (Exception e) {
+        log.error("카카오 승인 실패 payNo={}", payNo, e);
+        payFailureRecorder.markFailed(payNo);
+        throw new CustomException(PayErrorCode.PAY_PROCESS_FAILED);
+    }
     completePayAfterApprove(payEntity, memberNo);
     return payEntity;
 }
@@ -100,24 +114,24 @@ export default function Payment({ active }) {
 						rich
 						name="결제 준비, 검증"
 						desc={
-							"PG 호출 전 단계에서 금액, 중복 결제, 쿠폰 유효성을 모두 검증해,\n외부 결제와 DB 상태가 어긋나는 것을 방지합니다."
+							"PG 호출 전 단계에서 금액, 중복 결제, 쿠폰, 포인트 한도·잔액을 모두 검증해,\n외부 결제와 DB 상태가 어긋나는 것을 방지합니다."
 						}
 						file="PayService.java"
 						code={CODE_BUILD_READY}
 						retro={
-							"외부 결제 API에 승인을 요청하기 전에, 금액, 중복 결제, 쿠폰 유효성을 먼저 검증했습니다. \n검증을 통과한 요청만 외부로 보내, 잘못된 결제가 PG까지 넘어가지 않도록 했습니다."
+							"외부 결제 API에 승인을 요청하기 전에, 금액, 중복 결제, 쿠폰, 포인트 한도·잔액을 먼저 검증했습니다. \n검증을 통과한 요청만 외부로 보내, 잘못된 결제가 PG까지 넘어가지 않도록 했습니다."
 						}
 					/>
 					<Func
 						rich
 						name="결제 승인"
 						desc={
-							"카카오페이 최종 승인을 멱등 처리해,\n콜백이 중복 호출돼도 결제가 한 번만 반영되게 합니다."
+							"카카오페이 최종 승인을 멱등 처리해 콜백이 중복 호출돼도 결제가 한 번만 반영되게 하고,\n승인 실패 시에는 결제를 FAILED로 기록해 READY 상태로 방치되지 않게 합니다."
 						}
 						file="PayService.java"
 						code={CODE_APPROVE}
 						retro={
-							"결제 승인은 네트워크 재시도나 중복 클릭으로 여러 번 들어올 수 있습니다. \n이미 처리된 결제인지 먼저 확인해, 같은 요청이 여러 번 와도 결제가 한 번만 반영되도록 멱등하게 처리했습니다."
+							"결제 승인은 네트워크 재시도나 중복 클릭으로 여러 번 들어올 수 있습니다. \n이미 처리된 결제인지 먼저 확인해 같은 요청이 여러 번 와도 한 번만 반영되도록 했고, \nPG 승인이 실패하면 별도 트랜잭션으로 FAILED를 남겨 결제가 READY로 멈춰 있지 않게 했습니다."
 						}
 					/>
 					<Func

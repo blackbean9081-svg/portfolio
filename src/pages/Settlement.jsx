@@ -6,6 +6,12 @@ const CODE_CREATE = `// 정산 생성
 public SettleResDto createSettle(SettleCreateReqDto reqDto) {
     HostEntity host = hostRepository.findById(reqDto.getHostNo())
             .orElseThrow(() -> new CustomException(HostErrorCode.HOST_NOT_FOUND));
+    // 멱등 처리
+    if (settleRepository.existsByHostAndPeriod(host.getNo(), reqDto.getSettleStartDate(), reqDto.getSettleEndDate())) {
+        log.info("이미 생성된 정산 — 스킵 hostNo={}, {}~{}",
+                host.getNo(), reqDto.getSettleStartDate(), reqDto.getSettleEndDate());
+        return null;
+    }
     // 호스트의 승인된 공간 조회
     List<HostPlaceEntity> hostPlaces =
             hostPlaceRepository.findByHostEntityNoAndStatus(host.getNo(), ApprovalStatus.A);
@@ -73,7 +79,7 @@ const CODE_FEE = `
 
 const CODE_BATCH = `
 // 4일에 한 번씩 정산 시작
-@Scheduled(cron = "0 0 0 */4 * *")
+@Scheduled(cron = "0 0 0 */4 * *", zone = "Asia/Seoul")
 public void settleBatch() {
     // 정산 대상 기간 : 어제까지 최근 4일
     LocalDate end = LocalDate.now().minusDays(1);
@@ -120,12 +126,12 @@ export default function Settlement({ active }) {
 						name="정산 생성 (타입별 합산, 실지급액 산정)"
 						barName="정산 생성"
 						desc={
-							"이용 완료된 결제를 공간 타입별로 합산해 호스트 정산액을 산정합니다.\n결제액에서 수수료와 환불액을 빼 실지급액을 계산하고,\n 지급 기준에 미달하면 다음 회차로 이월합니다."
+							"이용 완료된 결제를 공간 타입별로 합산해 호스트 정산액을 산정합니다.\n결제액에서 수수료와 환불액을 빼 실지급액을 계산하고, 지급 기준에 미달하면 다음 회차로 이월하며,\n 같은 호스트·기간 정산이 이미 있으면 재생성하지 않습니다."
 						}
 						file="SettleService.java"
 						code={CODE_CREATE}
 						retro={
-							"공간 타입마다 수수료율이 다르고 환불 건도 반영해야 하기 때문에, \n 타입별로 매출을 합산한 뒤 수수료와 환불을 차감해 지급액을 계산했습니다."
+							"공간 타입마다 수수료율이 다르고 환불 건도 반영해야 하기 때문에, \n 타입별로 매출을 합산한 뒤 수수료와 환불을 차감해 지급액을 계산했습니다. \n 배치가 다시 돌아도 같은 기간이 중복 정산되지 않도록 멱등 처리했습니다."
 						}
 					/>
 					<Func
@@ -138,7 +144,7 @@ export default function Settlement({ active }) {
 						file="SettleScheduler.java"
 						code={CODE_BATCH}
 						retro={
-							"일정 주기로 모든 호스트의 정산을 자동으로 처리합니다.\n 호스트별로 나눠 처리해, 한 건이 실패해도 나머지 정산은 멈추지 않도록 했습니다."
+							"일정 주기로 모든 호스트의 정산을 자동으로 처리합니다.\n 호스트별로 나눠 처리해 한 건이 실패해도 나머지 정산은 멈추지 않도록 했고, \n 정산 생성에 멱등 가드가 있어 배치가 다시 실행돼도 중복 정산되지 않습니다."
 						}
 					/>
 					<Func
