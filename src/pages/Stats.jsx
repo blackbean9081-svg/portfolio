@@ -59,14 +59,14 @@ const CODE_HOST = `public HostSalesStatsResDto findHostSalesStats(Long memberNo,
     List<HostPlaceEntity> hostPlaces =
             hostPlaceRepository.findByHostEntityNoAndStatus(hostEntity.getNo(), ApprovalStatus.A);
 
-    //오피스
+    // 오피스
     List<Long> officeNos = hostPlaces.stream()
             .filter(hp -> hp.getOfficeEntity() != null)
             .map(hp -> hp.getOfficeEntity().getNo())
             .distinct()
             .toList();
 
-    //숙소
+    // 숙소
     List<Long> stationNos = hostPlaces.stream()
             .filter(hp -> hp.getStationEntity() != null)
             .map(hp -> hp.getStationEntity().getNo())
@@ -121,7 +121,7 @@ const CODE_HOST = `public HostSalesStatsResDto findHostSalesStats(Long memberNo,
 
 const CODE_DTO = `    // 금액 필드 Long — 공간별 월 매출이 약 21억를 넘겨 음수 되는 것 방지
     public static HostSalesStatsResDto of(Long totalAmt, Long payCount, Long refundAmt, List<MonthlyTrendResDto> trend) {
-   // 결제 0건일 때 0으로 나누는 경우 에러 방지
+        // 결제 0건일 때 0으로 나누는 경우 에러 방지
         long avgAmt = payCount == 0 ? 0 : totalAmt / payCount;
         return HostSalesStatsResDto.builder()
                 .totalAmt(totalAmt)
@@ -162,7 +162,7 @@ export default function Stats({ active }) {
 					/>
 					<Func
 						rich
-						name="호스트 매출 통계  "
+						name="호스트 매출 통계"
 						desc={
 							"호스트의 승인 공간을 타입별로 분류해 기간 매출, 환불, 건수를 합산하고,\n월별 추이는 GROUP BY 한 쿼리로 한 번에 집계합니다."
 						}

@@ -63,8 +63,8 @@ private void doRefundProcess(RefundEntity refundEntity) {
 }
 `;
 
-const CODE_RATE = ` 
-   // 이용 예정일까지 남은 일수 확인 후 환불율을 차등 반환
+const CODE_RATE = `
+    // 이용 예정일까지 남은 일수 확인 후 환불율을 차등 반환
     private RefundRate refundRate(RefundEntity entity) {
         LocalDateTime checkIn = entity.getRsvnNo().getCheckIn();
         LocalDateTime requestedAt = entity.getRequestedAt();

@@ -15,7 +15,7 @@ public SettleResDto createSettle(SettleCreateReqDto reqDto) {
             .map(hp -> hp.getOfficeEntity().getNo())
             .distinct()
             .toList();
-    //숙소
+    // 숙소
     List<Long> stationNos = hostPlaces.stream()
             .filter(hp -> hp.getStationEntity() != null)
             .map(hp -> hp.getStationEntity().getNo())
@@ -29,7 +29,7 @@ public SettleResDto createSettle(SettleCreateReqDto reqDto) {
             .toList();
     LocalDateTime start = reqDto.getSettleStartDate().atStartOfDay();
     LocalDateTime end = reqDto.getSettleEndDate().atTime(LocalTime.MAX);
-    // 이용 완료인 공간을  타입별로 계산
+    // 이용 완료인 공간을 타입별로 계산
     int officeAmt = payRepository.sumByOfficeIn(officeNos, start, end).intValue();
     int stationAmt = payRepository.sumByStationIn(stationNos, start, end).intValue();
     int workStayAmt = payRepository.sumByWorkStayIn(workStayNos, start, end).intValue();
@@ -63,7 +63,7 @@ public SettleResDto createSettle(SettleCreateReqDto reqDto) {
 const CODE_FEE = `
     // 공간 타입별 수수료를 결제액에 적용
     private int calcFee(int amt, PlaceType placeType,LocalDateTime date) {
-                if (amt == 0) return 0;
+        if (amt == 0) return 0;
         int rate = feeRepository.findValidFee(placeType, date)
                 .orElseThrow(() -> new CustomException(FeeErrorCode.FEE_NOT_FOUND))
                 .getRate();
