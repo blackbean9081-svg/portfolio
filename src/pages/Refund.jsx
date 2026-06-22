@@ -3,65 +3,65 @@ import PaneHead from "../components/PaneHead.jsx";
 import RefundScreen from "../components/screens/RefundScreen.jsx";
 
 const CODE_CREATE = `
-// 환불 생성
-@Transactional
-public RefundResDto createRefund(RefundCreateReqDto refundCreateReqDto, Long loginMemberNo) {
-    // 환불 가능 여부 검증 : 상태, 금액
-    PayEntity payEntity = validRefundablePay(refundCreateReqDto.getPayNo());
-    // 본인 확인
-    validRefundOwner(payEntity, loginMemberNo);
-    RsvnEntity rsvn = rsvnRepository.findById(refundCreateReqDto.getRsvnNo())
-            .orElseThrow(() -> new CustomException(RsvnErrorCode.RESERVATION_NOT_FOUND));
-    RefundEntity refundEntity = refundCreateReqDto.toEntity(payEntity, rsvn);
-    RefundRate rate = refundRate(refundEntity);
-    // 중복 환불 차단
-    validDuplicate(payEntity);
-    if (RefundRate.DDAY == rate) {
-        log.warn("환불 기간 만료 : payNo:{},rsvnNo:{}", refundCreateReqDto.getPayNo(), refundCreateReqDto.getRsvnNo());
-        throw new CustomException(RefundErrorCode.REFUND_PERIOD_EXPIRED);
+    // 환불 생성 진입점 — 환불 가능 여부를 검증한 뒤, 이용 예정일까지 남은 기간 기준으로 환불액 산정
+    @Transactional
+    public RefundResDto createRefund(RefundCreateReqDto refundCreateReqDto, Long loginMemberNo) {
+        PayEntity payEntity = validRefundablePay(refundCreateReqDto.getPayNo());   // 환불 가능한 결제인지 검증(완료 상태·금액)
+        validRefundOwner(payEntity, loginMemberNo);   // 본인 결제만 환불
+        RsvnEntity rsvn = rsvnRepository.findById(refundCreateReqDto.getRsvnNo())
+                .orElseThrow(() -> new CustomException(RsvnErrorCode.RESERVATION_NOT_FOUND));
+        RefundEntity refundEntity = refundCreateReqDto.toEntity(payEntity, rsvn);
+        RefundRate rate = refundRate(refundEntity);
+        validDuplicate(payEntity);   // 이미 환불된 건은 중복 환불 차단
+        // 당일(DDAY)은 취소·환불 불가 — 0원 환불 처리하지 않고 거부 (정책 변경: 당일 취소 차단)
+        // ※ 호스트 거절(createRefundByHost)은 RefundRate.FULL 이라 이 가드에 안 걸림
+        if (rate == RefundRate.DDAY) {
+            throw new CustomException(RefundErrorCode.REFUND_DDAY_NOT_ALLOWED);
+        }
+        // 남은 기간별 환불율(rate)을 결제액(finalAmt)에 적용해 환불액 산정
+        BigDecimal finalAmt = BigDecimal.valueOf(payEntity.getFinalAmt());
+        BigDecimal rateBd = BigDecimal.valueOf(rate.getRate());
+        BigDecimal divisor = BigDecimal.valueOf(100);
+        BigDecimal refundAmt = finalAmt.multiply(rateBd).divide(divisor, 0, RoundingMode.DOWN);
+        refundEntity.applyRefund(rate, refundAmt);
+        RefundEntity entity = refundRepository.save(refundEntity);
+        doRefundProcess(entity);
+        return RefundResDto.from(entity);
     }
-    // 남은 기간 기준 환불 정책에 따라 환불액 결정
-    BigDecimal finalAmt = BigDecimal.valueOf(payEntity.getFinalAmt());
-    BigDecimal rateBd = BigDecimal.valueOf(rate.getRate());
-    BigDecimal divisor = BigDecimal.valueOf(100);
-    BigDecimal refundAmt = finalAmt.multiply(rateBd).divide(divisor, 0, RoundingMode.DOWN);
-    refundEntity.applyRefund(rate, refundAmt);
-    RefundEntity entity = refundRepository.save(refundEntity);
-    doRefundProcess(entity);
-    return RefundResDto.from(entity);
-}
 `;
 
 const CODE_PROCESS = `
-// 환불 실제 처리
-private void doRefundProcess(RefundEntity refundEntity) {
-    refundEntity.approveRefund();
-    PayEntity payEntity = refundEntity.getPayNo();
-    // 사용한 쿠폰 회수
-    if (payEntity.getUcNo() != null) {
-        payEntity.getUcNo().returnCoupon();
+    // 환불 실제 처리
+    private void doRefundProcess(RefundEntity refundEntity) {
+        refundEntity.approveRefund();
+        PayEntity payEntity = refundEntity.getPayNo();
+        // 사용한 쿠폰 회수 처리
+        if (payEntity.getUcNo() != null) {
+            payEntity.getUcNo().returnCoupon();
+        }
+        // 적립 포인트 선 취소 후 복원
+        pointService.cancelEarnedPoint(payEntity);
+        pointService.refundUsedPoint(payEntity);
+        // 카카오/토스 결제 취소 호출 — 환불율 적용된 실제 환불액으로 부분취소(전액 아님)
+        // 당일 환불(0원)은 PG 취소 스킵 — 카카오/토스는 0원 취소 요청 시 에러를 반환함
+        int cancelAmount = refundEntity.getRefundAmt().intValue();
+        if (cancelAmount > 0) {
+            PayMethod method = payEntity.getMethod();
+            if (method == PayMethod.KAKAOPAY) {
+                KakaoCancelReqDto cancelReqDto = KakaoCancelReqDto.builder()
+                        .tid(payEntity.getTid())
+                        .cancelAmount(cancelAmount)
+                        .cancelTaxFreeAmount(0)
+                        .build();
+                kakaoPayClient.cancel(cancelReqDto);
+            } else if (method == PayMethod.TOSSPAY) {
+                tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청", cancelAmount);
+            }
+        }
+        payEntity.cancelPay();
+        refundEntity.completeRefund();
+        refundEntity.getRsvnNo().cancel();  // confirm()과 동일한 패턴 — 환불 완료 시 예약 상태 C로 전이
     }
-    // 적립 취소 → 사용 복원 순서
-    pointService.cancelEarnedPoint(payEntity);
-    pointService.refundUsedPoint(payEntity);
-    // 카카오/토스 결제 취소 호출 (환불율 적용된 실제 환불액으로 취소)
-    int cancelAmount = refundEntity.getRefundAmt().intValue();
-    PayMethod method = payEntity.getMethod();
-    if (method == PayMethod.KAKAOPAY) {
-        KakaoCancelReqDto cancelReqDto = KakaoCancelReqDto.builder()
-                .tid(payEntity.getTid())
-                .cancelAmount(cancelAmount)
-                .cancelTaxFreeAmount(0)
-                .build();
-        kakaoPayClient.cancel(cancelReqDto);
-    } else if (method == PayMethod.TOSSPAY) {
-        tossPayClient.cancel(payEntity.getTid(), "고객 환불 요청", cancelAmount);
-    }
-    payEntity.cancelPay();
-    refundEntity.completeRefund();
-    // 환불 완료 : 예약 취소 상태로 변경
-    refundEntity.getRsvnNo().cancel();
-}
 `;
 
 const CODE_RATE = `
