@@ -37,7 +37,7 @@ portfolio/
 │  │  ├─ Func.jsx        ← 오른쪽 기능 아코디언 한 칸 (rich/비-rich)
 │  │  ├─ CodeBlock.jsx   ← highlight.js(core + java·python) 코드 하이라이트 (`lang` prop, 기본 java)
 │  │  └─ CodeImageModal.jsx ← 세미 placeholder 이미지 모달
-│  └─ pages/             ← ★ 챕터별 1파일 (12개)
+│  └─ pages/             ← ★ 챕터별 1파일 (13개)
 │     ├─ Overview.jsx / Tech.jsx
 │     ├─ SemiProject.jsx / SemiChecklist.jsx
 │     ├─ Payment.jsx / Refund.jsx / Settlement.jsx / Stats.jsx / CouponPoint.jsx
@@ -160,7 +160,7 @@ portfolio/
 - **사이드바**: `src/nav.js` NAV 의 divider 앞에 그룹 `{ id: "solo", label: "개인 프로젝트 (Python)" }` 추가, 하위 `price-monitor`(라벨 `hospital-price-monitor`). `PAGE_IDS` 는 `"semi-checklist"` 다음에 `"price-monitor"`.
 - **페이지**: `src/pages/PriceMonitor.jsx` (신규, `App.jsx` PAGES 등록). 문서형 1단 구조 —
   `page__head` → `doc-block` > `proj`(개요: `def-list` 기간·만든 이유·구현 API·Spring↔Django 대응·도구·GitHub) → 기술 스택 칩(`tag-section`/`tech-item`: Python·Django·Django REST Framework·SQLite, devicon) → `PaneHead` + `<Func>` 4개(가격 감시 `monitor_prices` / 가격 비교 `compare_prices` / 가격 CRUD `TreatmentPriceViewSet` / 모델 `models.py`). 각 `retro` 에 구현 포인트(F()로 DB 조건 처리, select_related로 N+1 방지) 1~2문장. 기본 전부 닫힘.
-- **코드 상수 4개**(`CODE_MONITOR`·`CODE_COMPARE`·`CODE_VIEWSET`·`CODE_MODELS`)는 원본 그대로: views.py L58-76 / L20-55 / L15-17, models.py L1-19. 원본은 CRLF 라 비교 시 줄바꿈만 정규화(내용·들여쓰기·빈 줄 동일). 백틱·`${` 없음.
+- **코드 상수 4개**(`CODE_MONITOR`·`CODE_COMPARE`·`CODE_VIEWSET`·`CODE_MODELS`)는 원본 그대로: views.py L58-76 / L20-55 / L15-17, models.py L1-19. 원본 저장소는 LF(Windows `core.autocrlf=true` 체크아웃에서만 CRLF로 보임) — 비교 시 줄바꿈만 정규화(내용·들여쓰기·빈 줄 동일). 백틱·`${` 없음.
 - **컴포넌트**: `CodeBlock.jsx` 에 highlight.js python 등록(java 유지, effect deps 에 `lang` 추가) / `Func.jsx` 에 `lang` prop(기본 `"java"`) → `<CodeBlock lang>` 전달. 기존 페이지는 lang 미지정이라 동작 동일.
 - **Profile.jsx**: 소개에 "주력은 Java / Spring Boot이며, 같은 원리가 Python에서도 통하는지 Django REST Framework 프로토타입으로 확인했습니다." 추가, GitHub 링크에 hospital-price-monitor 추가.
 - **CSS 변경 없음** — 기존 클래스만 조합, 새 색·폰트 없음(7번 토큰). `#price-monitor` 는 `.main:has()` 폭 해제 목록에 없어 기본 본문 폭(1100px) — 1단 문서형이라 의도한 것. 넓히려면 base.css 의 `:has` 목록에 추가(2단 `.pay2` 전환 시).

@@ -98,7 +98,7 @@ export default function PriceMonitor({ active }) {
 			<header className="page__head">
 				<h1 className="page__title">hospital-price-monitor</h1>
 				<p className="page__desc">
-					병원 가격 투명성 프로토타입 — Python / Django REST Framework
+					개인 프로젝트 (Python) — 병원 가격 비교·감시 API 프로토타입
 				</p>
 			</header>
 
@@ -107,7 +107,7 @@ export default function PriceMonitor({ active }) {
 				<article className="proj">
 					<div className="proj__head">
 						<span className="proj__tag proj__tag--solo">개인 프로젝트</span>
-						<h2 className="proj__name">hospital-price-monitor</h2>
+						<h2 className="proj__name">병원 가격 투명성 프로토타입</h2>
 					</div>
 					<p className="proj__subtitle">
 						병원이 게시하는 가격(listed_price)과 플랫폼이 보장하는
