@@ -1,14 +1,14 @@
 # Sloway 포트폴리오 — 작업 기록 (이어서 작업용)
 
 > 집/다른 곳에서 이어서 할 때 **새 Claude Code 세션에 이 파일을 먼저 읽히면** 패턴·현황·남은 일을 바로 파악할 수 있다.
-> 위치: `D:\dev\sloway_PJ\portfolio\` / 결과물: **Vite + React (JavaScript)** 정적 사이트. `npm run dev` 로 개발, `npm run build` → `dist/` 배포(깃).
+> 위치: `D:\dev\portfolio\` / 결과물: **Vite + React (JavaScript)** 정적 사이트. `npm run dev` 로 개발, `npm run build` → `dist/` 배포(깃).
 
 ---
 
 ## 1. 무엇을 만들고 있나
 면접용 **정적 포트폴리오 사이트** (Vite + React, JavaScript). 깃 배포용.
 - 왼쪽 **사이드바 2단 아코디언** + 오른쪽 메인(SPA 해시 라우팅).
-- 메뉴: 프로젝트 개요 / 기술 스택 / ─ / ▼세미(TaskFlow)[프로젝트 관리·체크리스트] / ▼파이널(Sloway)[결제·환불·정산·통계·쿠폰·포인트] / ─ / 트러블슈팅·성능 개선·회고.
+- 메뉴: 프로젝트 개요 / 기술 스택 / ─ / ▼세미(TaskFlow)[프로젝트 관리·체크리스트] / ▼파이널(Sloway)[결제·환불·정산·통계·쿠폰·포인트] / ▼개인 프로젝트 (Python)[hospital-price-monitor] / ─ / 트러블슈팅·성능 개선·회고.
 - 디자인: 세이지 `#A8B89F` / 크림 `#F4EFE6` / Noto Sans KR. 코드 패널만 다크(github-dark).
 
 ### 명령 (포트폴리오 루트에서)
@@ -35,12 +35,13 @@ portfolio/
 │  ├─ components/
 │  │  ├─ Sidebar.jsx     ← nav.js 기반 아코디언 사이드바
 │  │  ├─ Func.jsx        ← 오른쪽 기능 아코디언 한 칸 (rich/비-rich)
-│  │  ├─ CodeBlock.jsx   ← highlight.js(core+java만) 코드 하이라이트
+│  │  ├─ CodeBlock.jsx   ← highlight.js(core + java·python) 코드 하이라이트 (`lang` prop, 기본 java)
 │  │  └─ CodeImageModal.jsx ← 세미 placeholder 이미지 모달
 │  └─ pages/             ← ★ 챕터별 1파일 (12개)
 │     ├─ Overview.jsx / Tech.jsx
 │     ├─ SemiProject.jsx / SemiChecklist.jsx
 │     ├─ Payment.jsx / Refund.jsx / Settlement.jsx / Stats.jsx / CouponPoint.jsx
+│     ├─ PriceMonitor.jsx  ← 개인 프로젝트(Python) hospital-price-monitor (2026-08-31, 8번 참고)
 │     └─ Troubleshooting.jsx / Performance.jsx / Retrospective.jsx
 └─ _legacy/              ← 이전 정적 버전(index.html·css·app.js) 참고 보존
 ```
@@ -94,7 +95,7 @@ portfolio/
 - 코드 블록 15개(5도메인×3) 전부 원본 대조 일치.
 
 ### VS Code 에서 실행
-- 폴더 열기: `D:\dev\sloway_PJ\portfolio` → 내장 터미널에서 `npm install`(최초 1회) → `npm run dev` → `localhost:5173`.
+- 폴더 열기: `D:\dev\portfolio` → 내장 터미널에서 `npm install`(최초 1회) → `npm run dev` → `localhost:5173`.
 - 깃 배포: `npm run build` → `dist/` 를 정적 호스팅(GitHub Pages 등)에 올림. `vite.config.js` 의 `base:'./'` 로 상대경로 처리됨.
 
 ---
@@ -150,3 +151,18 @@ portfolio/
 간격 `--space-2..8`(8·12·16·24·32) / 반경 `--radius-md 10px` `--radius-lg 16px` / 할인 마이너스 색 `#b85a4e`.
 
 새 색·폰트 추가 금지, 위 변수만 사용.
+
+---
+
+## 8. 개인 프로젝트 (Python) 페이지 추가 (2026-08-31)
+원본: https://github.com/blackbean9081-svg/hospital-price-monitor — Django REST Framework 프로토타입(`prices/views.py`·`prices/models.py`). 전달받은 `portfolio_lexcode.patch` 가 저장소에 없어 명세대로 직접 구현.
+
+- **사이드바**: `src/nav.js` NAV 의 divider 앞에 그룹 `{ id: "solo", label: "개인 프로젝트 (Python)" }` 추가, 하위 `price-monitor`(라벨 `hospital-price-monitor`). `PAGE_IDS` 는 `"semi-checklist"` 다음에 `"price-monitor"`.
+- **페이지**: `src/pages/PriceMonitor.jsx` (신규, `App.jsx` PAGES 등록). 문서형 1단 구조 —
+  `page__head` → `doc-block` > `proj`(개요: `def-list` 기간·만든 이유·구현 API·Spring↔Django 대응·도구·GitHub) → 기술 스택 칩(`tag-section`/`tech-item`: Python·Django·Django REST Framework·SQLite, devicon) → `PaneHead` + `<Func>` 4개(가격 감시 `monitor_prices` / 가격 비교 `compare_prices` / 가격 CRUD `TreatmentPriceViewSet` / 모델 `models.py`). 각 `retro` 에 구현 포인트(F()로 DB 조건 처리, select_related로 N+1 방지) 1~2문장. 기본 전부 닫힘.
+- **코드 상수 4개**(`CODE_MONITOR`·`CODE_COMPARE`·`CODE_VIEWSET`·`CODE_MODELS`)는 원본 그대로: views.py L58-76 / L20-55 / L15-17, models.py L1-19. 원본은 CRLF 라 비교 시 줄바꿈만 정규화(내용·들여쓰기·빈 줄 동일). 백틱·`${` 없음.
+- **컴포넌트**: `CodeBlock.jsx` 에 highlight.js python 등록(java 유지, effect deps 에 `lang` 추가) / `Func.jsx` 에 `lang` prop(기본 `"java"`) → `<CodeBlock lang>` 전달. 기존 페이지는 lang 미지정이라 동작 동일.
+- **Profile.jsx**: 소개에 "주력은 Java / Spring Boot이며, 같은 원리가 Python에서도 통하는지 Django REST Framework 프로토타입으로 확인했습니다." 추가, GitHub 링크에 hospital-price-monitor 추가.
+- **CSS 변경 없음** — 기존 클래스만 조합, 새 색·폰트 없음(7번 토큰). `#price-monitor` 는 `.main:has()` 폭 해제 목록에 없어 기본 본문 폭(1100px) — 1단 문서형이라 의도한 것. 넓히려면 base.css 의 `:has` 목록에 추가(2단 `.pay2` 전환 시).
+- **검증**(6번 절차): `npm run build` 통과 / CODE_* 4개 ↔ 원본 줄 단위 대조 4/4 일치(원본을 `git clone --depth 1` 임시 클론 → jsx 백틱 상수 추출 → 원본 연속 줄 블록 탐색, 클론은 삭제) / dev 서버(5173)에서 사이드바 "개인 프로젝트 (Python)" 그룹 표시·클릭 시 페이지 열림·python 토큰 하이라이트(`hljs-keyword` 등) 확인.
+- 다른 언어 코드를 넣을 땐: `CodeBlock.jsx` 에 `highlight.js/lib/languages/<lang>` 등록 → `<Func lang="<lang>">`.

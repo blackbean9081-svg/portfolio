@@ -21,7 +21,9 @@ export default function Profile({ active }) {
 						<dt>소개</dt>
 						<dd>
 							마케팅에서 개발로 전환해, 안정적인 코드를 고민하는 백엔드
-							개발자입니다.
+							개발자입니다. 주력은 Java / Spring Boot이며, 같은 원리가
+							Python에서도 통하는지 Django REST Framework 프로토타입으로
+							확인했습니다.
 						</dd>
 					</div>
 					<div className="def-list__row">
@@ -66,6 +68,15 @@ export default function Profile({ active }) {
 								rel="noopener noreferrer"
 							>
 								파이널 프로젝트 (Sloway)
+							</a>
+							<span className="def-list__sep">/</span>
+							<a
+								className="def-list__link"
+								href="https://github.com/blackbean9081-svg/hospital-price-monitor"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								개인 프로젝트 (hospital-price-monitor)
 							</a>
 						</dd>
 					</div>

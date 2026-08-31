@@ -1,8 +1,10 @@
 import { useEffect, useRef } from "react";
 import hljs from "highlight.js/lib/core";
 import java from "highlight.js/lib/languages/java";
+import python from "highlight.js/lib/languages/python";
 
 hljs.registerLanguage("java", java);
+hljs.registerLanguage("python", python);
 
 export default function CodeBlock({ code, lang = "java" }) {
 	const ref = useRef(null);
@@ -14,7 +16,7 @@ export default function CodeBlock({ code, lang = "java" }) {
 		delete el.dataset.highlighted;
 		el.textContent = code;
 		hljs.highlightElement(el);
-	}, [code]);
+	}, [code, lang]);
 
 	return (
 		<pre className="func__code">

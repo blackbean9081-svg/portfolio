@@ -7,6 +7,7 @@ export default function Func({
 	desc,
 	file,
 	code,
+	lang = "java",
 	barName,
 	retro,
 	rich = true,
@@ -62,7 +63,7 @@ export default function Func({
 					<span className="func__bar-name">{bar}</span>
 					<span className="func__bar-file">{file}</span>
 				</div>
-				<CodeBlock code={code} />
+				<CodeBlock code={code} lang={lang} />
 			</div>
 		</div>
 	);

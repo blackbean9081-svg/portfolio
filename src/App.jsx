@@ -10,6 +10,7 @@ import SemiOverview from "./pages/SemiOverview.jsx";
 import SemiTech from "./pages/SemiTech.jsx";
 import SemiProject from "./pages/SemiProject.jsx";
 import SemiChecklist from "./pages/SemiChecklist.jsx";
+import PriceMonitor from "./pages/PriceMonitor.jsx";
 import Payment from "./pages/Payment.jsx";
 import Refund from "./pages/Refund.jsx";
 import Settlement from "./pages/Settlement.jsx";
@@ -27,6 +28,7 @@ const PAGES = [
 	{ id: "semi-tech", Comp: SemiTech },
 	{ id: "semi-project", Comp: SemiProject },
 	{ id: "semi-checklist", Comp: SemiChecklist },
+	{ id: "price-monitor", Comp: PriceMonitor },
 	{ id: "payment", Comp: Payment },
 	{ id: "refund", Comp: Refund },
 	{ id: "settlement", Comp: Settlement },
